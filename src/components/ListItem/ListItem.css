@@ -1,0 +1,32 @@
+.ListItem{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+}
+.list header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header a {
+    color: black;
+}
+.ListItem a {
+    color: blue;
+}
+.poster {
+    display: flex;
+    align-items: center;
+    background-color: teal;
+    width: 100px;
+    height:150px;
+    color: white;
+}

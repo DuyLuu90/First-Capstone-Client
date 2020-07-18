@@ -1,0 +1,43 @@
+.form{
+    max-width: 375px;
+    margin: 0 auto;
+}
+
+input{
+    margin: 10px 0;
+}
+
+.user_name input, .password input, .nick_name input {
+    width: 80%;
+}
+.full_name input {
+    width: 140px;
+}
+
+.full_name {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type='submit'] {
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background-color: black;
+    color: white ;
+}
+input[type='submit']:hover {
+    cursor: pointer;
+}
+
+.ReviewForm select, .ReviewForm label {
+    font-size: 1.1em;
+}
+  
+.ReviewForm label {
+    display: inline-block;
+    margin: 10px 10px 20px;
+    margin-left: 0;
+}
+  

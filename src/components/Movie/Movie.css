@@ -1,0 +1,55 @@
+.movie_details, .right li, .review-details{
+    display: flex;
+
+}
+
+.movie_details{
+    width: 80%;
+    margin: 20px auto;
+}
+.left {
+    width:40%;
+    margin-right: 20px;
+    text-align: center;
+    color: white;
+}
+.right {
+    width: 60%
+}
+.movie_trailer,.movie_reviews {
+    width: 80%;
+    padding: 10px;
+    margin: 10px auto;
+}
+.movie_trailer {
+    background-color: chocolate;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+.movie_poster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background-color: black;   
+}
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.right li span {
+    width: 40%;
+}
+
+.review-icon {
+    font-size: 12pt;
+    vertical-align: super !important;
+    width: 10%;
+}
+.review-text {
+    width: 65%;
+    margin: 0 10px 0 30px;
+}
