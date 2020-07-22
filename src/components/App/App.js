@@ -4,6 +4,7 @@ import './App.css';
 
 //IMPORT COMPONENTS:
 import Header from '../Header/Header'
+import AdminPage from '../../routes/AdminPage/AdminPage'
 import AllListPage from '../../routes/List/AllListPage'
 import FilmListPage from '../../routes/List/FilmListPage'
 import DramaListPage from '../../routes/List/DramaListPage'
@@ -24,6 +25,7 @@ class App extends Component {
           {this.state.hasError && <p>There was an error! Sorry for the inconveniec!</p>}
           <Switch>
             <Route exact path={'/'} component={AllListPage}/>
+            <Route path={'/admin'} component={AdminPage}/>
             <Route path={'/films'} component={FilmListPage}/>
             <Route path={'/dramas'} component={DramaListPage}/>
             <Route path={'/login'} component={LoginPage}/>

@@ -1,0 +1,16 @@
+.box{
+    margin-bottom: 10px;
+    padding: 10px;
+    border-style: solid;
+    border-color: crimson;
+}
+
+.boxNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.boxNav h3 {
+    width: 70%;
+}

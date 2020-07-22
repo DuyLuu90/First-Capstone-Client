@@ -8,6 +8,10 @@ import App from './components/App/App';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 import {
+  faUserLock,
+  faFolderOpen,
+  faEdit,
+  faTrash,
   faArrowRight,
   faBookOpen,
   faComment,
@@ -21,6 +25,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
+  faUserLock,
   faGift, // logo
   faListUl, // style: listicle
   faListOl, // style: howto
@@ -31,7 +36,10 @@ library.add(
   faQuoteLeft,
   farStar,
   fasStar,
-  faArrowRight
+  faArrowRight,
+  faFolderOpen,
+  faEdit,
+  faTrash
 )
 
 

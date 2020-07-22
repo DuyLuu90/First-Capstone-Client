@@ -19,8 +19,8 @@ export default class ListItem extends Component {
                     {nav}
                 </header>
                 <div className='ListItem'>
-                    {items.map(item=>
-                        <div className='item'>
+                    {items.map((item,index)=>
+                        <div className='item' key={index}>
                             <div className='poster' style={{backgroundImage:`url(${item.poster})`}}>
                                 MOVIE POSTER
                             </div>
