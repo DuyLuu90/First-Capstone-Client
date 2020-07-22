@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 //import { div } from '../../components/Utils/Utils'
 import {Route, Link} from 'react-router-dom';
 import AddMovieForm from '../../components/Forms/AddMovieForm'
-import MovieList from '../../components/Admin_Utils/MovieList'
+//import MovieList from '../../components/Admin_Utils/MovieList'
 import MovieBox from '../../components/Admin_Utils/MovieBox'
 import UserBox from '../../components/Admin_Utils/UserBox'
 import './AdminPage.css'
@@ -20,10 +20,10 @@ export default class AdminPage extends Component {
     }
 
     renderMovieForm(){
-        return (<>
-        <h3>Add a new movie</h3>
+        return (<div className='admin_content'>
+        <header>Add a new movie</header>
         <AddMovieForm onSuccess={this.handleAddMovieSuccess}/>
-        </>)
+        </div>)
     }
     renderMovieList(){
         const movieList=[
@@ -64,15 +64,15 @@ export default class AdminPage extends Component {
                 <div className='AdminPage'>
                     <nav className='admin_nav'>
                         <Link to='/admin/movies'>MOVIES LIST</Link>
-                        <Link to='/admin/user'>USERS LIST</Link>
+                        <Link to='/admin/users'>USERS LIST</Link>
                         <Link to='/admin/reports'>REPORTS</Link>
                         <Link to='/admin/add'>RECENTLY ADDED </Link>
                         <Link to='/admin/addMovie'>NEW MOVIE FORM </Link>
                     </nav>
                     
-                    <Route path={'/admin/addMovie'} component={AddMovieForm}/> 
-                    <Route path={'/admin/movies'} component={MovieList}/> 
-                    <Route path={'/admin/users'} component={this.renderUserList()}/> 
+                    <Route path={'/admin/addMovie'} component={()=>this.renderMovieForm()}/> 
+                    <Route path={'/admin/movies'} component={()=>this.renderMovieList()}/> 
+                    <Route path={'/admin/users'} render={()=>this.renderUserList()}/> 
                     
                 </div>
             </>
