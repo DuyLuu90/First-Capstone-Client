@@ -1,31 +1,31 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+//import {pnk} from 'react-router-dom'
 import './Movie.css'
 
 export function MovieDetails({movie}) {
     return (
         <div className='movie_details'>
-            <div className='left'>
-                <div className='movie_poster' style={{
-                    backgroundImage:`url(${movie.poster})`
-                }}>MOVIE POSTER</div>
-                <div className='movie_trailer'>
-                    <Link to={movie.trailer}>
-                        WATCH TRAILER
-                    </Link>
+            <div>
+                <h2>{movie.title} ({movie.year})</h2>
+                <p>
+                    <span>{movie.genres}</span>
+                    <span>{' '}{'|'}{' '}({movie.country})</span>
+                </p>
+            </div>
+            <div className='movie_visual'>
+                <div className='left'>
+                    <img alt='movie poster' className='movie_poster' src={movie.posterurl}/>
                 </div>
+                <div className='right'>
+                    <iframe  alt='movie video' title={movie.title}className='movie_video' src={movie.trailerurl}/>  
+                </div> 
                 
             </div>
-            <dvi className='right'>
-                <h2>{movie.title}</h2>
-                <ul>
-                    <li><span>DIRECTOR:</span>{movie.director}</li>
-                    <li><span>CAST:</span>{movie.cast.toString()}</li>
-                    <li><span>YEAR:</span>{movie.year}</li>
-                    <li><span>COUNTRY:</span>{movie.country}</li>
-                    <li><span>GENRES:</span>{movie.genres}</li>
-                </ul>
-            </dvi>
+            <div className='movie_content'>
+                <p><span>DIRECTOR:</span>{' '}</p>
+                <p><span>CAST:</span>{' '}</p>
+                <p><span>SUMMARY:</span> {movie.summary}</p>
+            </div>
         </div>
     )
 }

@@ -5,38 +5,34 @@ import { MovieDetails } from '../../components/Movie/MovieDetails'
 import MovieReviews from '../../components/Movie/MovieReviews'
 import ReviewForm from '../../components/Forms/ReviewForm'
 
+import {MovieApiServices} from '../../services/api-service'
+
 export default class MoviePage extends Component {
+    constructor(props) {
+        super(props)
+        this.state={
+            movie: {},
+            reviews:[]
+        }
+    }
     static defaultProps = {
         match: {params:{}}
     }
     componentDidMount(){
+        console.log(this.props.match.params.movieId)
+        MovieApiServices.getMovieById(this.props.match.params.movieId).then(json=>{
+            this.setState({movie: json})
+        })
+        const reviews= MovieApiServices.getMovieReviews()
+        this.setState({reviews: reviews})
+    }
 
-    }
-    componentWillUnmount(){
-
-    }
-    renderMoviePage(){
-        const movie={
-            id:1,title:'MOVIE TITLE',poster:'https://poster1.com',trailer:'https://trailer1.com',
-            director:'directorOne',cast:['actorOne','actressOne'],year: 2020, country:'US',genres:'Comedy'
-        }
-        const reviews=[
-            {id:1,text:'This movie is amazing',movie_id:1,rating:5,
-            user: {first_name:'Adam',last_name:'Smith'}},
-            {id:2,text:'Not as expected.',movie_id:1,rating:2,
-            user: {first_name:'Mike',last_name:'Hall'}}
-        ]
-        return <>
-            <MovieDetails movie= {movie}/>
-            <MovieReviews reviews={reviews}/>
-            <ReviewForm/>
-        </>
-    }
     render() {
-        let details= this.renderMoviePage()
         return (
             <div className='MoviePage'>
-                {details}
+                <MovieDetails movie= {this.state.movie}/>
+                <MovieReviews reviews={this.state.reviews}/>
+                <ReviewForm/>
             </div>
         )
     }

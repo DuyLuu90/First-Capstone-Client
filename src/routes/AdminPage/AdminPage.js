@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
 //import { div } from '../../components/Utils/Utils'
 import {Route, Link} from 'react-router-dom';
+import {MovieApiServices} from '../../services/api-service'
 import AddMovieForm from '../../components/Forms/AddMovieForm'
-//import MovieList from '../../components/Admin_Utils/MovieList'
-import MovieBox from '../../components/Admin_Utils/MovieBox'
-import UserBox from '../../components/Admin_Utils/UserBox'
+import {MovieBox,UserBox} from '../../components/Admin_Utils/utils'
 import './AdminPage.css'
 
 export default class AdminPage extends Component {
+    constructor(props){
+        super(props)
+        this.state= {
+            movieList: []
+        }
+    }
+
     static defaultProps = {
         history: {
         push: () => {},
         },
+        movieList:[]
+    }
+
+    componentDidMount(){
+        MovieApiServices.getAllMovies().then(json=>{
+            this.setState({movieList:json})
+        })
     }
 
     handleAddMovieSuccess = (user) => {
@@ -25,34 +38,26 @@ export default class AdminPage extends Component {
         <AddMovieForm onSuccess={this.handleAddMovieSuccess}/>
         </div>)
     }
+    //{movieList.map((movie,index)=>(<MovieBox key={index} movie={movie}/>))}
+    //{userList.map((user,index)=>(<UserBox key={index} user={user}/>))}
+
     renderMovieList(){
-        const movieList=[
-            {title:'DRAMA 1',year:2020,url:'movies/d1',modified:new Date()},
-            {title:'DRAMA 2',year:2019,url:'movies/d2',modified:new Date()},
-            {title:'DRAMA 3',year:2018,url:'movies/d3',modified:new Date()},
-            {title:'FILM 4',year:2017,url:'movies/f4',modified:new Date()},
-            {title:'FILM 5',year:2016,url:'movies/f5',modified:new Date()},
-            {title:'FILM 6',year:2015,url:'movies/f6',modified:new Date()},
-        ]
+        
         return (
             <div className='admin_content'>
                 <header>MOVIE LIST</header>
                 <div>
-                    {movieList.map((movie,index)=>(<MovieBox key={index} movie={movie}/>))}
+                    {this.state.movieList.map((movie,index)=>MovieBox(movie,index))}
                 </div>
             </div>
         )
     }
     renderUserList(){
-        const userList=[
-            {first_name:'Mike',last_name:'Thompson',username:'mthompson',age: 18,country:'US',reports: 0},
-            {first_name:'John',last_name:'Wong',username:'jwong',age: 18,country:'CN',reports: 0},
-            {first_name:'Math',last_name:'Kim',username:'mkim',age: 18,country:'SK',reports: 0},
-        ]
+        const userList= MovieApiServices.getAllUsers();
         return <div className='admin_content'>
                     <header>USER LIST</header>
                     <div>
-                        {userList.map((user,index)=>(<UserBox key={index} user={user}/>))}
+                        {userList.map((user,index)=>UserBox(user,index))}
                     </div>
                 </div>
     }

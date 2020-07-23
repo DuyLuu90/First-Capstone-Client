@@ -10,7 +10,15 @@
     align-items: center;
     justify-content: space-between;
 }
+.control_icon {
+    margin-right: 5px;
+}
 
 .boxNav h3 {
     width: 70%;
+}
+
+.boxFooter {
+    display: flex;
+    justify-content: space-between;
 }

@@ -1,47 +1,42 @@
-.movie_details, .right li, .review-details{
-    display: flex;
-
-}
-
 .movie_details{
-    width: 80%;
-    margin: 20px auto;
-}
-.left {
-    width:40%;
-    margin-right: 20px;
-    text-align: center;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(41, 41, 41);
     color: white;
+    margin-top: 10px;
 }
-.right {
-    width: 60%
+.movie_details:nth-child(odd) {
+    padding: 20px;
 }
-.movie_trailer,.movie_reviews {
+.movie_details h2 {
+    color: yellow;
+    font-weight: bolder;
+}
+
+.movie_visual, .review-details{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.movie_visual img, .movie_visual iframe {
+    height: 200px;
+}
+.movie_content p {
+    display: flex
+}
+.movie_details span {
+    width: 25%;
+}
+.movie_reviews {
     width: 80%;
     padding: 10px;
     margin: 10px auto;
 }
-.movie_trailer {
-    background-color: chocolate;
-}
+
 a {
     text-decoration: none;
     color: white;
-}
-.movie_poster {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    background-color: black;   
-}
-ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.right li span {
-    width: 40%;
 }
 
 .review-icon {

@@ -19,14 +19,13 @@
 header a {
     color: black;
 }
+header span:hover {
+    cursor: pointer;
+    color: tomato;
+}
 .ListItem a {
     color: blue;
 }
-.poster {
-    display: flex;
-    align-items: center;
-    background-color: teal;
-    width: 100px;
-    height:150px;
-    color: white;
+.poster img {
+    height: 200px;
 }
