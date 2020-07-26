@@ -6,6 +6,10 @@ import MovieReviews from '../../components/Movie/MovieReviews'
 import ReviewForm from '../../components/Forms/ReviewForm'
 
 import {MovieApiServices} from '../../services/api-service'
+/*
+import TokenService from '../../services/token-service'
+import AuthService from '../../services/auth-api'
+*/
 
 export default class MoviePage extends Component {
     constructor(props) {
@@ -19,20 +23,22 @@ export default class MoviePage extends Component {
         match: {params:{}}
     }
     componentDidMount(){
-        console.log(this.props.match.params.movieId)
-        MovieApiServices.getMovieById(this.props.match.params.movieId).then(json=>{
+        const id=this.props.match.params.movieId
+        MovieApiServices.getMovieById(id).then(json=>{
             this.setState({movie: json})
         })
-        const reviews= MovieApiServices.getMovieReviews()
-        this.setState({reviews: reviews})
+        MovieApiServices.getMovieReviews(id).then(json=>{
+            this.setState({reviews: json})
+        })
+        
     }
 
     render() {
         return (
             <div className='MoviePage'>
                 <MovieDetails movie= {this.state.movie}/>
+                <ReviewForm movieid={this.props.match.params.movieId}/>
                 <MovieReviews reviews={this.state.reviews}/>
-                <ReviewForm/>
             </div>
         )
     }

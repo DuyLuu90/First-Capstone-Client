@@ -2,20 +2,29 @@
     height: 60px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 20px;
     background-color: rgb(128, 126, 126);
+}
+.Header h1{
+    width: 70%;
 }
 
 .Header a {
     color: white;
     text-decoration: none;
 }
-.Header__not-logged-in {
+
+.Header-not-logged-in, .Header-logged-in {
     width: 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     /*flex: 1;
     align-items: center;
     justify-content: flex-end;*/
+}
+.Header-logged-in a:nth-child(1) {
+    color: rgb(243, 113, 113);
+}
+.Header-logged-in a:nth-child(2) {
+    color: greenyellow
 }

@@ -1,4 +1,5 @@
 import config from '../config'
+import TokenService from './token-service'
 
 export const MovieApiServices = {
     getAllMovies() {
@@ -37,27 +38,85 @@ export const MovieApiServices = {
               : res.json()
         )
     },
-    getMovieReviews(){
+    getMovieReviews(id){
+        return fetch(`${config.API_ENDPOINT}/movies/${id}/reviews`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
+        /*
         return [
             {id:1,text:'This movie is amazing',movie_id:1,rating:5,
             user: {first_name:'Adam',last_name:'Smith'}},
             {id:2,text:'Not as expected.',movie_id:1,rating:2,
             user: {first_name:'Mike',last_name:'Hall'}}
-        ]
+        ]*/
     },
-    postReview(id,text,rating){
-
-    },  
+    
 }
 
 export const UserApiServices= {
     getAllUsers(){
-        return [
-            {first_name:'Mike',last_name:'Thompson',username:'mthompson',age: 18,country:'US',reports: 0},
-            {first_name:'John',last_name:'Wong',username:'jwong',age: 18,country:'CN',reports: 0},
-            {first_name:'Math',last_name:'Kim',username:'mkim',age: 18,country:'SK',reports: 0},
-        ]
+        return fetch(`${config.API_ENDPOINT}/users`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
     },
+    getUserById(id){
+        return fetch(`${config.API_ENDPOINT}/users/${id}`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
+    },
+    postUser(user) {
+        return fetch(`${config.API_ENDPOINT}/users`,{
+            method: `POST`,
+            headers:{
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    }
+}
+
+export const ReviewApiServices={
+    postReview(movieid,userid,comment,rating){
+        return fetch(`${config.API_ENDPOINT}/reviews`, {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              'Authorization': `Bearer ${TokenService.getAuthToken()}`,
+            },
+            body: JSON.stringify({
+              movieid,userid,rating,comment,
+            }),
+          })
+            .then(res =>
+              (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+            )
+    },  
 }
  
 

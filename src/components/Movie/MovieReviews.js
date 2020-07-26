@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MovieStarRating from './MovieStarRating'
 import './Movie.css'
@@ -10,13 +11,15 @@ export default function MovieReviews({reviews=[]}) {
                 <li key={review.id} className='review'>
                     <div className='review-user'>
                         <span className='Hyph'>{' - '}</span>
-                        {review.user.first_name}{' '}{review.user.last_name}
+                        <Link to={'/users/'+review["user:id"]} className='userLink'>
+                            {review['user:first_name']}{' '}{review['user:last_name']}
+                        </Link> 
                     </div>
                     <p className='review-details'>
                         <FontAwesomeIcon 
                             icon='quote-left'
                             className='review-icon'/>
-                        <span className='review-text'>{review.text}</span>
+                        <span className='review-text'>{review.comment}</span>
                         <MovieStarRating rating={review.rating}/>
                     </p>
                 </li>)}

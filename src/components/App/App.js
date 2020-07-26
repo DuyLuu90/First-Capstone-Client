@@ -7,6 +7,7 @@ import Header from '../Header/Header'
 import ListItem from '../ListItem/ListItem'
 import AdminPage from '../../routes/AdminPage/AdminPage'
 import MoviePage from '../../routes/MoviePage/MoviePage'
+import UserPage from '../../routes/UserPage/UserPage'
 import LoginPage from '../../routes/LoginPage/LoginPage'
 import RegistrationPage from '../../routes/RegistrationPage/RegistrationPage'
 import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
@@ -37,6 +38,7 @@ class App extends Component {
             <Route path={'/login'} component={LoginPage}/>
             <Route path={'/register'} component={RegistrationPage}/>
             <Route path={'/movies/:movieId'} component={MoviePage}/>
+            <Route path={'/users/:userId'} component={UserPage}/>
             <Route component={NotFoundPage}/>
           </Switch>
         </main>

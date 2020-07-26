@@ -38,7 +38,13 @@ a {
     text-decoration: none;
     color: white;
 }
-
+.userLink {
+    color: rgb(4, 4, 158);
+    font-weight: 550;
+}
+.userLink:hover {
+    color: rgb(5, 146, 5);
+}
 .review-icon {
     font-size: 12pt;
     vertical-align: super !important;
@@ -47,4 +53,12 @@ a {
 .review-text {
     width: 65%;
     margin: 0 10px 0 30px;
+}
+
+li {
+    list-style: none;
+    padding: 0;
+}
+.green {
+    color: green;
 }
