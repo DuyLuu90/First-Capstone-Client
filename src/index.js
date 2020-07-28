@@ -8,6 +8,7 @@ import App from './components/App/App';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 import {
+  faFilm,
   faUserLock,
   faFolderOpen,
   faEdit,
@@ -25,6 +26,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
+  faFilm,
   faUserLock,
   faGift, // logo
   faListUl, // style: listicle

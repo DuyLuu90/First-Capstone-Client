@@ -1,3 +1,12 @@
+a {
+    text-decoration: none;
+    color: rgb(148, 148, 238);
+}
+a:hover {
+    color: greenyellow;
+    cursor: pointer;
+}
+
 .movie_details{
     width: 90%;
     margin-left: auto;
@@ -14,6 +23,7 @@
     font-weight: bolder;
 }
 
+
 .movie_visual, .review-details{
     display: flex;
     justify-content: space-evenly;
@@ -22,23 +32,36 @@
 .movie_visual img, .movie_visual iframe {
     height: 200px;
 }
-.movie_content p {
-    display: flex
+
+.movie_content div {
+    display: flex;
+    align-items: center;
 }
-.movie_details span {
+.movie_content h3 {
+    color: rgb(125, 125, 161);
     width: 25%;
 }
+.summary {
+    width: 70%;
+}
+.movie_content a {
+    margin-right: 10px;
+}
+
 .movie_reviews {
     width: 80%;
     padding: 10px;
     margin: 10px auto;
 }
 
-a {
-    text-decoration: none;
-    color: white;
-}
 
+.userLink {
+    color: rgb(4, 4, 158);
+    font-weight: 550;
+}
+.userLink:hover {
+    color: rgb(5, 146, 5);
+}
 .review-icon {
     font-size: 12pt;
     vertical-align: super !important;
@@ -47,4 +70,12 @@ a {
 .review-text {
     width: 65%;
     margin: 0 10px 0 30px;
+}
+
+li {
+    list-style: none;
+    padding: 0;
+}
+.green {
+    color: green;
 }

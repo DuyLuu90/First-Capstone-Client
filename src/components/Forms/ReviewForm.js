@@ -1,46 +1,50 @@
 import React, { Component } from 'react'
 import './Form.css'
-/*
-import ThingContext from '../../contexts/ThingContext'
-import ThingApiService from '../../services/thing-api-service'
-import { Button, Textarea } from '../Utils/Utils'*/
 
+import {ReviewApiServices} from '../../services/api-service'
+import TokenService from '../../services/token-service'
 
 export default class ReviewForm extends Component {
-  //static contextType = ThingContext
+  
+  static defaultProps= {
+    onSuccess: ()=>{}
+  }
+
+  state= {
+    error:null,
+  }
 
   handleSubmit = ev => {
     ev.preventDefault()
-    /*
-    const { thing } = this.context
-    const { text, rating } = ev.target
-    //missing userId
-    ThingApiService.postReview(thing.id, text.value, Number(rating.value))
-      .then(this.context.addReview)
-      .then(() => {
-        text.value = ''
+    const authToken= TokenService.getAuthToken()
+    const userid= TokenService.parseJwt(authToken).userid
+    const movieid= this.props.movieid
+    const {rating,comment}= ev.target
+    
+    console.log(userid,movieid,rating.value,comment.value)
+    
+    ReviewApiServices.postReview(Number(movieid), Number(userid),comment.value,Number(rating.value))
+      .then(review=>{
+        rating.value=''
+        comment.value=''
+        this.props.onSuccess()
       })
-      .catch(this.context.setError)*/
+      .catch(res=>{
+        this.setState({error: res.error})
+      })
+
+    /*.catch(this.context.setError)*/
   }
 
   render() {
     return (
       <form className='form ReviewForm'
-        //onSubmit={this.handleSubmit}
+        onSubmit={this.handleSubmit}
       >
-        <div className='text'>
-          <textarea required
-            name='text'id='text'cols='30'rows='3'
-            aria-label='Type a review...'
-            placeholder='Type a review..'>
-          </textarea>
-        </div>
-
-        <div className='select'>
-          <label htmlFor='rating'>Rate this thing!</label>
-          <select required name='rating' id='rating'
-            aria-label='Rate this thing!'
-          >
+        <h2>Leave a review</h2>
+        <div className='rating'>
+          <label htmlFor='rating'>Rate this movie</label>
+          <select required name='rating' id='rating'aria-label='Rate this thing!'>
             <option value='1'>1 Star</option>
             <option value='2'>2 Stars</option>
             <option value='3'>3 Stars</option>
@@ -48,9 +52,18 @@ export default class ReviewForm extends Component {
             <option value='5'>5 Stars</option>
           </select>
         </div>
+        <div className='comment'>
+          <label htmlFor='comment'>Comment</label>
+          <textarea required
+            name='comment'id='comment'cols='40'rows='5'
+            aria-label='Write a comment...'
+            placeholder='Write a comment..'>
+          </textarea>
+        </div>
 
-        <input type='submit' value='Post review'/>
-
+        <div className='form_control'>
+          <input type='submit' value='Post review'/>
+        </div>
       </form>
     )
   }

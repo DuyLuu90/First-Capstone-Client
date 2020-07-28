@@ -23,5 +23,5 @@ export default function MovieStarRating({rating}) {
 
 function Star({filled}) {
   const library = filled ? 'fas' : 'far'
-  return <FontAwesomeIcon className='blue' icon={ [ library, 'star'  ]  } />
+  return <FontAwesomeIcon className='green' icon={ [ library, 'star'  ]  } />
 }

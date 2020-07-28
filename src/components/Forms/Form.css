@@ -1,43 +1,63 @@
 .form{
-    max-width: 375px;
+    width: 60%;
     margin: 0 auto;
 }
-
+.ReviewForm {
+    width: 80%;
+}
 input{
     margin: 10px 0;
 }
-
-.user_name input, .password input, .nick_name input {
-    width: 80%;
-}
-.full_name input {
-    width: 140px;
-}
-
-.full_name {
-    width: 80%;
+.full_name, .password {
     display: flex;
     justify-content: space-between;
 }
+.full_name input {
+    width: 49%;
+}
+.username input, .password input, .nick_name input {
+    width: 65%;
+}
+.display {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    color: gray;
+    font-size: 15px;
+}
+.display input {
+    width: 15%;
+}
+.ReviewForm div {
+    display: flex;
+    margin-bottom: 15px;
+}
 
-input[type='submit'] {
+.ReviewForm label {
+    width: 30%;
+}
+.form_control {
+    display: flex;
+    justify-content: space-evenly;
+}
+.form_control input{
     margin-top: 20px;
+    width: 100px;
     padding: 10px;
     border: none;
     background-color: black;
     color: white ;
 }
-input[type='submit']:hover {
+.form_control input:hover {
     cursor: pointer;
+    color: yellow;
 }
-
-.ReviewForm select, .ReviewForm label {
-    font-size: 1.1em;
+.form_control input:disabled {
+    cursor: not-allowed;
+    background-color: gray;
+    color: white;
 }
-  
-.ReviewForm label {
-    display: inline-block;
-    margin: 10px 10px 20px;
-    margin-left: 0;
+.error {
+    color: red;
 }
   
