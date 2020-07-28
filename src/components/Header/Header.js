@@ -1,22 +1,17 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon}  from '@fortawesome/react-fontawesome'
-import TokenService from '../../services/token-service'
+//import TokenService from '../../services/token-service'
 import './Header.css'
 
+
 export default class Header extends Component {
-    handleLogoutClick=()=>{
-        TokenService.clearAuthToken()
-    }
+
     renderLogoutLink(){
-        const authToken= TokenService.getAuthToken()
-        const userid= TokenService.parseJwt(authToken).userid
         return(
             <div className='Header-logged-in'>
-                <Link onClick={this.handleLogoutClick} to='/'>
-                    Logout
-                </Link>
-                <Link to={'/users/'+userid} className='blue'>Home</Link>
+                <Link onClick={this.props.onLogoutSuccess} to='/'>Logout</Link>
+                <Link to={'/users/'+this.props.userid} className='blue'>{this.props.first_name}</Link>
                 <Link to='/admin'> Admin</Link>
             </div>
         )
@@ -39,11 +34,9 @@ export default class Header extends Component {
                             {' '}{' '}DramaPEDIA
                     </Link>
                 </h1>
-                {TokenService.hasAuthToken()
+                {(this.props.hasAuthToken)
                 ? this.renderLogoutLink()
-                : this.renderLoginLink()}
-                
-
+                : this.renderLoginLink()}    
             </nav>
         )
     }

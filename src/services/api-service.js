@@ -1,9 +1,9 @@
 import config from '../config'
 import TokenService from './token-service'
 
-export const MovieApiServices = {
-    getAllMovies() {
-        return fetch(`${config.API_ENDPOINT}/movies`, {
+export const GeneralApiServices= {
+    getAllItems(dbName){
+        return fetch(`${config.API_ENDPOINT}/${dbName}`, {
             headers: {
                 'Authorization': `Basic ${config.API_TOKEN}`,
             },
@@ -14,6 +14,21 @@ export const MovieApiServices = {
               : res.json()
         )
     },
+    getItemById(dbName,id){
+        return fetch(`${config.API_ENDPOINT}/${dbName}/${id}`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
+    },
+}
+
+export const MovieApiServices = {
     getMoviesByGenres(genres){
         return fetch(`${config.API_ENDPOINT}/movies/genres/${genres}`, {
             headers: {
@@ -26,8 +41,8 @@ export const MovieApiServices = {
               : res.json()
         )
     },
-    getMovieById(id){
-        return fetch(`${config.API_ENDPOINT}/movies/${id}`, {
+    getMoviesByCountry(country){
+        return fetch(`${config.API_ENDPOINT}/movies/country/${country}`, {
             headers: {
                 'Authorization': `Basic ${config.API_TOKEN}`,
             },
@@ -49,42 +64,34 @@ export const MovieApiServices = {
               ? res.json().then(e => Promise.reject(e))
               : res.json()
         )
-        /*
-        return [
-            {id:1,text:'This movie is amazing',movie_id:1,rating:5,
-            user: {first_name:'Adam',last_name:'Smith'}},
-            {id:2,text:'Not as expected.',movie_id:1,rating:2,
-            user: {first_name:'Mike',last_name:'Hall'}}
-        ]*/
     },
-    
+    getMovieCast(id){
+        return fetch(`${config.API_ENDPOINT}/movies/${id}/cast`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
+    },
+    getMovieDirector(id){
+        return fetch(`${config.API_ENDPOINT}/movies/${id}/director`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
+    }   
 }
 
 export const UserApiServices= {
-    getAllUsers(){
-        return fetch(`${config.API_ENDPOINT}/users`, {
-            headers: {
-                'Authorization': `Basic ${config.API_TOKEN}`,
-            },
-        })
-        .then(res =>
-            (!res.ok)
-              ? res.json().then(e => Promise.reject(e))
-              : res.json()
-        )
-    },
-    getUserById(id){
-        return fetch(`${config.API_ENDPOINT}/users/${id}`, {
-            headers: {
-                'Authorization': `Basic ${config.API_TOKEN}`,
-            },
-        })
-        .then(res =>
-            (!res.ok)
-              ? res.json().then(e => Promise.reject(e))
-              : res.json()
-        )
-    },
     postUser(user) {
         return fetch(`${config.API_ENDPOINT}/users`,{
             method: `POST`,
@@ -105,7 +112,7 @@ export const ReviewApiServices={
             method: 'POST',
             headers: {
               'content-type': 'application/json',
-              'Authorization': `Bearer ${TokenService.getAuthToken()}`,
+              'Authorization': `Basic ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify({
               movieid,userid,rating,comment,
@@ -117,6 +124,21 @@ export const ReviewApiServices={
                 : res.json()
             )
     },  
+}
+
+export const ArtistApiServices= {
+    getMoviesByArtist(id){
+        return fetch(`${config.API_ENDPOINT}/artists/${id}/movies`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
+    }
 }
  
 

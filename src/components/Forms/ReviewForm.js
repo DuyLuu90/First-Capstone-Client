@@ -5,19 +5,13 @@ import {ReviewApiServices} from '../../services/api-service'
 import TokenService from '../../services/token-service'
 
 export default class ReviewForm extends Component {
-  //static contextType = ThingContext
-
+  
   static defaultProps= {
-    movieid:'',
+    onSuccess: ()=>{}
   }
 
   state= {
     error:null,
-  }
-
-  componentDidMount(){
-    
-
   }
 
   handleSubmit = ev => {
@@ -29,10 +23,11 @@ export default class ReviewForm extends Component {
     
     console.log(userid,movieid,rating.value,comment.value)
     
-    ReviewApiServices.postReview(movieid, userid,comment.value,Number(rating.value))
+    ReviewApiServices.postReview(Number(movieid), Number(userid),comment.value,Number(rating.value))
       .then(review=>{
         rating.value=''
         comment.value=''
+        this.props.onSuccess()
       })
       .catch(res=>{
         this.setState({error: res.error})

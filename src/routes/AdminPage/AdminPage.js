@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
-//import { div } from '../../components/Utils/Utils'
 import {Route, Link} from 'react-router-dom';
-import {MovieApiServices,UserApiServices} from '../../services/api-service'
+
 import AddMovieForm from '../../components/Forms/AddMovieForm'
-import {MovieBox,UserBox} from '../../components/Admin_Utils/utils'
+import {MovieBox,InfoBox} from '../../components/Admin_Utils/utils'
 import './AdminPage.css'
+
+import {GeneralApiServices} from '../../services/api-service'
+//import {MovieApiServices,UserApiServices} from '../../services/api-service'
 
 export default class AdminPage extends Component {
     constructor(props){
         super(props)
         this.state= {
-            movieList: []
+            movieList: [],
+            userList:[],
+            artists:[]
         }
     }
 
@@ -18,16 +22,17 @@ export default class AdminPage extends Component {
         history: {
         push: () => {},
         },
-        userList:[],
-        movieList:[]
     }
 
     componentDidMount(){
-        MovieApiServices.getAllMovies().then(json=>{
+        GeneralApiServices.getAllItems('movies').then(json=>{
             this.setState({movieList:json})
         })
-        UserApiServices.getAllUsers().then(json=>{
+        GeneralApiServices.getAllItems('users').then(json=>{
             this.setState({userList:json})
+        })
+        GeneralApiServices.getAllItems('artists').then(json=>{
+            this.setState({artists:json})
         })
     }
 
@@ -35,33 +40,38 @@ export default class AdminPage extends Component {
         const { history } = this.props
         history.push('/admin')
     }
-
-    renderMovieForm(){
-        return (<div className='admin_content'>
-        <header>Add a new movie</header>
-        <AddMovieForm onSuccess={this.handleAddMovieSuccess}/>
-        </div>)
-    }
-    //{movieList.map((movie,index)=>(<MovieBox key={index} movie={movie}/>))}
-    //{userList.map((user,index)=>(<UserBox key={index} user={user}/>))}
-
-    renderMovieList(){
+    renderSummaryPage(){
         return (
-            <div className='admin_content'>
-                <header>MOVIE LIST</header>
-                <div>
-                    {this.state.movieList.map((movie,index)=>MovieBox(movie,index))}
-                </div>
+            <div>
+                
             </div>
         )
     }
+
+    renderMovieForm(){
+        return <AddMovieForm onSuccess={this.handleAddMovieSuccess}/> 
+    }
+    renderMovieList(){
+        return this.state.movieList.map((movie,index)=>MovieBox(movie,index))
+    }
     renderUserList(){
-        return <div className='admin_content'>
-                    <header>USER LIST</header>
-                    <div>
-                        {this.state.userList.map((user,index)=>UserBox(user,index))}
-                    </div>
-                </div>
+        const icons= [{name:'folder-open'},{name:'edit'},{name:'user-lock'},{name:'trash'}]
+        const path='/users/'
+        return this.state.userList.map((user,index)=>InfoBox(user,index,icons,path,true))
+    }
+    renderArtistList(){
+        const icons= [{name:'folder-open'},{name:'edit'},{name:'trash'}]
+        const path='/artists/'
+        return this.state.artists.map((artist,index)=>InfoBox(artist,index,icons,path,true))
+    }
+
+    activeTab= (e)=>{
+        let activeTabs= document.getElementsByClassName('active')
+        if (activeTabs.length > 0) {
+            activeTabs[0].className = activeTabs[0].className.replace("active","");
+            }
+        e.target.className += " active";    
+        console.log('clicked',e.target.className)         
     }
 
     render() {
@@ -69,18 +79,20 @@ export default class AdminPage extends Component {
             <>
                 <h2 className ='AdminPage_header'>PAGE MANAGEMENT</h2>
                 <div className='AdminPage'>
-                    <nav className='admin_nav'>
-                        <Link to='/admin/movies'>MOVIES LIST</Link>
-                        <Link to='/admin/users'>USERS LIST</Link>
-                        <Link to='/admin/reports'>REPORTS</Link>
-                        <Link to='/admin/add'>RECENTLY ADDED </Link>
-                        <Link to='/admin/addMovie'>NEW MOVIE FORM </Link>
+                    <nav id='admin_nav'>
+                        <Link to='/admin/movies'className='tab'onClick={this.activeTab}>MOVIES LIST</Link>
+                        <Link to='/admin/users'className='tab'onClick={this.activeTab}>USERS LIST</Link>
+                        <Link to='/admin/artists'className='tab'onClick={this.activeTab}>ARTISTS</Link>
+                        <Link to='/admin/reports'className='tab'onClick={this.activeTab}>REPORTS</Link>
+                        <Link to='/admin/add'className='tab'onClick={this.activeTab}>RECENTLY ADDED </Link>
+                        <Link to='/admin/addMovie'className='tab'onClick={this.activeTab}>NEW MOVIE FORM </Link>
                     </nav>
-                    
-                    <Route path={'/admin/addMovie'} component={()=>this.renderMovieForm()}/> 
-                    <Route path={'/admin/movies'} component={()=>this.renderMovieList()}/> 
-                    <Route path={'/admin/users'} render={()=>this.renderUserList()}/> 
-                    
+                    <div className='admin_content'>
+                        <Route path={'/admin/addMovie'} component={()=>this.renderMovieForm()}/> 
+                        <Route path={'/admin/movies'} component={()=>this.renderMovieList()}/> 
+                        <Route path={'/admin/artists'} component={()=>this.renderArtistList()}/> 
+                        <Route path={'/admin/users'} render={()=>this.renderUserList()}/> 
+                    </div>
                 </div>
             </>
         

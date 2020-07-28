@@ -2,10 +2,10 @@
 import React, { Component } from 'react'
 import './Form.css'
 
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 import {ValidationError,validateName,validateUsername,validatePassword} from './form-helpers'
 
-import {UserApiServices}  from '../../services/api-service'
+import {GeneralApiServices,UserApiServices} from '../../services/api-service'
 //import AuthApiService from '../../services/auth-api'
 import {CountryList,BirthYear} from '../Admin_Utils/utils'
 
@@ -30,7 +30,7 @@ export default class RegistrationForm extends Component {
   }
 
   componentDidMount(){
-    UserApiServices.getAllUsers().then(json=>{
+    GeneralApiServices.getAllItems('users').then(json=>{
       this.setState({userList: json})
     })
   }

@@ -3,7 +3,7 @@
 }
 
 .AdminPage_header{
-    width: 40%;
+    width: 35%;
     text-align: center;
 }
 
@@ -12,21 +12,22 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 40%;
+    width: 35%;
 }
 
-.admin_nav a {
+#admin_nav a {
     background-color: cadetblue;
+    color: white;
     width: 80%;
     padding: 20px;
     font-size: 20px;
-    margin: 10px 0;
+    margin-bottom: 15px;
 }
+#admin_nav .active {
+    background-color: red;
+}
+
 .admin_content {
-    width: 55%
-}
-.admin_content header {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
+    width: 60%;
+   
 }

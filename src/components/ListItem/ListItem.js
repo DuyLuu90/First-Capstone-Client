@@ -5,25 +5,29 @@ import './ListItem.css'
 import { MovieApiServices } from '../../services/api-service';
 
 export default class ListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state= {
-            movieList: [],
-            displayAll: false
-        }
+    static defaultProps= {
+        displayAll: false,
+        sort: 'genres'
     }
+    state= {
+        movieList: [],
+        displayAll: this.props.displayAll,
+    }
+    
     componentDidMount(){
-        MovieApiServices.getMoviesByGenres(this.props.genres)
+        if (this.props.sort==='country') {
+            MovieApiServices.getMoviesByCountry(this.props.country)
             .then(json=> this.setState({movieList: json}))
+        }
+        else {
+            MovieApiServices.getMoviesByGenres(this.props.genres)
+            .then(json=> this.setState({movieList: json}))
+        }  
     }
-    handleMoreButton= e =>{
-        e.preventDefault()
-        this.setState({displayAll: true})
-    }
-    handleLessButton= e =>{
-        e.preventDefault()
-        this.setState({displayAll: false})
-    }
+
+    handleMoreButton= e =>this.setState({displayAll: true})
+    handleLessButton= e =>this.setState({displayAll: false})
+
     render() {
         //const items= this.props.list.items.slice(0,this.props.numberOfDisplay)
         //const items = this.state.movieList.slice(0,this.props.numberOfDisplay)
@@ -43,7 +47,7 @@ export default class ListItem extends Component {
             <div className='list'>
                 <header>
                     <h2>{this.props.title}</h2>
-                    {nav}
+                    {!this.props.displayAll && nav}
                 </header>
                 <div className='ListItem'>
                     {items.map((item,index)=>
@@ -58,13 +62,4 @@ export default class ListItem extends Component {
             </div>
         )
     }
-}
-ListItem.defaultProps = {
-    
-    list: {
-        title: '',
-        url:'',
-        items: []
-    },
-    numberOfDisplay: 3,
 }

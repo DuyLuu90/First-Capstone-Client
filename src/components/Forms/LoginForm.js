@@ -6,7 +6,7 @@ import AuthService from '../../services/auth-api'
 
 export default class LoginForm extends Component {
   static defaultProps = {
-    onLoginSuccess: () => {}
+    onLoginSuccess: () => {},
   }
   state = { error: null }
 
@@ -32,6 +32,9 @@ export default class LoginForm extends Component {
           password.value=''
           TokenService.saveAuthToken(res.authToken)
           this.props.onLoginSuccess()
+          const{location,history}=this.props
+          const destination=(location.state||{}).from || '/'
+          history.push(destination)
       })
       .catch(res=>{
           this.setState({error: res.error})
@@ -45,6 +48,8 @@ export default class LoginForm extends Component {
         //onSubmit={this.handleSubmitBasicAuth}
         onSubmit={this.handleSubmitJwtAuth}
       >
+        <h2>Login</h2>
+
         <div role='alert'>
           {error && <p className='error'>{error}</p>}
         </div>

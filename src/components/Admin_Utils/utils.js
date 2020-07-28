@@ -1,16 +1,18 @@
 import React from 'react'
-import ControlButtons from '../Misc/ControlButtons'
+import {Link} from 'react-router-dom'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './utils.css'
 
 export function MovieBox(movie,key) {
     const d= new Date(movie.last_modified).toDateString()
-    
+    const icons=[{name:'folder-open'},{name:'edit'},{name:'trash'}]
+    const buttons= ControlButtons(icons)
     return (
         <div className='box' key={key}>
             <div className='boxNav'>
                 <h3>{movie.title}({movie.year})</h3>
-                <ControlButtons icons={[
-                    {name:'folder-open'},{name:'edit'},{name:'trash'}]}/>
+                {buttons}
             </div>
             <div className='boxFooter'>
                 <span>{movie.country}</span>
@@ -21,23 +23,58 @@ export function MovieBox(movie,key) {
     )   
 }
 
-export function UserBox(user,key) {
+export function InfoBox(person,index,icons=[],path='',boolean) {
+    const buttons= ControlButtons(icons)
+    const name= (person.full_name) ? person.full_name : person.first_name+' '+person.last_name
+    const defaultAvatar= (person.gender==='Female')
+    ?'https://fajslawice24.pl/wp-content/uploads/2014/09/Kontur-twarzy-kobiety.jpg' 
+    :'https://painrehabproducts.com/wp-content/uploads/2014/10/facebook-default-no-profile-pic-300x300.jpg'
+    const miniAvatar= <img className='mini-avatar'alt='avatar' 
+    src={(person.avatar) ? person.avatar :defaultAvatar}/>
+    const header= (boolean)? <h2><Link to={path+person.id}>{name}</Link></h2>:<h1>{name}</h1>
     return(
-        <div className='box' key={key}>
-            <div className='boxNav'>
-                <h3>{user.first_name}{' '}{user.last_name}{' '}({user.age},{user.country}) </h3>
-                <ControlButtons icons={[
-                    {name:'folder-open'},
-                    {name:'edit'},
-                    {name:'user-lock'},
-                    {name:'trash'}]}/>
-            </div>
-            <div className='boxFooter'>
-                <span>Username: {user.username}</span>
-                <span>Reports: {user.reports} </span>
+        <div className='basicInfo' key={index}>
+            <header>
+                {boolean && miniAvatar}
+                {header}
+                <img className='flag' alt='flag'src={"https://www.countryflags.io/"+person.country+"/flat/64.png"}></img>
+                {buttons}
+            </header>
+            <div>
+                {(person.title)&&<span>{person.title}{' | '}</span>}  
+                {(person.birth_year)&&<span>Born:{' '}{person.birth_year}{' | '}</span>}
+                {(person.age)&&<span>Age:{' '}{person.age}{' | '}</span>}
+                <span>{person.country}{' | '}</span>
+                {(person.username)&&<span>Username:{' '}{person.username}{' | '}</span>}
             </div>
         </div>
     )
+}
+
+export function ProfileBox(person={}){
+    const defaultAvatar= (person.gender==='Female')
+    ?'https://fajslawice24.pl/wp-content/uploads/2014/09/Kontur-twarzy-kobiety.jpg' 
+    :'https://painrehabproducts.com/wp-content/uploads/2014/10/facebook-default-no-profile-pic-300x300.jpg'
+
+    const box= InfoBox(person)
+    
+    return (
+        <div className='profile'>
+            <img className='avatar'alt='avatar' 
+                src={(person.avatar) ? person.avatar :defaultAvatar}/>
+            {box}   
+        </div>
+    )
+}
+
+export function ControlButtons(icons=[{name:''}]){
+    return(
+        <div className='control_icons'>
+            {icons.map((icon,index)=>
+                <FontAwesomeIcon key={index} className='control_icon' icon={icon.name}/>)}
+        </div>
+    )
+
 }
 
 export function CountryList(){
