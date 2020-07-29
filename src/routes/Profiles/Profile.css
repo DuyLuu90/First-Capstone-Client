@@ -1,9 +1,7 @@
 .Profile_Page {
     padding: 15px;
 }
-.Profile_Page .basicInfo {
-    width: 60%;
-}
+
 .Profile_Page h1 {
     font-weight: bold;
     color: rgb(19, 19, 155);

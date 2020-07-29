@@ -26,6 +26,19 @@ export const GeneralApiServices= {
               : res.json()
         )
     },
+    patchItemById(dbName,id,fieldsToUpdate){
+        return fetch(`${config.API_ENDPOINT}/${dbName}/${id}`,{
+            method: `PATCH`,
+            headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(fieldsToUpdate)
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    }
 }
 
 export const MovieApiServices = {

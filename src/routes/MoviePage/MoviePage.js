@@ -4,6 +4,7 @@ import React, {Component} from 'react'
 import MovieDetails from '../../components/Movie/MovieDetails'
 import MovieReviews from '../../components/Movie/MovieReviews'
 import ReviewForm from '../../components/Forms/ReviewForm'
+import {NoAuthTokenMessage} from '../../components/Admin_Utils/utils'
 
 import {MovieApiServices} from '../../services/api-service'
 import {GeneralApiServices} from '../../services/api-service'
@@ -27,7 +28,6 @@ export default class MoviePage extends Component {
         match: {params:{}}
     }
     componentDidMount(){
-        //const id=this.props.match.params.movieId
         GeneralApiServices.getItemById('movies',this.id).then(json=>{
             this.setState({movie: json})
         })
@@ -48,13 +48,16 @@ export default class MoviePage extends Component {
     }
 
     render() {
+        const noAuthMess = NoAuthTokenMessage()
         return (
             <div className='MoviePage'>
                 <MovieDetails 
                     movie= {this.state.movie}
                     cast={this.state.cast}
                     director={this.state.director}/>
-                <ReviewForm movieid={this.props.match.params.id} onSuccess={this.onPostReviewSuccess}/>
+                {this.props.hasAuthToken
+                ?<ReviewForm movieid={this.props.match.params.id} onSuccess={this.onPostReviewSuccess}/>
+                : noAuthMess}
                 <MovieReviews reviews={this.state.reviews}/>
             </div>
         )
