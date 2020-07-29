@@ -9,7 +9,7 @@ export  function ValidationError(props) {
     return <></>
 }
 
-export function validateName(firstname,lastname) {
+export function validateName(firstname='',lastname='') {
     const validLetters= /^[A-Za-z]+$/
     const fullname= firstname+lastname
     if(firstname.length===0 || lastname.length===0) {

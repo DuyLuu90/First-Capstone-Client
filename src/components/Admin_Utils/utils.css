@@ -22,16 +22,6 @@
     display: flex;
     justify-content: space-between;
 }
-
-.profile{
-    display: flex;
-}
-.avatar {
-    width: 30%;
-    height: 300px;
-    margin-right: 20px;
-}
-
 .basicInfo header {
     display: flex;
     width: 100%;
@@ -49,4 +39,40 @@
     width: 50px;
     height: 40px;
     margin-right: 50px;   
+}
+.profile{
+    display: flex;
+}
+.avatar {
+    width: 30%;
+    height: 300px;
+    margin-right: 20px;
+}
+.info{
+    width: 65%;
+}
+.info button {
+    padding: 15px;
+    background-color: rgb(16, 16, 90);
+    color: white;
+    margin-top: 15px;
+    border: none;
+}
+.info button:hover{
+    cursor: pointer;
+    background-color: red;
+}
+
+
+.noAuth{
+    margin: 30px 50px;
+}
+
+.noAuth a{
+    color: rgb(101, 101, 206);
+    font-weight: bold;
+}
+
+.noAuth a:hover {
+    color: chocolate;
 }

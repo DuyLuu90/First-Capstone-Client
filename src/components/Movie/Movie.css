@@ -50,8 +50,13 @@ a:hover {
 
 .movie_reviews {
     width: 80%;
-    padding: 10px;
-    margin: 10px auto;
+    margin: 10px;
+}
+.review{
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(172, 171, 171);
+    padding: 10px
 }
 
 

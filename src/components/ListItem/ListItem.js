@@ -6,18 +6,36 @@ import { MovieApiServices } from '../../services/api-service';
 
 export default class ListItem extends Component {
     static defaultProps= {
-        displayAll: false,
-        sort: 'genres'
+        match:{params:{}}
     }
     state= {
         movieList: [],
-        displayAll: this.props.displayAll,
+        displayAll: false,
+        genres: this.props.match.params.genres,
+        country: this.props.match.params.country,
+        title: this.props.title,
     }
     
     componentDidMount(){
-        if (this.props.sort==='country') {
-            MovieApiServices.getMoviesByCountry(this.props.country)
-            .then(json=> this.setState({movieList: json}))
+        if (this.state.country) {
+            const country= this.state.country.replace('-',' ')
+            const title= 'Movies | '+ country
+            MovieApiServices.getMoviesByCountry(country)
+                .then(json=>this.setState({
+                    movieList: json,
+                    title: title,
+                    displayAll: true
+                }))
+        }
+        else if (this.state.genres) {
+            const genres= this.state.genres.replace('-',' ')
+            const title= 'Movies | '+ genres
+            MovieApiServices.getMoviesByGenres(genres)
+                .then(json=>this.setState({
+                    movieList: json,
+                    title: title,
+                    displayAll: true
+                }))
         }
         else {
             MovieApiServices.getMoviesByGenres(this.props.genres)
@@ -29,8 +47,6 @@ export default class ListItem extends Component {
     handleLessButton= e =>this.setState({displayAll: false})
 
     render() {
-        //const items= this.props.list.items.slice(0,this.props.numberOfDisplay)
-        //const items = this.state.movieList.slice(0,this.props.numberOfDisplay)
         let nav;
         let items;
 
@@ -46,7 +62,7 @@ export default class ListItem extends Component {
         return (
             <div className='list'>
                 <header>
-                    <h2>{this.props.title}</h2>
+                    <h2>{this.state.title}</h2>
                     {!this.props.displayAll && nav}
                 </header>
                 <div className='ListItem'>

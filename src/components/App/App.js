@@ -10,6 +10,7 @@ import Header from '../Header/Header'
 import LoginForm from '../Forms/LoginForm'
 import ListItem from '../ListItem/ListItem'
 //INPORT ROUTES:
+import HomePage from '../../routes/HomePage/HomePage'
 import AdminPage from '../../routes/AdminPage/AdminPage'
 import MoviePage from '../../routes/MoviePage/MoviePage'
 import UserPage from '../../routes/Profiles/UserPage'
@@ -20,9 +21,14 @@ import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 class App extends Component {
   state= {
     hasError: false,
-    hasToken: TokenService.hasAuthToken(),
+    hasAuthToken: TokenService.hasAuthToken(),
     userid:'',
     first_name:''
+  }
+
+  componentDidMount(){
+    const authToken= TokenService.getAuthToken()
+    if (authToken) this.handleLoginSuccess()
   }
 
   handleLoginSuccess=()=>{
@@ -30,7 +36,7 @@ class App extends Component {
     const userid= TokenService.parseJwt(authToken).userid
     GeneralApiServices.getItemById('users',userid)
         .then(user=>this.setState({
-            hasToken: TokenService.hasAuthToken(),
+            hasAuthToken: TokenService.hasAuthToken(),
             userid: userid,
             first_name: user.first_name
         }))
@@ -39,7 +45,7 @@ class App extends Component {
   handleLogoutSuccess=()=>{
     TokenService.clearAuthToken()
     this.setState({
-      hasToken: TokenService.hasAuthToken(),
+      hasAuthToken: TokenService.hasAuthToken(),
       userid: '',
       last_name: ''})
   }
@@ -48,29 +54,25 @@ class App extends Component {
     return (
       <div className="App">
         <header className='App_header'>
-          <Header hasAuthToken={this.state.hasToken} userid={this.state.userid} last_name={this.state.last_name}
-          onLogoutSuccess={this.handleLogoutSuccess}/>
+          <Header token={this.state} onLogoutSuccess={this.handleLogoutSuccess}/>
         </header>
         <main className='App_main'>
-          {this.state.hasError && <p>There was an error! Sorry for the inconveniec!</p>}
+          {this.state.hasError && <p>There was an error! Sorry for the inconvenience!</p>}
           <Switch>
-            <Route exact path={'/'} component={()=>{
-                return <> <ListItem genres='Film' title= 'Film List'/>
-                          <ListItem genres='TV Series' title= 'TV Series'/></>
-            }}/>
+            <Route exact path={'/'} component={HomePage}/>
+            <Route path={'/movies/genres/:genres'} component={ListItem}/>
+            <Route path={'/movies/country/:country'} component={ListItem}/>
             <Route path={'/admin'} component={AdminPage}/>
-            <Route path={'/login'} component={(props)=><LoginForm {...props} onLoginSuccess={this.handleLoginSuccess}/>}/>
             <Route path={'/register'} component={RegistrationPage}/>
-            <Route path={'/movies/genres/:genres'} component={(props)=>{
-              const genres= props.match.params.genres.replace('-',' ')
-              return <ListItem genres={genres} title={'Movies | '+ genres} displayAll={true}/>
-            }}/>
-            <Route path={'/movies/country/:country'} component={(props)=>{
-              const country= props.match.params.country.replace('-',' ')
-              return <ListItem sort='country'country={country} title={'Movies | '+ country} displayAll={true}/>
-            }}/>
-            <Route path={'/movies/:id'} component={MoviePage}/>
-            <Route path={'/users/:id'} component={UserPage}/>
+            <Route path={'/login'} component={(props)=>
+                <LoginForm {...props} onLoginSuccess={this.handleLoginSuccess}/>}
+            />
+            <Route path={'/movies/:id'} component={(props)=>
+                <MoviePage {...props} hasAuthToken={this.state.hasAuthToken}/>}
+            />
+            <Route path={'/users/:id'} component={(props)=>
+                <UserPage {...props} currentUserid={this.state.userid}/>}
+            />
             <Route path={'/artists/:id'} component={ArtistPage}/>
             <Route component={NotFoundPage}/>
           </Switch>
@@ -81,3 +83,15 @@ class App extends Component {
 }
 
 export default App;
+
+/*
+<Route path={'/movies/genres/:genres'} component={(props)=>{
+              console.log(props)
+              const genres= props.match.params.genres.replace('-',' ')
+              return <ListItem genres={genres} title={'Movies | '+ genres} displayAll={true}/>
+            }}/>
+  <Route path={'/movies/country/:country'} component={(props)=>{
+              const country= props.match.params.country.replace('-',' ')
+              return <ListItem sort='country'country={country} title={'Movies | '+ country} displayAll={true}/>
+            }}/>
+ */

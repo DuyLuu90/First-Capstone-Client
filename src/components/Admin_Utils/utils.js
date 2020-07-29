@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './utils.css'
+//import { checkPropTypes } from 'prop-types'
 
 export function MovieBox(movie,key) {
     const d= new Date(movie.last_modified).toDateString()
@@ -51,7 +52,8 @@ export function InfoBox(person,index,icons=[],path='',boolean) {
     )
 }
 
-export function ProfileBox(person={}){
+export function ProfileBox(props){
+    const person= props.person || {}
     const defaultAvatar= (person.gender==='Female')
     ?'https://fajslawice24.pl/wp-content/uploads/2014/09/Kontur-twarzy-kobiety.jpg' 
     :'https://painrehabproducts.com/wp-content/uploads/2014/10/facebook-default-no-profile-pic-300x300.jpg'
@@ -62,10 +64,16 @@ export function ProfileBox(person={}){
         <div className='profile'>
             <img className='avatar'alt='avatar' 
                 src={(person.avatar) ? person.avatar :defaultAvatar}/>
-            {box}   
+            <div className='info'>
+                {box}
+                {props.boolean && <button onClick={props.handleEdit}>Edit</button>}
+            </div>
+               
         </div>
     )
 }
+
+
 
 export function ControlButtons(icons=[{name:''}]){
     return(
@@ -75,6 +83,14 @@ export function ControlButtons(icons=[{name:''}]){
         </div>
     )
 
+}
+
+export function NoAuthTokenMessage(){
+    return (
+        <div className='noAuth'>
+            <Link to={'/login'}>LOG IN{' '}</Link> or <Link to={'/register'}>REGISTER{' '}</Link> to post reviews
+        </div>
+    )
 }
 
 export function CountryList(){
@@ -321,7 +337,7 @@ export function CountryList(){
 
 export function BirthYear(){
     return(
-        <select name="birth_year" id='birth_year'>
+        <>
               <option value="2002">2002</option>
               <option value="2001">2001</option>
               <option value="2000">2000</option>
@@ -420,7 +436,7 @@ export function BirthYear(){
               <option value="1907">1907</option>
               <option value="1906">1906</option>
               <option value="1905">1905</option>
-            </select>
+            </>
     )
 }
 

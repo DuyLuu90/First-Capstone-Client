@@ -32,9 +32,11 @@ export default class LoginForm extends Component {
           password.value=''
           TokenService.saveAuthToken(res.authToken)
           this.props.onLoginSuccess()
+          this.props.history.goBack()
+          /*
           const{location,history}=this.props
           const destination=(location.state||{}).from || '/'
-          history.push(destination)
+          history.push(destination)*/
       })
       .catch(res=>{
           this.setState({error: res.error})

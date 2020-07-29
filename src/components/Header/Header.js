@@ -6,12 +6,16 @@ import './Header.css'
 
 
 export default class Header extends Component {
+    static defaultProps= {
+        onLogoutSuccess: ()=>{},
+        token: {}
+    }
 
     renderLogoutLink(){
         return(
             <div className='Header-logged-in'>
                 <Link onClick={this.props.onLogoutSuccess} to='/'>Logout</Link>
-                <Link to={'/users/'+this.props.userid} className='blue'>{this.props.first_name}</Link>
+                <Link to={'/users/'+this.props.token.userid} className='blue'>{this.props.token.first_name}</Link>
                 <Link to='/admin'> Admin</Link>
             </div>
         )
@@ -34,7 +38,7 @@ export default class Header extends Component {
                             {' '}{' '}DramaPEDIA
                     </Link>
                 </h1>
-                {(this.props.hasAuthToken)
+                {(this.props.token.hasAuthToken)
                 ? this.renderLogoutLink()
                 : this.renderLoginLink()}    
             </nav>
