@@ -4,7 +4,6 @@ import {BrowserRouter} from 'react-router-dom'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import './index.css';
 import App from './components/App/App';
-
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 import {
@@ -43,7 +42,6 @@ library.add(
   faEdit,
   faTrash
 )
-
 
 ReactDOM.render(
 <BrowserRouter>

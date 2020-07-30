@@ -40,13 +40,13 @@ export default class UserPage extends Component {
           username: username.value, password: password.value,
           gender: gender.value,
           country: country.value, 
+          last_modified: new Date().toLocaleString('en',{timeZone:'UTC'})
         }
         for (let key of ['first_name', 'last_name', 'username', 'password',
             'country','gender']) {
             if(!data[key]) delete data[key]
         }
-        //if(password) delete data.password
-        console.log(data)
+        
         this.setState({error:null})
     
         GeneralApiServices.patchItemById('users',this.props.match.params.id,data)
