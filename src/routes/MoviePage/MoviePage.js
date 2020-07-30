@@ -4,8 +4,9 @@ import React, {Component} from 'react'
 import MovieDetails from '../../components/Movie/MovieDetails'
 import MovieReviews from '../../components/Movie/MovieReviews'
 import ReviewForm from '../../components/Forms/ReviewForm'
-import {NoAuthTokenMessage} from '../../components/Admin_Utils/utils'
 
+import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
+import {NoAuthTokenMessage} from '../../components/Admin_Utils/utils'
 import {MovieApiServices} from '../../services/api-service'
 import {GeneralApiServices} from '../../services/api-service'
 /*
@@ -46,8 +47,7 @@ export default class MoviePage extends Component {
             this.setState({reviews: json})
         })  
     }
-
-    render() {
+    renderPage(){
         const noAuthMess = NoAuthTokenMessage()
         return (
             <div className='MoviePage'>
@@ -61,5 +61,10 @@ export default class MoviePage extends Component {
                 <MovieReviews reviews={this.state.reviews}/>
             </div>
         )
+    }
+
+    render() {
+        const MoviePage= (this.state.movie.id)? this.renderPage() : <NotFoundPage/>
+        return MoviePage
     }
 }

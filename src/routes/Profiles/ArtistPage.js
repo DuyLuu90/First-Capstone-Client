@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import ControlButtons from '../../components/Misc/ControlButtons'
+import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 import {ProfileBox} from '../../components/Admin_Utils/utils'
 import {GeneralApiServices,ArtistApiServices} from '../../services/api-service'
 import './Profile.css'
@@ -17,8 +18,7 @@ export default class ArtistPage extends Component {
         ArtistApiServices.getMoviesByArtist(this.props.match.params.id)
         .then(json=>this.setState({movies:json}))
     }
-    render(){
-        const profileBox= ProfileBox(this.state.artist)
+    renderPage(){
         const filmList= this.state.movies.map((movie,index)=>(
             <div key={index}>
                 <span>{movie.year}</span>{' : '}
@@ -28,12 +28,16 @@ export default class ArtistPage extends Component {
         ))
         return(
             <div className='Profile_Page'>
-                {profileBox}
+                <ProfileBox person={this.state.artist}  />
                 <div className='profile_content'>
                     <h2>Fillmography :</h2>
                     {filmList}
                 </div>
             </div>
         )
+    }
+    render(){
+        const Page= (this.state.artist.id)? this.renderPage(): <NotFoundPage/>
+        return Page
     }
 }

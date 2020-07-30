@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import ControlButtons from '../../components/Misc/ControlButtons'
+import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 import {ProfileBox} from '../../components/Admin_Utils/utils'
 import RegistrationForm from '../../components/Forms/RegistrationForm'
 //import {UserApiServices} from '../../services/api-service'
@@ -72,7 +73,7 @@ export default class UserPage extends Component {
     handleEdit= ()=>this.setState({displayForm: true})
     handleCancel=()=>this.setState({displayForm:false})
     
-    render(){
+    renderPage(){
         const userId= Number(this.props.currentUserid)
         const currentUserid= Number(this.props.match.params.id)
         const boolean= userId===currentUserid
@@ -91,5 +92,9 @@ export default class UserPage extends Component {
                 </div>
             </div>
         )
+    }
+    render(){
+        const Page= (this.state.user.id)? this.renderPage(): <NotFoundPage/>
+        return Page
     }
 }

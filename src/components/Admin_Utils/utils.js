@@ -45,7 +45,9 @@ export function InfoBox(person,index,icons=[],path='',boolean) {
                 {(person.title)&&<span>{person.title}{' | '}</span>}  
                 {(person.birth_year)&&<span>Born:{' '}{person.birth_year}{' | '}</span>}
                 {(person.age)&&<span>Age:{' '}{person.age}{' | '}</span>}
-                <span>{person.country}{' | '}</span>
+                {(person.title)
+                ?<span><Link to={'/artists/country/'+person.country}>{person.country}</Link>{' | '}</span>
+                :<span>{person.country}{' | '}</span>}
                 {(person.username)&&<span>Username:{' '}{person.username}{' | '}</span>}
             </div>
         </div>
