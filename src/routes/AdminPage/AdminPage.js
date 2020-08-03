@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {Route, Link} from 'react-router-dom';
 
-import AddMovieForm from '../../components/Forms/AddMovieForm'
+import MovieForm from '../../components/Forms/MovieForm'
+import ArtistForm from '../../components/Forms/ArtistForm'
 import {MovieBox,InfoBox} from '../../components/Admin_Utils/utils'
 import './AdminPage.css'
 
@@ -14,7 +15,8 @@ export default class AdminPage extends Component {
         this.state= {
             movieList: [],
             userList:[],
-            artists:[]
+            artists:[],
+            displayMovieForm: true
         }
     }
 
@@ -36,48 +38,73 @@ export default class AdminPage extends Component {
         })
     }
 
-    handleAddMovieSuccess = (user) => {
-        const { history } = this.props
-        history.push('/admin')
-    }
     renderSummaryPage(){
         return (
-            <div>
-                
+            <div className='summary'>
+                <div>MOVIES</div>
+                <div></div>
+                <div></div>   
             </div>
         )
     }
 
-    renderMovieForm(){
-        return <AddMovieForm onSuccess={this.handleAddMovieSuccess}/> 
+    renderMovieList(props={}){
+        return this.state.movieList.map(movie=>{
+            const icons=[
+                {name:'edit', method: ()=>props.history.push(`/admin/movies/edit/${movie.id}`) },
+                {name:'trash',method: ()=>props.history.push(`/admin/movies/delete/${movie.id}`) }
+            ]
+            return MovieBox(movie,movie.id,icons)
+        })
     }
-    renderMovieList(){
-        return this.state.movieList.map((movie,index)=>MovieBox(movie,index))
-    }
-    renderUserList(){
-        const icons= [{name:'folder-open'},{name:'edit'},{name:'user-lock'},{name:'trash'}]
+    renderUserList(props){
         const path='/users/'
-        return this.state.userList.map((user,index)=>InfoBox(user,index,icons,path,true))
+        return this.state.userList.map((user,index)=>{
+            const icons= [
+                {name:'folder-open'},
+                {name:'edit',method: ()=>props.history.push(`/admin/users/edit/${user.id}`)},
+                {name:'trash'},
+                {name:'user-lock'}]
+            return InfoBox(user,index,icons,path,true)
+        })
     }
     renderArtistList(){
         const icons= [{name:'folder-open'},{name:'edit'},{name:'trash'}]
         const path='/artists/'
         return this.state.artists.map((artist,index)=>InfoBox(artist,index,icons,path,true))
-    }
+    } 
 
+    renderForms(){
+        const movieClass= (this.state.displayMovieForm)? 'highlighted': ''
+        const artistClass= (!this.state.displayMovieForm)? 'highlighted':''
+        return (
+            <div className='forms'>
+                <div className='forms_nav'>
+                    <span className={movieClass} onClick={()=>this.setState({displayMovieForm:true})}>
+                        ADD MOVIE
+                    </span>
+                    <span className={artistClass} onClick={()=>this.setState({displayMovieForm:false})} >
+                        ADD ARTIST
+                    </span>
+                </div>
+                {this.state.displayMovieForm? <MovieForm/>: <ArtistForm/> }
+            </div>
+        )
+    }
     activeTab= (e)=>{
         let activeTabs= document.getElementsByClassName('active')
         if (activeTabs.length > 0) {
             activeTabs[0].className = activeTabs[0].className.replace("active","");
             }
-        e.target.className += " active";    
-        console.log('clicked',e.target.className)         
+        e.target.className += " active";            
     }
 
     render() {
         return (
             <>
-                <h2 className ='AdminPage_header'>PAGE MANAGEMENT</h2>
+                <h2 className ='AdminPage_header'>
+                    <Link to='/admin'> PAGE MANAGEMENT</Link>
+                </h2>
                 <div className='AdminPage'>
                     <nav id='admin_nav'>
                         <Link to='/admin/movies'className='tab'onClick={this.activeTab}>MOVIES LIST</Link>
@@ -85,13 +112,14 @@ export default class AdminPage extends Component {
                         <Link to='/admin/artists'className='tab'onClick={this.activeTab}>ARTISTS</Link>
                         <Link to='/admin/reports'className='tab'onClick={this.activeTab}>REPORTS</Link>
                         <Link to='/admin/add'className='tab'onClick={this.activeTab}>RECENTLY ADDED </Link>
-                        <Link to='/admin/addMovie'className='tab'onClick={this.activeTab}>NEW MOVIE FORM </Link>
+                        <Link to='/admin/forms'className='tab'onClick={this.activeTab}>FORMS </Link>
                     </nav>
                     <div className='admin_content'>
-                        <Route path={'/admin/addMovie'} component={()=>this.renderMovieForm()}/> 
-                        <Route path={'/admin/movies'} component={()=>this.renderMovieList()}/> 
+                        <Route path={'/admin/forms'} component={()=>this.renderForms()}/> 
+                        <Route exact path={'/admin/movies'} component={(props)=>this.renderMovieList(props)}/> 
+                        <Route path={'/admin/movies/edit/:id'} component={MovieForm}/>
                         <Route path={'/admin/artists'} component={()=>this.renderArtistList()}/> 
-                        <Route path={'/admin/users'} render={()=>this.renderUserList()}/> 
+                        <Route path={'/admin/users'} render={(props)=>this.renderUserList(props)}/> 
                     </div>
                 </div>
             </>

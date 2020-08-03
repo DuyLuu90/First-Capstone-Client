@@ -19,7 +19,14 @@ export default class ListItem extends Component {
     componentDidMount(){
         if (this.state.country) {
             const country= this.state.country.replace('-',' ')
-            const title= 'Movies | '+ country
+
+            const name= (country==='US') ? 'Domestic'
+                        :(country==='CN') ? 'CDrama'
+                        :(country==='JP') ? 'JDrama'
+                        :(country==='VN') ? 'VDrama'
+                        :(country==='RK') ? 'KDrama'
+                        :'International'
+            const title= 'Movies | '+ name
             MovieApiServices.getMoviesByCountry(country)
                 .then(json=>this.setState({
                     movieList: json,

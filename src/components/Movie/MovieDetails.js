@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import './Movie.css'
 
 export default class MovieDetails extends Component {
-    static defaulProps ={
+    static defaultProps ={
         movie: {},
         cast:[],
         director:[]
@@ -42,20 +42,20 @@ export default class MovieDetails extends Component {
                 </div>
                 <div className='movie_content'>
                     {(this.props.director.length!==0) && 
-                    <div>
-                        <h3>DIRECTOR</h3>
                         <div>
-                            {directorList}
+                            <h3>DIRECTOR</h3>
+                            <div>
+                                {directorList}
+                            </div>
                         </div>
-                    </div>
                     }
                     {(this.props.cast.length>0) && 
-                    <div>
-                        <h3>CAST</h3>
                         <div>
-                             {castList}
-                        </div>  
-                    </div>
+                            <h3>CAST</h3>
+                            <div>
+                                {castList}
+                            </div>  
+                        </div>
                     }
                     <div>
                         <h3>SUMMARY:</h3>

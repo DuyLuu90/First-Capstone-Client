@@ -10,10 +10,6 @@
     align-items: center;
     justify-content: space-between;
 }
-.control_icon {
-    margin-right: 5px;
-}
-
 .boxNav h3 {
     width: 70%;
 }
@@ -33,12 +29,23 @@
     margin-right: 10px;
 }
 .basicInfo header h2 {
-    width: 40%;
+    width: 65%;
 }
 .flag {
     width: 50px;
-    height: 40px;
-    margin-right: 50px;   
+    height: 40px;     
+}
+.control_icons{
+    width: 25%;
+    text-align: right;
+}
+.control_icon {
+    margin-left: 5px;
+}
+.control_icon:hover {
+    color: green;
+    cursor: pointer;
+    font-size: 20px;
 }
 .profile{
     display: flex;
@@ -62,12 +69,9 @@
     cursor: pointer;
     background-color: red;
 }
-
-
 .noAuth{
     margin: 30px 50px;
 }
-
 .noAuth a{
     color: rgb(101, 101, 206);
     font-weight: bold;

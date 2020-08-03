@@ -5,21 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './utils.css'
 //import { checkPropTypes } from 'prop-types'
 
-export function MovieBox(movie,key) {
-    const d= new Date(movie.last_modified).toDateString()
-    const icons=[{name:'folder-open'},{name:'edit'},{name:'trash'}]
+export function MovieBox(movie={},id,icons) {
+    
+    
+    const genres= movie.genres || []
     const buttons= ControlButtons(icons)
     return (
-        <div className='box' key={key}>
+        <div className='box' key={id}>
             <div className='boxNav'>
-                <h3>{movie.title}({movie.year})</h3>
+                <h3>{movie.title}</h3>
                 {buttons}
             </div>
             <div className='boxFooter'>
-                <span>{movie.country}</span>
-                <span>Modified on {d}</span>
+                <span>{movie.country}{' | '}{movie.year}{' | '}{genres.join(' ')}</span>
             </div>
-            <div>{movie.genres.join(' ')}</div>
         </div>
     )   
 }
@@ -81,7 +80,8 @@ export function ControlButtons(icons=[{name:''}]){
     return(
         <div className='control_icons'>
             {icons.map((icon,index)=>
-                <FontAwesomeIcon key={index} className='control_icon' icon={icon.name}/>)}
+                <FontAwesomeIcon key={index} className='control_icon' 
+                icon={icon.name} onClick={icon.method}/>)}
         </div>
     )
 
@@ -444,7 +444,7 @@ export function BirthYear(){
 
 export function MovieYear(){
     return(
-        <select name="movie_year" id='movie_year'>
+        <>
             <option value="2020">2020</option>
             <option value="2019">2019</option>
             <option value="2018">2018</option>
@@ -486,6 +486,6 @@ export function MovieYear(){
             <option value="1982">1982</option>
             <option value="1981">1981</option>
             <option value="1980">1980</option>
-        </select>
+        </>
     )
 }

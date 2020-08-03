@@ -11,12 +11,14 @@ import {CountryList,BirthYear} from '../Admin_Utils/utils'
 export default class RegistrationForm extends Component {
   static defaultProps = {
     onRegistrationSuccess: () => {},
+    user: {}
+    /*
     user: {
       id:'',first_name:'',last_name:'',
       username:'', password: '',
-      country:'', gender:'', birth_year:'',block_list:'',
+      country:'', gender:'', age:0,block_list:'',
       last_modified:''
-    }
+    }*/
   }
 
   state = { 
@@ -59,6 +61,8 @@ export default class RegistrationForm extends Component {
     const nameError= (this.props.user && (!this.state.first_name.value||!this.state.last_name.value))
       ? false 
       : validateName(this.state.first_name.value,this.state.last_name.value)
+    
+    const defaultYear= (this.props.user) ? this.state.birth_year: 2002
     
     const error= this.props.error
     const countries= CountryList()
@@ -120,8 +124,8 @@ export default class RegistrationForm extends Component {
 
         <div className='year'>
           <h3>Birth year:</h3>
-          <select name="birth_year" id='birth_year' disabled={this.state.birth_year.value}
-          defaultValue={this.state.birth_year.value}>
+          <select name="birth_year" id='birth_year' disabled={this.props.user.age}
+          defaultValue={defaultYear}>
               {years}
           </select>
           

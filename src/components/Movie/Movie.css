@@ -23,14 +23,15 @@ a:hover {
     font-weight: bolder;
 }
 
-
 .movie_visual, .review-details{
     display: flex;
     justify-content: space-evenly;
 }
-
 .movie_visual img, .movie_visual iframe {
     height: 200px;
+}
+.movie_content {
+    margin-top: 10px;
 }
 
 .movie_content div {

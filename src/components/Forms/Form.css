@@ -60,4 +60,90 @@ input{
 .error {
     color: red;
 }
+.movie_title input, #full_name{
+    font-size: 20px;
+    color: rgb(17, 17, 145);
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+.MovieForm .movie_details {
+    padding: 15px;
+    font-size: 15px;
+}
+.MovieForm .left {
+    width: 30%;   
+}
+.MovieForm .right {
+    width: 60%;
+}
+.MovieForm img, .MovieForm iframe {
+    width: 90%; 
+}
+.MovieForm .profile {
+    margin-top: 15px;
+}
+.MovieForm .avatar {
+    width: 30%;
+}
+.MovieForm .flag {
+    width: 50px;
+    height: 40px; 
+    margin-left: 15px;
+}
+.formNav button {
+    padding: 5px;
+    background-color: red;
+    color: white;
+    margin-right: 5px;
+}
+.formNav span {
+    color: gray;
+    float: right;
+}
+
+
+.MovieForm header {
+    margin-bottom: 5px;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.MovieForm .date {
+    color: gray;
+}
+.MovieForm textarea {
+    width: 100%;
+}
+.genres_list{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.genres_list div {
+    width: 25%;
+}
+.cast div {
+    display: flex;
+}
+.cast input {
+    width: 33%;
+    margin-right: 10px;
+}
+.otherInfo{
+    display: flex;
+    flex-wrap: wrap;
+}
+/*
+.otherInfo .birth_year, .otherInfo .year, .otherInfo.title{
+    width: 20%;
+}*/
+
+.otherInfo div{
+    margin-right: 20px;
+}
+
+
+
+
   

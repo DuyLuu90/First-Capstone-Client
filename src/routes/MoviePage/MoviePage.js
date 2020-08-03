@@ -7,8 +7,8 @@ import ReviewForm from '../../components/Forms/ReviewForm'
 
 import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 import {NoAuthTokenMessage} from '../../components/Admin_Utils/utils'
-import {MovieApiServices} from '../../services/api-service'
-import {GeneralApiServices} from '../../services/api-service'
+import {MovieApiServices,GeneralApiServices} from '../../services/api-service'
+//import {GeneralApiServices} from '../../services/api-service'
 /*
 import TokenService from '../../services/token-service'
 import AuthService from '../../services/auth-api'
