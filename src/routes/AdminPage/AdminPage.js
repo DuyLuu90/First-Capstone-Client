@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Route, Link} from 'react-router-dom';
 
+import AutoComplete from '../../components/AutoComplete/AutoComplete'
 import MovieForm from '../../components/Forms/MovieForm'
 import ArtistForm from '../../components/Forms/ArtistForm'
 import {MovieBox,InfoBox} from '../../components/Admin_Utils/utils'
@@ -19,11 +20,8 @@ export default class AdminPage extends Component {
             displayMovieForm: true
         }
     }
-
     static defaultProps = {
-        history: {
-        push: () => {},
-        },
+        history: {push: () => {},},
     }
 
     componentDidMount(){
@@ -37,7 +35,6 @@ export default class AdminPage extends Component {
             this.setState({artists:json})
         })
     }
-
     renderSummaryPage(){
         return (
             <div className='summary'>
@@ -47,11 +44,10 @@ export default class AdminPage extends Component {
             </div>
         )
     }
-
     renderMovieList(props={}){
         return this.state.movieList.map(movie=>{
             const icons=[
-                {name:'edit', method: ()=>props.history.push(`/admin/movies/edit/${movie.id}`) },
+                {name:'edit', method: ()=>props.history.push(`/admin/edit/movies/${movie.id}`) },
                 {name:'trash',method: ()=>props.history.push(`/admin/movies/delete/${movie.id}`) }
             ]
             return MovieBox(movie,movie.id,icons)
@@ -62,19 +58,22 @@ export default class AdminPage extends Component {
         return this.state.userList.map((user,index)=>{
             const icons= [
                 {name:'folder-open'},
-                {name:'edit',method: ()=>props.history.push(`/admin/users/edit/${user.id}`)},
+                {name:'edit',method: ()=>props.history.push(`/admin/edit/users/${user.id}`)},
                 {name:'trash'},
                 {name:'user-lock'}]
             return InfoBox(user,index,icons,path,true)
         })
     }
-    renderArtistList(){
-        const icons= [{name:'folder-open'},{name:'edit'},{name:'trash'}]
+    renderArtistList(props){
         const path='/artists/'
-        return this.state.artists.map((artist,index)=>InfoBox(artist,index,icons,path,true))
+        return this.state.artists.map((artist,index)=>{
+            const icons= [
+                {name:'folder-open'},
+                {name:'edit',method: ()=>props.history.push(`/admin/edit/artists/${artist.id}`)},
+                {name:'trash'}]
+            return InfoBox(artist,index,icons,path,true)})
     } 
-
-    renderForms(){
+    renderForms(props){
         const movieClass= (this.state.displayMovieForm)? 'highlighted': ''
         const artistClass= (!this.state.displayMovieForm)? 'highlighted':''
         return (
@@ -87,7 +86,7 @@ export default class AdminPage extends Component {
                         ADD ARTIST
                     </span>
                 </div>
-                {this.state.displayMovieForm? <MovieForm/>: <ArtistForm/> }
+                {this.state.displayMovieForm? <MovieForm {...props}/>: <ArtistForm onSuccess={this.onChangeArtist} {...props}/> }
             </div>
         )
     }
@@ -98,6 +97,12 @@ export default class AdminPage extends Component {
             }
         e.target.className += " active";            
     }
+    onChangeArtist=()=>{
+        GeneralApiServices.getAllItems('artists').then(json=>{
+            this.setState({artists:json})
+        }).then(()=>this.props.history.push('/admin/artists'))
+        //this.props.history.push('/admin/artists')
+    }
 
     render() {
         return (
@@ -107,19 +112,23 @@ export default class AdminPage extends Component {
                 </h2>
                 <div className='AdminPage'>
                     <nav id='admin_nav'>
-                        <Link to='/admin/movies'className='tab'onClick={this.activeTab}>MOVIES LIST</Link>
-                        <Link to='/admin/users'className='tab'onClick={this.activeTab}>USERS LIST</Link>
+                        <Link to='/admin/movies'className='tab'onClick={this.activeTab}>MOVIES</Link>
                         <Link to='/admin/artists'className='tab'onClick={this.activeTab}>ARTISTS</Link>
+                        <Link to='/admin/users'className='tab'onClick={this.activeTab}>USERS</Link>
                         <Link to='/admin/reports'className='tab'onClick={this.activeTab}>REPORTS</Link>
-                        <Link to='/admin/add'className='tab'onClick={this.activeTab}>RECENTLY ADDED </Link>
                         <Link to='/admin/forms'className='tab'onClick={this.activeTab}>FORMS </Link>
+                        <Link to='/admin/add'className='tab'onClick={this.activeTab}>RECENTLY ADDED </Link>
                     </nav>
                     <div className='admin_content'>
-                        <Route path={'/admin/forms'} component={()=>this.renderForms()}/> 
-                        <Route exact path={'/admin/movies'} component={(props)=>this.renderMovieList(props)}/> 
-                        <Route path={'/admin/movies/edit/:id'} component={MovieForm}/>
-                        <Route path={'/admin/artists'} component={()=>this.renderArtistList()}/> 
+                        <Route exact path={'/admin'} component={AutoComplete}/> 
+                        <Route path={'/admin/forms'} component={(props)=>this.renderForms(props)}/> 
+                        <Route path={'/admin/movies'} component={(props)=>this.renderMovieList(props)}/> 
+                        <Route path={'/admin/artists'} component={(props)=>this.renderArtistList(props)}/> 
                         <Route path={'/admin/users'} render={(props)=>this.renderUserList(props)}/> 
+                        <Route path={'/admin/edit/movies/:id'} component={MovieForm}/>
+                        <Route path={'/admin/edit/artists/:id'} component={(props)=>{
+                            return <ArtistForm {...props} onSuccess={this.onChangeArtist}/>
+                        }}/>
                     </div>
                 </div>
             </>

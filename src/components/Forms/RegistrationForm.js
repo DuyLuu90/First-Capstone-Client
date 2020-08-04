@@ -106,7 +106,7 @@ export default class RegistrationForm extends Component {
             onClick={this.hideStatusMessage}
             onChange={this.onChange}
           /> 
-          <div className='display'>
+          <div className='displayPassword'>
             <input type="checkbox" id="togglePassword"
               onClick={()=>{
                 const password= document.getElementById('password')

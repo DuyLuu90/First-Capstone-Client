@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React from 'react'
 
 export  function ValidationError(props) {
@@ -54,6 +53,10 @@ export function validateUsername(userList=[],username='') {
     const usernameExists= userList.find(user=>user.username===username)
     if (usernameExists) return 'Username already exists'
     return null
+}
+
+export function autocomplete(input,array){
+    
 }
 
 

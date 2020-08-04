@@ -1,29 +1,25 @@
 import React, { Component } from 'react'
 import './Form.css'
 //import AuthApiService from '../../services/auth-api-service'
+import AutoComplete from '../../components/AutoComplete/AutoComplete'
 import {CountryList,MovieYear} from '../Admin_Utils/utils'
 import MovieDetails from '../Movie/MovieDetails'
 import {MovieApiServices,GeneralApiServices} from '../../services/api-service'
 
 export default class MovieForm extends Component {
-  
   static defaultProps = {
     onSuccess: () => {},
-    match: {params:{}}
+    match: {params:{}},
+    history:{}
   }
   state = {
-    id: this.props.match.params.id,
-    error: null, displayForm: true,
     movie: {
-      title:'',
-      posterurl:'',
-      trailerurl:'',
-      summary:'',
-      country:'',
-      year:'',
-      genres:''},
+      title:'',posterurl:'',trailerurl:'',
+      summary:'',country:'',year:'',genres:''},
     cast:[],
-    director:[]
+    director:[],
+    id: this.props.match.params.id,
+    error: '', displayForm: true,
   }
   componentDidMount(){
     const id= Number(this.props.match.params.id)
@@ -33,57 +29,41 @@ export default class MovieForm extends Component {
       MovieApiServices.getMovieDirector(id).then(json=>this.setState({director:json}))
     }
   }
-
-  onChange=e=> {
-    const key= e.target.name;
-    const newValue= e.target.value;
-    this.setState({[key]:newValue})
-  }
-  onChangeMovie=e=> {
-    const key= e.target.name;
-    const newValue= e.target.value;
-    this.setState({movie:{...this.state.movie,[key]:newValue}})
-  }
-  onChangeCheckBox=e=>{
-    const val=e.target.value
-    let genres= this.state.movie.genres || []
-    
-    if (!genres.includes(val)) genres.push(val)
-    else genres= genres.filter(item=>item!==val)
-
-    this.setState({movie:{...this.state.movie,genres: genres}})
-  }
-
   renderMovieForm(){
     const {error,movie} = this.state
     const countries= CountryList()
     const years= MovieYear()
-    const director= (this.state.director[0])? this.state.director[0].full_name :''
-    const actor1= (this.state.cast.length)? this.state.cast[0].full_name :''
-    const actor2= (this.state.cast.length)? this.state.cast[1].full_name :''
+    const dir = this.state.director[0] ? this.state.director[0] : {}
+    const director= dir? {full_name: dir.full_name, id: dir.id} : {}
+    const arr1 = this.state.cast.length ? this.state.cast[0] : {}
+    const arr2 = this.state.cast.length ? this.state.cast[1] : {}
+    const actor1= arr1? {full_name: arr1.full_name, id: arr1.id} : {}
+    const actor2= arr2? {full_name: arr2.full_name, id: arr1.id} : {}
+    
+    
     return (
       <div>
         <div role='alert'>
           {error && <p className='red'>{error}</p>}
         </div>
         <div className='movie_title'>
-          <input name='title'placeholder='Title' type='text'required id='new_movie_title'
-          defaultValue={movie.title}
+          <input name='title'placeholder='Title' type='text'required id='title'
+          defaultValue={movie.title} className='main_input'
           onChange={this.onChangeMovie}/>
         </div>
         <div>
           <header>Trailer URL:</header>
-          <textarea name='trailerurl' type='text'required id='new_movie_trailer'
+          <textarea name='trailerurl' type='text'required id='trailerurl'
           defaultValue={movie.trailerurl} rows='1' onChange={this.onChangeMovie}/>
         </div>
         <div>
           <header>Poster URL:</header>
-          <textarea name='posterurl'type='text'required id='new_movie_poster'
+          <textarea name='posterurl'type='text'required id='posterurl'
           defaultValue={movie.posterurl}rows='2'onChange={this.onChangeMovie}/>
         </div>
         <div className='text'>
           <header>Summary:</header>
-          <textarea required name='summary'id='text' rows='4'aria-label='Provide the summary...'
+          <textarea required name='summary'id='summary' rows='4'aria-label='Provide the summary...'
           defaultValue={movie.summary}onChange={this.onChangeMovie}/>
         </div>
 
@@ -125,16 +105,20 @@ export default class MovieForm extends Component {
                   <label htmlFor='History'>{' '}History</label>
               </div>
             </div>
+        </div>  
+        <div>
+            <header>Director:</header>
+            <AutoComplete name='director' cast={director}/>
         </div>
-        <div className='cast'>
-          <header>Cast:</header>
-          <div>
-            <input type='text' id='director' placeholder='Director Name' defaultValue={director}/>
-            <input type='text' id='actor1' placeholder='Actor 1'defaultValue={actor1}/>
-            <input type='text' id='actor2' placeholder='Actor 2'defaultValue={actor2}/>
-          </div>
+        <div>
+            <header>Actor 1:</header>
+            <AutoComplete name='actor_one' cast={actor1}/>
+        </div>
+        <div>
+            <header>Actor 2: </header>
+            <AutoComplete name='actor_two' cast={actor2}/>
+        </div>
           
-        </div>
         <div className='otherInfo'>
           <div className='country'>
             <header>Country</header>
@@ -167,46 +151,57 @@ export default class MovieForm extends Component {
         </div>
         <div className='form_control'>
           <input type='button' value='Cancel'
-              onClick={this.props.handleCancel}/>
+              onClick={()=>this.props.history.push('/admin')}/>
           <input type="submit" value='SAVE' id='new_movie'/>
         </div>
       </div>
     )
   }
-
   displayForm=e=>{
     this.setState({displayForm:true})
   }
   displayPreview=e=>{
     this.setState({displayForm:false})
   }
+  onChange=e=> {
+    const key= e.target.name;
+    const newValue= e.target.value;
+    this.setState({[key]:newValue})
+  }
+  onChangeMovie=e=> {
+    const key= e.target.name;
+    const newValue= e.target.value;
+    this.setState({movie:{...this.state.movie,[key]:newValue}})
+  }
+  onChangeCheckBox=e=>{
+    const val=e.target.value
+    let genres= this.state.movie.genres || []
+    
+    if (!genres.includes(val)) genres.push(val)
+    else genres= genres.filter(item=>item!==val)
 
-
+    this.setState({movie:{...this.state.movie,genres: genres}})
+  }
   handleSubmit = ev => {
     ev.preventDefault()
-    //const { full_name, nick_name, movie_poster, movie_trailer } = ev.target
-  /*
-    console.log('registration htmlForm submitted')
-    console.log({ full_name, nick_name, movie_poster, movie_trailer })
-  
-    this.setState({error:null})
-    AuthApiService.postUser({
-      movie_poster: movie_poster.value,
-      movie_trailer: movie_trailer.value,
-      full_name: full_name.value,
-      nick_name: nick_name.value,
-    })
-    .then(user=>{
-      full_name.value = ''
-      nick_name.value = ''
-      movie_poster.value = ''
-      movie_trailer.value = ''
-      this.props.onRegistrationSuccess()
-    })
-    .catch(res=>{
-      this.setState({error: res.error})
-    })
-   */ 
+    const {title,posterurl,trailerurl,summary,year,country} = ev.target
+    const data={
+      title: title.value,
+      posterurl: posterurl.value,
+      trailerurl: trailerurl.value,
+      summary: summary.value,
+      year: Number(year.value),
+      country: country.value,
+      genres: this.state.movie.genres
+    }
+    GeneralApiServices.postItem('movies',data)
+      .then(res=>{
+        console.log(res)
+        title.value=''
+        posterurl.value=''
+        trailerurl.value=''
+      })
+      .catch(err=>console.log(err))
   }
 
   render() {
@@ -214,8 +209,7 @@ export default class MovieForm extends Component {
     const form = this.renderMovieForm()
     const preview= <MovieDetails movie={this.state.movie} cast={this.state.cast} director={this.state.director}/>
     return (
-      <form className='Form MovieForm'//onSubmit={this.handleSubmit} 
-      >
+      <form className='form MovieForm'onSubmit={this.handleSubmit}>
         <div className='formNav'>
           <button type='button' onClick={this.displayForm}>Form</button>
           <button type='button' onClick={this.displayPreview}>Preview</button>

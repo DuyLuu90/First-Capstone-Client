@@ -1,13 +1,65 @@
 .form{
-    width: 70%;
-    margin: 0 auto;
-}
-.ReviewForm {
     width: 80%;
+    margin: 0 auto;
 }
 input{
     margin: 10px 0;
 }
+textarea {
+    width: 100%;
+}
+.form_control {
+    display: flex; justify-content: space-evenly;
+}
+.form_control input{
+    margin-top: 20px; width: 100px;padding: 10px;
+    border: none; color: white ; background-color: black;
+}
+.form_control input:hover {
+    cursor: pointer; color: yellow;
+}
+.form_control input:disabled {
+    cursor: not-allowed; background-color: gray;
+}
+.error {
+    color: red;
+}
+.formNav button {
+    padding: 5px; margin-right: 5px;
+    background-color: red; color: white;  
+}
+.formNav span {
+    color: gray;float: right;
+}
+.form header {
+    margin-bottom: 5px;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.form .flag {
+    width: 50px;
+    height: 40px; 
+    margin-left: 15px;
+}
+.form .date {
+    color: gray;
+}
+.form .profile {
+    margin-top: 15px;
+}
+.form .avatar {
+    width: 30%;
+    max-height: 200px;
+}
+.main_input {
+    font-size: 20px;
+    color: rgb(17, 17, 145);
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+/*REGISTRATION*/
 .full_name, .password {
     display: flex;
     justify-content: space-between;
@@ -18,58 +70,31 @@ input{
 .username input, .password input, .nick_name input {
     width: 65%;
 }
-.display {
-    display: flex;
-    align-items: center;
-    width: 30%;
-    color: gray;
-    font-size: 15px;
+.displayPassword {
+    display: flex; align-items: center;
+    width: 30%;color: gray;font-size: 15px;
 }
-.display input {
+.displayPassword input {
     width: 15%;
 }
+/*REVIEW*/
+.ReviewForm {
+    margin-left: 40px;
+}
 .ReviewForm div {
-    display: flex;
-    margin-bottom: 15px;
+    display: flex; margin-bottom: 15px;
+}
+.rating label, .comment label {
+    width: 25%;
+}
+.ReviewForm textarea {
+     width: 420px;
 }
 
-.ReviewForm label {
-    width: 30%;
-}
-.form_control {
-    display: flex;
-    justify-content: space-evenly;
-}
-.form_control input{
-    margin-top: 20px;
-    width: 100px;
-    padding: 10px;
-    border: none;
-    background-color: black;
-    color: white ;
-}
-.form_control input:hover {
-    cursor: pointer;
-    color: yellow;
-}
-.form_control input:disabled {
-    cursor: not-allowed;
-    background-color: gray;
-    color: white;
-}
-.error {
-    color: red;
-}
-.movie_title input, #full_name{
-    font-size: 20px;
-    color: rgb(17, 17, 145);
-    font-weight: 600;
-    width: 100%;
-    text-align: center;
-}
+/*MOVIE*/
 .MovieForm .movie_details {
     padding: 15px;
-    font-size: 15px;
+    font-size: 12px;
 }
 .MovieForm .left {
     width: 30%;   
@@ -80,65 +105,27 @@ input{
 .MovieForm img, .MovieForm iframe {
     width: 90%; 
 }
-.MovieForm .profile {
-    margin-top: 15px;
-}
-.MovieForm .avatar {
-    width: 30%;
-}
-.MovieForm .flag {
-    width: 50px;
-    height: 40px; 
-    margin-left: 15px;
-}
-.formNav button {
-    padding: 5px;
-    background-color: red;
-    color: white;
-    margin-right: 5px;
-}
-.formNav span {
-    color: gray;
-    float: right;
-}
 
-
-.MovieForm header {
-    margin-bottom: 5px;
-    margin-top: 15px;
-    font-size: 15px;
+/*
+.movie_title input, #full_name{
+    font-size: 20px;
+    color: rgb(17, 17, 145);
     font-weight: 600;
-}
-.MovieForm .date {
-    color: gray;
-}
-.MovieForm textarea {
     width: 100%;
-}
-.genres_list{
+    text-align: center;
+}*/
+.genres_list, .cast div, .otherInfo{
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
+    align-items: center;
 }
 .genres_list div {
     width: 25%;
 }
-.cast div {
-    display: flex;
-}
-.cast input {
-    width: 33%;
-    margin-right: 10px;
-}
-.otherInfo{
-    display: flex;
-    flex-wrap: wrap;
-}
 /*
-.otherInfo .birth_year, .otherInfo .year, .otherInfo.title{
-    width: 20%;
+.cast input {
+    width: 30%; margin-right: 10px;
 }*/
-
 .otherInfo div{
     margin-right: 20px;
 }

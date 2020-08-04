@@ -29,7 +29,9 @@
 
 .admin_content {
     width: 60%;
-   
+}
+.admin_content .form {
+    width: 100%;
 }
 .forms_nav{
     display: flex;

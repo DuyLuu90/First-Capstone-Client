@@ -8,32 +8,81 @@ import {GeneralApiServices} from '../../services/api-service'
 export default class ArtistForm extends Component {
     static defaultProps = {
         onSuccess: () => {},
-        match: {params:{}}
+        match: {params:{}},
+        history: {},
     }
-    state={
-        displayForm: true,
-        artist: {
-            full_name: 'Full Name',
-            title: 'Actor',
-            birth_year: 2050,
-            country:'US'
+    constructor(props) {
+        super(props)
+        this.state={
+            error: '',
+            displayForm: true,
+            artist: {
+                full_name: '',
+                avatar: '',
+                title: '',
+                birth_year: '',
+                country: ''
+            },
         }
     }
+    
     componentDidMount(){
         const id= Number(this.props.match.params.id)
-        if(id) GeneralApiServices.getItemById(id).then(json=>this.setState({artist:json}))
+        if(id) GeneralApiServices.getItemById('artists',id).then(json=>this.setState({artist:json}))
     }
     onChangeArtist=e=>{
         const key= e.target.name;
         const newValue= e.target.value;
         this.setState({artist:{...this.state.artist,[key]:newValue}})
     }
-    displayForm=e=>{
-        this.setState({displayForm:true})
-      }
-      displayPreview=e=>{
-        this.setState({displayForm:false})
-      }
+    displayForm=e=>this.setState({displayForm:true})
+    displayPreview=e=>this.setState({displayForm:false})
+
+    handleSubmit = ev => {
+        ev.preventDefault()
+        const {full_name,avatar,title,birth_year,country} = ev.target
+        const data = {
+            "full_name": full_name.value,
+            "avatar": avatar.value,
+            "title": title.value,
+            "birth_year": birth_year.value,
+            "country": country.value
+        }
+        const id= Number(this.props.match.params.id)
+        if (id) {
+            /*
+            for (let key of ['full_name', 'avatar', 'title', 'birth_year',
+            'country']) {
+                if(!data[key]) delete data[key]
+            }*/
+            GeneralApiServices.patchItemById('artists',id,data)
+                .then(()=>{
+                    full_name.value= ''
+                    avatar.value=''
+                    title.value=''
+                    country.value=''
+                    birth_year.value= ''
+                    this.props.onSuccess()
+                    //this.props.history.push('/admin/artists')
+                })
+                .catch(err=>this.setState({error: err.message}))
+        }
+        else {
+            GeneralApiServices.postItem('artists',data)
+            .then(artist=>{
+                full_name.value= ''
+                avatar.value=''
+                title.value=''
+                country.value=''
+                birth_year.value= ''
+                this.props.onSuccess()
+                //this.props.history.push('/admin/artists')  
+            })
+            .catch(err=>this.setState({error: err.message}))
+        }
+        
+         
+    }
     renderArtistForm(){
         const {artist}= this.state
         const countries= CountryList()
@@ -41,8 +90,8 @@ export default class ArtistForm extends Component {
         return(
             <div>
                 <div className='full_name'>
-                    <input name='full_name' placeholder='Full Name' type='text' id='full_name'
-                        value={artist.full_name}
+                    <input name='full_name' required type='text' id='full_name'
+                        value={artist.full_name} className='main_input'
                         onChange={this.onChangeArtist}/>
                 </div>
                 <div>
@@ -60,7 +109,7 @@ export default class ArtistForm extends Component {
                     </div>
                     <div className='birth_year'>
                         <header>Birth Year</header>
-                        <select id='birth_year'name='birth_year'value={artist.birth_year}onChange={this.onChangeMovie}>
+                        <select id='birth_year'name='birth_year'value={artist.birth_year}onChange={this.onChangeArtist}>
                             {years} 
                         </select>
                     </div>
@@ -83,13 +132,17 @@ export default class ArtistForm extends Component {
 
     }
     render(){
+        const {error}= this.state
         const form = this.renderArtistForm()
         const preview= <ProfileBox person={this.state.artist}/>
         return(
-            <form className='Form MovieForm'>
+            <form className='form ArtistForm' onSubmit={this.handleSubmit}>
                 <div className='formNav'>
                     <button type='button' onClick={this.displayForm}>Form</button>
                     <button type='button' onClick={this.displayPreview}>Preview</button>  
+                </div>
+                <div role='alert'>
+                    {error && <p className='error'>{error}</p>}
                 </div>
                 {this.state.displayForm?form : preview}
             </form>

@@ -55,7 +55,7 @@ export default class ReviewForm extends Component {
         <div className='comment'>
           <label htmlFor='comment'>Comment</label>
           <textarea required
-            name='comment'id='comment'cols='40'rows='5'
+            name='comment'id='comment'rows='5'
             aria-label='Write a comment...'
             placeholder='Write a comment..'>
           </textarea>

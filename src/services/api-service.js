@@ -14,6 +14,19 @@ export const GeneralApiServices= {
               : res.json()
         )
     },
+    postItem(dbName,item){
+        return fetch(`${config.API_ENDPOINT}/${dbName}`,{
+            method: `POST`,
+            headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    },
     getItemById(dbName,id){
         return fetch(`${config.API_ENDPOINT}/${dbName}/${id}`, {
             headers: {
