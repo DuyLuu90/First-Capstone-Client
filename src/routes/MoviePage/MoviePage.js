@@ -58,7 +58,10 @@ export default class MoviePage extends Component {
                 {this.props.hasAuthToken
                 ?<ReviewForm movieid={this.props.match.params.id} onSuccess={this.onPostReviewSuccess}/>
                 : noAuthMess}
-                <MovieReviews reviews={this.state.reviews}/>
+                {this.state.reviews.length
+                ? <MovieReviews reviews={this.state.reviews}/>
+                :<div className='error'>{'\xa0'.repeat(10)}This movie currently has no review...</div>}
+                
             </div>
         )
     }

@@ -12,35 +12,31 @@ export default class MovieForm extends Component {
     match: {params:{}},
     history:{}
   }
-  state = {
-    movie: {
-      title:'',posterurl:'',trailerurl:'',
-      summary:'',country:'',year:'',genres:''},
-    cast:[],
-    director:[],
-    id: this.props.match.params.id,
-    error: '', displayForm: true,
+  constructor(props) {
+    super(props)
+    this.id= Number(this.props.match.params.id)
+    this.state = {
+      error: '', displayForm: (this.props.match.params.id)? false: true,
+      movie: {
+        title:'',posterurl:'',trailerurl:'',
+        summary:'',country:'',year:'',genres:''},
+      cast: [],
+      dir:[],
+    }
   }
+  
   componentDidMount(){
-    const id= Number(this.props.match.params.id)
+    const {id}= this
     if(id) {
-      GeneralApiServices.getItemById('movies',id).then(json=>this.setState({movie: json}))
-      MovieApiServices.getMovieCast(id).then(json=>this.setState({cast:json}))
-      MovieApiServices.getMovieDirector(id).then(json=>this.setState({director:json}))
+        GeneralApiServices.getItemById('movies',id).then(json=>this.setState({movie: json}))
+        MovieApiServices.getMovieCast(id).then(json=>this.setState({cast:json}))
+        MovieApiServices.getMovieDirector(id).then(json=>this.setState({dir:json}))
     }
   }
   renderMovieForm(){
-    const {error,movie} = this.state
+    const {error,movie,cast,dir} = this.state
     const countries= CountryList()
     const years= MovieYear()
-    const dir = this.state.director[0] ? this.state.director[0] : {}
-    const director= dir? {full_name: dir.full_name, id: dir.id} : {}
-    const arr1 = this.state.cast.length ? this.state.cast[0] : {}
-    const arr2 = this.state.cast.length ? this.state.cast[1] : {}
-    const actor1= arr1? {full_name: arr1.full_name, id: arr1.id} : {}
-    const actor2= arr2? {full_name: arr2.full_name, id: arr1.id} : {}
-    
-    
     return (
       <div>
         <div role='alert'>
@@ -61,7 +57,7 @@ export default class MovieForm extends Component {
           <textarea name='posterurl'type='text'required id='posterurl'
           defaultValue={movie.posterurl}rows='2'onChange={this.onChangeMovie}/>
         </div>
-        <div className='text'>
+        <div>
           <header>Summary:</header>
           <textarea required name='summary'id='summary' rows='4'aria-label='Provide the summary...'
           defaultValue={movie.summary}onChange={this.onChangeMovie}/>
@@ -104,21 +100,21 @@ export default class MovieForm extends Component {
                   checked={movie.genres.includes('History')}/>
                   <label htmlFor='History'>{' '}History</label>
               </div>
+              <div>
+                  <input type='checkbox' name='Anime'value='Anime' onChange={this.onChangeCheckBox}
+                  checked={movie.genres.includes('Anime')}/>
+                  <label htmlFor='Anime'>{' '}Anime</label>
+              </div>
             </div>
         </div>  
         <div>
             <header>Director:</header>
-            <AutoComplete name='director' cast={director}/>
-        </div>
-        <div>
+            <AutoComplete name='director' cast={dir[0]} updateCast={this.updateCast}/>
             <header>Actor 1:</header>
-            <AutoComplete name='actor_one' cast={actor1}/>
-        </div>
-        <div>
+            <AutoComplete name='actor_one' cast={cast[0]} updateCast={this.updateCast}/>
             <header>Actor 2: </header>
-            <AutoComplete name='actor_two' cast={actor2}/>
-        </div>
-          
+            <AutoComplete name='actor_two' cast={cast[1]} updateCast={this.updateCast}/>
+        </div>  
         <div className='otherInfo'>
           <div className='country'>
             <header>Country</header>
@@ -145,8 +141,8 @@ export default class MovieForm extends Component {
         <div className='publish_status'>
             <header>Published</header>
             <select id='publish_status' name='publish_status'>
-                <option value='true'>True</option>
                 <option value='false'>False</option>
+                <option value='true'>True</option>
             </select>
         </div>
         <div className='form_control'>
@@ -157,12 +153,22 @@ export default class MovieForm extends Component {
       </div>
     )
   }
-  displayForm=e=>{
-    this.setState({displayForm:true})
+  displayForm=e=>this.setState({displayForm:true})
+  displayPreview=e=>this.setState({displayForm:false})
+
+  updateCast=(name,val1,val2)=>{
+    const {dir,cast} = this.state
+    const data= {full_name:val1,"artist:id":val2}
+    if(name==='director') dir[0]= data
+    else if(name==='actor_one') cast[0]= data
+    else cast[1]= data
+
+    this.setState({cast:cast, dir:dir})
+  /*
+    if (name==='director') this.setState({dir:[{0:{full_name:val1,"artist:id":val2}}]})
+    if (name==='actor_one') this.setState({cast:[{0:{full_name:val1,"artist:id":val2}}]})*/
   }
-  displayPreview=e=>{
-    this.setState({displayForm:false})
-  }
+  
   onChange=e=> {
     const key= e.target.name;
     const newValue= e.target.value;
@@ -184,38 +190,70 @@ export default class MovieForm extends Component {
   }
   handleSubmit = ev => {
     ev.preventDefault()
-    const {title,posterurl,trailerurl,summary,year,country} = ev.target
+    const {id}=this
+    const {title,posterurl,trailerurl,summary,year,country,director,actor_one,actor_two} = ev.target
     const data={
       title: title.value,
-      posterurl: posterurl.value,
-      trailerurl: trailerurl.value,
-      summary: summary.value,
-      year: Number(year.value),
-      country: country.value,
-      genres: this.state.movie.genres
+      posterurl: posterurl.value,trailerurl: trailerurl.value,
+      summary: summary.value,year: Number(year.value),
+      country: country.value,genres: this.state.movie.genres
     }
-    GeneralApiServices.postItem('movies',data)
-      .then(res=>{
-        console.log(res)
-        title.value=''
-        posterurl.value=''
-        trailerurl.value=''
-      })
-      .catch(err=>console.log(err))
+    let cast= {
+      director:  Number(director.value) || null,
+      actor_one: Number(actor_one.value) || null,
+      actor_two: Number(actor_two.value) || null
+    }
+    if (id) {
+      GeneralApiServices.patchItemById('movies',id,data)
+        .then(res=>{
+          MovieApiServices.updateMovieCast(id,cast)
+            .then(res=>{
+              director.value=''
+              actor_one.value=''
+              actor_two.value=''
+            }).catch(err=>console.log(err))
+          title.value=''
+          posterurl.value=''
+          trailerurl.value=''
+          summary.value=''
+          this.props.onSuccess()
+        }).catch(err=>console.log(err))
+    }
+    else {
+      GeneralApiServices.postItem('movies',data)
+        .then(res=>{
+          const movieid= Number(res.id)
+          cast.movieid= movieid
+          MovieApiServices.postMovieCast(movieid,cast).then(cast=>{
+              director.value=''
+              actor_one.value=''
+              actor_two.value=''
+          }).catch(err=>console.log(err))
+          title.value=''
+          posterurl.value=''
+          trailerurl.value=''
+          summary.value=''
+          this.props.onSuccess()
+        })
+        .catch(err=>console.log(err))
+    }
+    
+    
   }
 
   render() {
+    const boolean=this.state.displayForm
     const d= new Date(this.state.movie.last_modified).toDateString()
     const form = this.renderMovieForm()
-    const preview= <MovieDetails movie={this.state.movie} cast={this.state.cast} director={this.state.director}/>
+    const preview= <MovieDetails movie={this.state.movie} cast={this.state.cast} director={this.state.dir}/>
     return (
       <form className='form MovieForm'onSubmit={this.handleSubmit}>
         <div className='formNav'>
-          <button type='button' onClick={this.displayForm}>Form</button>
-          <button type='button' onClick={this.displayPreview}>Preview</button>
+          <button type='button' onClick={this.displayPreview} className={!boolean?'active':''}>Preview</button>
+          <button type='button' onClick={this.displayForm} className={boolean?'active':''}>Form</button>
           {this.state.movie.last_modified && <span>Last modified: {d}</span>}
         </div>
-        {this.state.displayForm?form : preview}
+        {boolean?form : preview}
       </form>
     )
   }

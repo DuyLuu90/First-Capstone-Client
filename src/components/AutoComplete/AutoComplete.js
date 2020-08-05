@@ -16,7 +16,7 @@ class Autocomplete extends Component {
             filteredSuggestions: [],
             showSuggestions: false,
             userInput: this.props.cast.full_name,
-            inputId: this.props.cast.id
+            inputId: this.props.cast['artist:id']
         };
     }
     componentDidMount(){
@@ -42,6 +42,7 @@ class Autocomplete extends Component {
             userInput: e.currentTarget.value,
             inputId: id
         });
+        this.props.updateCast(this.props.name,userInput,id)
 
     };
     // Event fired when the user clicks on a suggestion
@@ -57,6 +58,7 @@ class Autocomplete extends Component {
             userInput: e.currentTarget.innerText,
             inputId: id
         });
+        this.props.updateCast(this.props.name,name,id)
     };
     onKeyDown = e => {
         const { activeSuggestion, filteredSuggestions } = this.state;
@@ -83,7 +85,6 @@ class Autocomplete extends Component {
     onAdd= e =>{
         if (this.state.userInput) {
             const data= {full_name: this.state.userInput}
-            console.log(data)
             
             GeneralApiServices.postItem('artists',data)
             .then(json=>{
@@ -101,7 +102,7 @@ class Autocomplete extends Component {
                 } = this;
         const suggestionsListComponent= (showSuggestions && userInput && filteredSuggestions.length)
         ?   (<ul className="suggestions">
-                {filteredSuggestions.map((suggestion, index) => {
+                {filteredSuggestions.map((suggestion,index) => {
                     let className;
                     // Flag the active suggestion with a class
                     if (index === activeSuggestion) className = "suggestion-active";

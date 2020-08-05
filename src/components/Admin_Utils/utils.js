@@ -74,8 +74,6 @@ export function ProfileBox(props){
     )
 }
 
-
-
 export function ControlButtons(icons=[{name:''}]){
     return(
         <div className='control_icons'>
@@ -84,7 +82,17 @@ export function ControlButtons(icons=[{name:''}]){
                 icon={icon.name} onClick={icon.method}/>)}
         </div>
     )
-
+}
+export function PopUpMessage(message,action) {
+    return(
+        <div className='popup'>
+            <div>{message}</div>
+            <div className='buttons'>
+                <button onClick={action.handleYes}>YES</button>
+                <button onClick={action.handleNo}>NO</button>
+            </div>
+        </div>
+    )
 }
 
 export function NoAuthTokenMessage(){

@@ -4,7 +4,7 @@ import {Route, Link} from 'react-router-dom';
 import AutoComplete from '../../components/AutoComplete/AutoComplete'
 import MovieForm from '../../components/Forms/MovieForm'
 import ArtistForm from '../../components/Forms/ArtistForm'
-import {MovieBox,InfoBox} from '../../components/Admin_Utils/utils'
+import {MovieBox,InfoBox,PopUpMessage} from '../../components/Admin_Utils/utils'
 import './AdminPage.css'
 
 import {GeneralApiServices} from '../../services/api-service'
@@ -17,7 +17,9 @@ export default class AdminPage extends Component {
             movieList: [],
             userList:[],
             artists:[],
-            displayMovieForm: true
+            displayMovieForm: true,
+            displayPopup: false,
+            itemToDelete:{dbName:'', id:''}
         }
     }
     static defaultProps = {
@@ -35,20 +37,30 @@ export default class AdminPage extends Component {
             this.setState({artists:json})
         })
     }
-    renderSummaryPage(){
+    renderMainPage(){
         return (
             <div className='summary'>
-                <div>MOVIES</div>
-                <div></div>
-                <div></div>   
+                <AutoComplete />
             </div>
         )
+    }
+    renderPopUpMessage(){
+        const {dbName,id}= this.state.itemToDelete
+        const action = {
+            handleYes: ()=>this.deleteItem(dbName,id),
+            handleNo: ()=> this.setState({
+                            itemToDelete:{dbName:'', id:''},
+                            displayPopup: false})     
+        }
+        const message= 'This item will be permanently deleted. Continue?'
+        const popup= PopUpMessage(message,action)
+        return popup
     }
     renderMovieList(props={}){
         return this.state.movieList.map(movie=>{
             const icons=[
                 {name:'edit', method: ()=>props.history.push(`/admin/edit/movies/${movie.id}`) },
-                {name:'trash',method: ()=>props.history.push(`/admin/movies/delete/${movie.id}`) }
+                {name:'trash',method: ()=> this.handleDeleteClicked('movies',movie.id) }
             ]
             return MovieBox(movie,movie.id,icons)
         })
@@ -57,20 +69,18 @@ export default class AdminPage extends Component {
         const path='/users/'
         return this.state.userList.map((user,index)=>{
             const icons= [
-                {name:'folder-open'},
                 {name:'edit',method: ()=>props.history.push(`/admin/edit/users/${user.id}`)},
-                {name:'trash'},
+                {name:'trash', method:()=>this.handleDeleteClicked('users',user.id)},
                 {name:'user-lock'}]
-            return InfoBox(user,index,icons,path,true)
+            return InfoBox(user,index,icons,path,true)  
         })
     }
     renderArtistList(props){
         const path='/artists/'
         return this.state.artists.map((artist,index)=>{
             const icons= [
-                {name:'folder-open'},
                 {name:'edit',method: ()=>props.history.push(`/admin/edit/artists/${artist.id}`)},
-                {name:'trash'}]
+                {name:'trash', method:()=>this.handleDeleteClicked('artists',artist.id)}]
             return InfoBox(artist,index,icons,path,true)})
     } 
     renderForms(props){
@@ -86,7 +96,9 @@ export default class AdminPage extends Component {
                         ADD ARTIST
                     </span>
                 </div>
-                {this.state.displayMovieForm? <MovieForm {...props}/>: <ArtistForm onSuccess={this.onChangeArtist} {...props}/> }
+                {this.state.displayMovieForm
+                ? <MovieForm onSuccess={this.onChangeMovie}{...props}/>
+                : <ArtistForm onSuccess={this.onChangeArtist}{...props}/>}
             </div>
         )
     }
@@ -101,10 +113,36 @@ export default class AdminPage extends Component {
         GeneralApiServices.getAllItems('artists').then(json=>{
             this.setState({artists:json})
         }).then(()=>this.props.history.push('/admin/artists'))
-        //this.props.history.push('/admin/artists')
     }
-
+    onChangeMovie=()=>{
+        GeneralApiServices.getAllItems('movies').then(json=>{
+            this.setState({movieList:json})
+        }).then(()=>{
+            GeneralApiServices.getAllItems('artists').then(json=>{
+                this.setState({artists:json})
+            })
+        }).then(()=>this.props.history.push('/admin/movies'))
+    }
+    handleDeleteClicked=(dbname,id)=>{
+        this.setState({
+            displayPopup: true, itemToDelete: {dbName: dbname, id: id}
+        })
+    }
+    deleteItem=(dbName,id)=>{
+        const key = (dbName==='movies')? 'movieList'
+                    :(dbName==='artists')? 'artists'
+                    :(dbName==='users')? 'userList' :''
+        GeneralApiServices.DeleteItemById(dbName,id).then(()=>{
+            GeneralApiServices.getAllItems(dbName).then(json=>this.setState({
+                [key]:json,
+                itemToDelete:{dbName:'', id:''},
+                displayPopup: false,
+            }))
+        })
+    }
+    
     render() {
+        const popup= this.renderPopUpMessage()
         return (
             <>
                 <h2 className ='AdminPage_header'>
@@ -120,12 +158,15 @@ export default class AdminPage extends Component {
                         <Link to='/admin/add'className='tab'onClick={this.activeTab}>RECENTLY ADDED </Link>
                     </nav>
                     <div className='admin_content'>
-                        <Route exact path={'/admin'} component={AutoComplete}/> 
+                        {this.state.displayPopup && popup}
+                        <Route exact path={'/admin'} component={()=>this.renderMainPage()}/> 
                         <Route path={'/admin/forms'} component={(props)=>this.renderForms(props)}/> 
                         <Route path={'/admin/movies'} component={(props)=>this.renderMovieList(props)}/> 
                         <Route path={'/admin/artists'} component={(props)=>this.renderArtistList(props)}/> 
                         <Route path={'/admin/users'} render={(props)=>this.renderUserList(props)}/> 
-                        <Route path={'/admin/edit/movies/:id'} component={MovieForm}/>
+                        <Route path={'/admin/edit/movies/:id'} component={(props)=>{
+                            return <MovieForm {...props} onSuccess={this.onChangeMovie}/>
+                        }}/>
                         <Route path={'/admin/edit/artists/:id'} component={(props)=>{
                             return <ArtistForm {...props} onSuccess={this.onChangeArtist}/>
                         }}/>

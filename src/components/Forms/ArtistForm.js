@@ -132,19 +132,19 @@ export default class ArtistForm extends Component {
 
     }
     render(){
-        const {error}= this.state
+        const {error,displayForm}= this.state
         const form = this.renderArtistForm()
         const preview= <ProfileBox person={this.state.artist}/>
         return(
             <form className='form ArtistForm' onSubmit={this.handleSubmit}>
                 <div className='formNav'>
-                    <button type='button' onClick={this.displayForm}>Form</button>
-                    <button type='button' onClick={this.displayPreview}>Preview</button>  
+                    <button type='button' onClick={this.displayPreview} className={!displayForm?'active':''}>Preview</button> 
+                    <button type='button' onClick={this.displayForm} className={displayForm?'active':''}>Form</button> 
                 </div>
                 <div role='alert'>
                     {error && <p className='error'>{error}</p>}
                 </div>
-                {this.state.displayForm?form : preview}
+                {displayForm? form : preview}
             </form>
         )
     }

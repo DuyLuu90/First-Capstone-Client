@@ -51,7 +51,19 @@ export const GeneralApiServices= {
         .then(res=>(!res.ok)
         ? res.json().then(e=>Promise.reject(e))
         : res.json())
-    }
+    },
+    DeleteItemById(dbName,id){
+        return fetch(`${config.API_ENDPOINT}/${dbName}/${id}`,{
+            method: `DELETE`,
+            headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    },
+    
 }
 
 export const MovieApiServices = {
@@ -114,7 +126,33 @@ export const MovieApiServices = {
               ? res.json().then(e => Promise.reject(e))
               : res.json()
         )
-    }   
+    },
+    postMovieCast(id,item){
+        return fetch(`${config.API_ENDPOINT}/movies/${id}/cast`,{
+            method: `POST`,
+            headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    },
+    updateMovieCast(id,fieldsToUpdate){
+        return fetch(`${config.API_ENDPOINT}/movies/${id}/cast`,{
+            method: `PATCH`,
+            headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(fieldsToUpdate)
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    }
 }
 
 export const UserApiServices= {
