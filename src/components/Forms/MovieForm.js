@@ -140,7 +140,7 @@ export default class MovieForm extends Component {
         </div>
         <div className='publish_status'>
             <header>Published</header>
-            <select id='publish_status' name='publish_status'>
+            <select name='published'>
                 <option value='false'>False</option>
                 <option value='true'>True</option>
             </select>
@@ -191,12 +191,12 @@ export default class MovieForm extends Component {
   handleSubmit = ev => {
     ev.preventDefault()
     const {id}=this
-    const {title,posterurl,trailerurl,summary,year,country,director,actor_one,actor_two} = ev.target
+    const {title,posterurl,trailerurl,summary,year,country,director,actor_one,actor_two,published} = ev.target
     const data={
       title: title.value,
       posterurl: posterurl.value,trailerurl: trailerurl.value,
       summary: summary.value,year: Number(year.value),
-      country: country.value,genres: this.state.movie.genres
+      country: country.value,genres: this.state.movie.genres, published: published.value
     }
     let cast= {
       director:  Number(director.value) || null,
