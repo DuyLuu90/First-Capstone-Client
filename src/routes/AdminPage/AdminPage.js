@@ -4,7 +4,7 @@ import {Route, Link} from 'react-router-dom';
 import AutoComplete from '../../components/AutoComplete/AutoComplete'
 import MovieForm from '../../components/Forms/MovieForm'
 import ArtistForm from '../../components/Forms/ArtistForm'
-import {MovieBox,InfoBox,PopUpMessage} from '../../components/Admin_Utils/utils'
+import {MovieBox,InfoBox,PopUpMessage,UserPage} from '../../components/Admin_Utils/utils'
 import './AdminPage.css'
 
 import {GeneralApiServices} from '../../services/api-service'
@@ -140,7 +140,6 @@ export default class AdminPage extends Component {
             }))
         })
     }
-    
     render() {
         const popup= this.renderPopUpMessage()
         return (
@@ -169,6 +168,25 @@ export default class AdminPage extends Component {
                         }}/>
                         <Route path={'/admin/edit/artists/:id'} component={(props)=>{
                             return <ArtistForm {...props} onSuccess={this.onChangeArtist}/>
+                        }}/>
+                        <Route path={'/admin/edit/users/:id'} component={(props)=>{
+                            const id= Number(props.match.params.id)
+                            const user= this.state.userList.find(user=>user.id===id)
+                            const handleSubmit = (ev)=>{
+                                ev.preventDefault()
+                                const {password,block_list} = ev.target
+                                const boolean= (block_list.value==='true')? true: false
+                                const data = {password: password.value,block_list: boolean}
+                                console.log(data)
+                                GeneralApiServices.patchItemById('users',id,data)
+                                    .then(()=>{
+                                        password.value=''
+                                        props.history.goBack()
+                                    })
+                                    .catch(err=>console.log(err))
+                            }
+                            const userPage= UserPage(props,user,handleSubmit)
+                            return userPage
                         }}/>
                     </div>
                 </div>

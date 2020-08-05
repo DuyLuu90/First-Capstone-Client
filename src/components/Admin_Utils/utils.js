@@ -1,13 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './utils.css'
 //import { checkPropTypes } from 'prop-types'
 
 export function MovieBox(movie={},id,icons) {
-    
-    
     const genres= movie.genres || []
     const buttons= ControlButtons(icons)
     return (
@@ -22,7 +19,6 @@ export function MovieBox(movie={},id,icons) {
         </div>
     )   
 }
-
 export function InfoBox(person,index,icons=[],path='',boolean) {
     const buttons= ControlButtons(icons)
     const name= (person.full_name) ? person.full_name : person.first_name+' '+person.last_name
@@ -52,7 +48,6 @@ export function InfoBox(person,index,icons=[],path='',boolean) {
         </div>
     )
 }
-
 export function ProfileBox(props){
     const person= props.person || {}
     const defaultAvatar= (person.gender==='Female')
@@ -73,7 +68,44 @@ export function ProfileBox(props){
         </div>
     )
 }
-
+export function UserPage(props,user={}, handleSubmit=()=>{}) {
+    return (
+        <form className='form userPage' onSubmit={handleSubmit}>
+            <div>
+                <header>Full Name:</header>
+                <span>{user.first_name}{' '}{user.last_name}</span>
+            </div>
+            <div>
+                <header>Age/Country/Gender:</header>
+                <span>{user.age}{' | '}{user.country}{' | '}{user.gender}{' | '}</span>
+            </div>
+            <div>
+                <header>Username:</header>
+                <span>{user.username}</span>
+            </div>
+            <div>
+                <header>Password:</header>
+                <input name='password'type='text' id='passwordReset'/>
+            </div>
+            <div>
+                <header>Add to Blocked List</header>
+                <select  name='block_list'>
+                    <option value='false'>False</option>
+                    <option value='true'>True</option>
+                </select>
+            </div>
+            <div className='form_control'>
+                <input type='button' value='Cancel'
+                    onClick={()=>props.history.push('/admin/users')}/>
+                <input type="submit" value='SAVE'/>
+                <input type='button' value='Reset PASS' onClick={()=>{
+                    const randomPass= Math.random().toString(36).substring(2,6)+ '@'+ Math.random().toString(36).substring(2,6)
+                    document.getElementById('passwordReset').value=randomPass
+                }}/>
+            </div>
+        </form>
+    )
+}
 export function ControlButtons(icons=[{name:''}]){
     return(
         <div className='control_icons'>
@@ -94,7 +126,6 @@ export function PopUpMessage(message,action) {
         </div>
     )
 }
-
 export function NoAuthTokenMessage(){
     return (
         <div className='noAuth'>
@@ -102,7 +133,6 @@ export function NoAuthTokenMessage(){
         </div>
     )
 }
-
 export function CountryList(){
     return(
     <optgroup label="List of countries (A-Z)" id='countryGroup2'>
@@ -344,7 +374,6 @@ export function CountryList(){
         <option value="ZW">Zimbabwe</option>
     </optgroup>)
 }
-
 export function BirthYear(){
     return(
         <>
@@ -452,7 +481,6 @@ export function BirthYear(){
         </>
     )
 }
-
 export function MovieYear(){
     return(
         <>
