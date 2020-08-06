@@ -23,7 +23,7 @@ a:hover {
     font-weight: bolder;
 }
 
-.movie_visual, .review-details{
+.movie_visual{
     display: flex;
     justify-content: space-evenly;
 }
@@ -48,18 +48,83 @@ a:hover {
 .movie_content a {
     margin-right: 10px;
 }
-
-.movie_reviews {
-    width: 80%;
-    margin: 10px;
-}
 .review{
-    border-style: solid;
-    border-width: thin;
-    border-color: rgb(172, 171, 171);
-    padding: 10px
+    display: flex; width: 80%;
+    margin: 0 auto; padding: 10px;
 }
-
+.review form {
+    margin-left: 0px;
+    width: 70%;
+}
+.review textarea {
+    border-radius: 5px;
+}
+.review .main{
+    width: 75%;
+}
+.main .content {
+    display: flex;
+    justify-content: space-between;  
+}
+.content section {
+    width: 70%;
+}
+.MovieStarRating {
+    font-size: 15px;
+    width: 25%;
+    text-align: center;
+}
+.review-text {
+    border-style: solid;border-width: thin; border-radius: 5px;
+    background-color: rgb(242,243,245);
+    padding: 10px;
+}
+.review-react {
+    margin-top: 5px;
+    color: gray;
+    font-weight: 400;
+    display: flex;
+}
+.review-react span {
+    margin-left: 5px;
+    margin-right: 15px;
+}
+.review-react .active {
+    color: rgb(27, 27, 155);
+    font-weight: 700;
+}
+#thumbs-down {
+    margin-top: 5px;
+}
+.review-action {
+    position: relative;
+    width: 25%;
+    text-align: right;
+}
+.review-action div {
+    font-size: 20px; font-weight: 700;
+    position: absolute; top: -10px; right:5px;
+}
+.review-action div:hover {
+    cursor: pointer;
+    color: orange;
+}
+.review-action ul{
+    list-style: none; border-style: solid ;
+    border-width: thin;border-radius: 5px;
+    border-color: rgb(192, 183, 183);
+    padding: 5px 0; width: 80px;
+    position: absolute;
+    right: 18px; top: 5px; text-align: left;
+}
+.review-action li {
+    padding: 8px;
+}
+.review-action li:hover{
+    background-color: rgb(22, 22, 129);
+    color: white;
+    cursor: pointer;
+}
 
 .userLink {
     color: rgb(4, 4, 158);
@@ -68,20 +133,11 @@ a:hover {
 .userLink:hover {
     color: rgb(5, 146, 5);
 }
-.review-icon {
-    font-size: 12pt;
-    vertical-align: super !important;
-    width: 10%;
-}
-.review-text {
-    width: 65%;
-    margin: 0 10px 0 30px;
-}
-
+/*
 li {
     list-style: none;
     padding: 0;
-}
+}*/
 .green {
     color: green;
 }

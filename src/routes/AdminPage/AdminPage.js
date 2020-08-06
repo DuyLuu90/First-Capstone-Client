@@ -176,8 +176,9 @@ export default class AdminPage extends Component {
                                 ev.preventDefault()
                                 const {password,block_list} = ev.target
                                 const boolean= (block_list.value==='true')? true: false
-                                const data = {password: password.value,block_list: boolean}
-                                console.log(data)
+                                const data = (password.value)
+                                            ? {password: password.value,block_list: boolean}
+                                            : {block_list: boolean}
                                 GeneralApiServices.patchItemById('users',id,data)
                                     .then(()=>{
                                         password.value=''

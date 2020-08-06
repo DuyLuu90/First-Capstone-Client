@@ -7,6 +7,8 @@ import App from './components/App/App';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 import {
+  faThumbsDown,
+  faThumbsUp,
   faFilm,
   faUserLock,
   faFolderOpen,
@@ -25,6 +27,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
+  faThumbsDown,
+  faThumbsUp,
   faFilm,
   faUserLock,
   faGift, // logo

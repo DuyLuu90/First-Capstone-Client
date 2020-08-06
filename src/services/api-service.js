@@ -103,6 +103,30 @@ export const MovieApiServices = {
               : res.json()
         )
     },
+    updateMovieReview(id,fieldsToUpdate){
+        return fetch(`${config.API_ENDPOINT}/movies/reviews/${id}`,{
+            method: `PATCH`,
+            headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(fieldsToUpdate)
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    },
+    deleteMovieReview(id){
+        return fetch(`${config.API_ENDPOINT}/movies/reviews/${id}`,{
+            method: `DELETE`,
+            headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res=>(!res.ok)
+        ? res.json().then(e=>Promise.reject(e))
+        : res.json())
+    },
     getMovieCast(id){
         return fetch(`${config.API_ENDPOINT}/movies/${id}/cast`, {
             headers: {

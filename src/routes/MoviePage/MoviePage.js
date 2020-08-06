@@ -2,17 +2,12 @@ import React, {Component} from 'react'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import MovieDetails from '../../components/Movie/MovieDetails'
-import MovieReviews from '../../components/Movie/MovieReviews'
 import ReviewForm from '../../components/Forms/ReviewForm'
+import Review from '../../components/Movie/Review'
 
 import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 import {NoAuthTokenMessage} from '../../components/Admin_Utils/utils'
 import {MovieApiServices,GeneralApiServices} from '../../services/api-service'
-//import {GeneralApiServices} from '../../services/api-service'
-/*
-import TokenService from '../../services/token-service'
-import AuthService from '../../services/auth-api'
-*/
 
 export default class MoviePage extends Component {
     constructor(props) {
@@ -42,26 +37,32 @@ export default class MoviePage extends Component {
             this.setState({director:json})
         })
     }
-    onPostReviewSuccess=()=>{
+    onReviewChangeSuccess=()=>{
         MovieApiServices.getMovieReviews(this.id).then(json=>{
             this.setState({reviews: json})
         })  
     }
+    renderReviewForm() {
+        return(
+            <div>
+                <h2>Leave a review</h2>
+                <ReviewForm movieid={this.id} onSuccess={this.onReviewChangeSuccess}/>
+            </div>
+        )
+    }
     renderPage(){
-        const noAuthMess = NoAuthTokenMessage()
+        const {movie,cast,director,reviews}= this.state
+        const ReviewForm= (this.props.hasAuthToken) ? this.renderReviewForm(): NoAuthTokenMessage()
+        const MovieReviews= (reviews.length)
+                        ? reviews.map(review=><Review key={review.id} review={review} onDeleteSuccess={this.onReviewChangeSuccess}/>) 
+                        : <div className='error'>{'\xa0'.repeat(10)}This movie currently has no review...</div>
         return (
             <div className='MoviePage'>
-                <MovieDetails 
-                    movie= {this.state.movie}
-                    cast={this.state.cast}
-                    director={this.state.director}/>
-                {this.props.hasAuthToken
-                ?<ReviewForm movieid={this.props.match.params.id} onSuccess={this.onPostReviewSuccess}/>
-                : noAuthMess}
-                {this.state.reviews.length
-                ? <MovieReviews reviews={this.state.reviews}/>
-                :<div className='error'>{'\xa0'.repeat(10)}This movie currently has no review...</div>}
-                
+                <MovieDetails movie= {movie} cast={cast} director={director}/>
+                {ReviewForm}
+                <div className='movie_reviews'>
+                    {MovieReviews}
+                </div>
             </div>
         )
     }

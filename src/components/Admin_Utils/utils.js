@@ -106,6 +106,15 @@ export function UserPage(props,user={}, handleSubmit=()=>{}) {
         </form>
     )
 }
+export function ReviewControlButtons(){
+    return (
+        <div>
+            <FontAwesomeIcon className='control_icons' icon='ThumbsUp'/>
+            <FontAwesomeIcon className='control_icons'icon='thumbs-down'/>
+            <span>Reply</span>
+        </div>
+    )
+}
 export function ControlButtons(icons=[{name:''}]){
     return(
         <div className='control_icons'>
