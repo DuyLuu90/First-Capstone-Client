@@ -1,68 +1,58 @@
+# Drama-PEDIA
+
+This is my first full stack capstone, as a junior Developer, to demonstrate my mastery of React, Node and PostgresSQL, . For this capstone, I built both the client and the API to support the app. Inspired by many awesome online movie websites, my app allows users to see a variety of Films/TV Series from many countries around the world. For user convenience, my app has feature to sort them by genres, year and country of origin.
+
+## Built with:
+* React
+* Javascript
+* HTML5, JQuery, CSS
+
+## App Features:
+
+### For general visitors: 
+* Movie details, user pages (created by other registered users) and artist pages(created by admin)
+* Hide and report comments/reviews from other users to page admin.
+* Form validations (for registration)
+### For registered users:
+*Post, edit, delete, rate (upvote,downvote) reviews for a movie
+*Edit personal information (from their User Page)
+*Data protection: bcrypt
+*Username recovery/password reset
+### For page admin:
+*Create,edit, delete data
+*Publish/unpublish a movie
+*Block/unblock a user
+*Delete users reviews.
+
+## Getting started
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+In the project directory, run:
 
-In the project directory, you can run:
+`npx create-react-app appName`
 
-### `npm start`
+`npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`npm test`
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+`npm run build`
 
-### `npm test`
+App is then ready to be deployed!
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Installed packages:
+* react-router-dom, prop-types,enzyme
+* react-test-renderer(-D)
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Live version](https://first-capstone-client.vercel.app/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[API Server](https://secure-caverns-32891.herokuapp.com/)
 
-### Code Splitting
+[Github Server](https://github.com/DuyLuu90/First-Capstone-Server)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Connect:
 
-### Analyzing the Bundle Size
+[LinkedIn](https://www.linkedin.com/in/duy-luu-82234232/)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
