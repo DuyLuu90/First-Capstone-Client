@@ -84,6 +84,32 @@ textarea {
 .displayPassword input {
     width: 15%;
 }
+/*LOGIN*/
+#help-me-login .form_control, .LoginForm .form_help{
+    width: 65%;
+}
+#help-me-login button {
+    padding: 8px; margin-top: 10px;
+    background-color: red; color: white; border-style: none;
+}
+#help-me-login button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+.LoginForm .form_help{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    color: blue;
+    font-size: 15px;
+}
+.form_help span{
+    margin: 5px
+}
+.form_help span:hover{
+    cursor: pointer;
+    color: orange;
+}
 /*REVIEW*/
 .ReviewForm {
     margin-left: 40px;

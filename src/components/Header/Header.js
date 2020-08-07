@@ -16,7 +16,7 @@ export default class Header extends Component {
             <div className='Header-logged-in'>
                 <Link onClick={this.props.onLogoutSuccess} to='/'>Logout</Link>
                 <Link to={'/users/'+this.props.token.userid} className='blue'>{this.props.token.first_name}</Link>
-                <Link to='/admin'> Admin</Link>
+                {this.props.token.isAdmin && <Link to='/admin'> Admin</Link> }
             </div>
         )
     }
@@ -25,7 +25,7 @@ export default class Header extends Component {
             <div className='Header-not-logged-in'>
                 <Link to='/login'>Log in </Link>
                 <Link to='/register' > Sign up</Link>
-                <Link to='/admin'> Admin</Link>
+                {this.props.token.isAdmin && <Link to='/admin'> Admin</Link> }
             </div>
         )
     }

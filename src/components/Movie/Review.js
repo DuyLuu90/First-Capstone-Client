@@ -1,5 +1,7 @@
 import React, {Component}from 'react'
 import {Link} from 'react-router-dom'
+
+import AppContext from '../../contexts/AppContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MovieStarRating from './MovieStarRating'
 import ReviewForm from '../Forms/ReviewForm'
@@ -12,10 +14,7 @@ export default class Review extends Component{
     }
     id= this.props.review.id
     state= {
-        comment:'',
-        rating:'',
-        upvote:'',
-        downvote:'',
+        comment:'',rating:'',upvote:'',downvote:'',
         loggedIn: true,
         upvoteClicked: false,
         downvoteClicked: false,
@@ -89,9 +88,10 @@ export default class Review extends Component{
             }).catch(err=>console.log(err))
         })
     }
-    renderReviewContent(){
+    renderReviewContent(hasAuthToken){
         const {review}= this.props
-        const {comment,rating,upvote,downvote}= this.state
+        const {comment,rating}= this.state
+        const ReviewReact= this.renderReviewReact()
         return (
             <div className='content'>
                 <section>
@@ -103,41 +103,69 @@ export default class Review extends Component{
                         </header>
                         <span>{comment}</span><br/>
                     </div>
-                    <div className='review-react'>
-                        <FontAwesomeIcon icon='thumbs-up' onClick={this.handleUpVoteClicked}
-                        className={this.state.upvoteClicked?'active':''}/>
-                        <span>{upvote}</span>
-                        <FontAwesomeIcon icon='thumbs-down' id='thumbs-down' onClick={this.handleDownVoteClicked}
-                        className={this.state.downvoteClicked?'active':''}/>
-                        <span>{downvote}</span>
-                        <span>Reply</span>
-                    </div>
+                    {hasAuthToken && ReviewReact}
                 </section>
                 <MovieStarRating rating={rating}/>
             </div>
         )
     }
+    renderReviewReact(){
+        const {upvote,downvote}= this.state
+        return (
+            <div className='review-react'>
+                <FontAwesomeIcon icon='thumbs-up' onClick={this.handleUpVoteClicked}
+                className={this.state.upvoteClicked?'active':''}/>
+                <span>{upvote}</span>
+                <FontAwesomeIcon icon='thumbs-down' id='thumbs-down' onClick={this.handleDownVoteClicked}
+                className={this.state.downvoteClicked?'active':''}/>
+                <span>{downvote}</span>
+                <span>Reply</span>
+            </div>
+        )
+    }
+    renderReviewAction(){
+        const UserAction=   <ul>
+                                <li onClick={this.displayForm}>Edit</li>
+                                <li onClick={this.handleDelete}>Delete</li>
+                            </ul>
+        const VisitorAction= (<ul>
+                                <li>Hide this review</li>
+                                <li>Report to admins</li>
+                            </ul>)
+        const AdminAction= <ul><li>Delete</li></ul>
+        return {UserAction,VisitorAction,AdminAction}
+    }
     render(){
-       const reviewContent= (this.state.displayForm) 
-                ? <ReviewForm handleCancel={this.hideForm} handleEdit={this.handleEdit} review={this.props.review}/> 
-                : this.renderReviewContent()
+        const Userid= this.props.review["user:id"]
+        const {UserAction,VisitorAction,AdminAction}= this.renderReviewAction()
+        //const {review}=this.props
+        /*
         const reviewActions= (this.state.loggedIn)
                         ? <ul>
                             <li onClick={this.displayForm}>Edit</li>
                             <li onClick={this.handleDelete}>Delete</li>
                         </ul>
-                        : <ul><li>Hide this review</li>Report to admins<li>Delete</li></ul>
+                        : <ul><li>Hide this review</li>Report to admins<li>Delete</li></ul>*/
         return (
-            <div className='review'>
-                <div className='main'>
-                    {reviewContent}
-                </div>
-                <div className='review-action'>
-                    <div onClick={this.displayPopup}>{'...'}</div>
-                     {this.state.reviewPopUp && reviewActions}
-                </div>
-                
-            </div>
+            <AppContext.Consumer>
+                {value=>{
+                    const action = value.isAdmin
+                        ?AdminAction :value.userid===Userid? UserAction: VisitorAction
+                    const reviewContent= (this.state.displayForm) 
+                    ? <ReviewForm handleCancel={this.hideForm} handleEdit={this.handleEdit} review={this.props.review}/> 
+                    : this.renderReviewContent(value.hasAuthToken)
+                    return (
+                    <div className='review'>
+                        <div className='main'>
+                            {reviewContent}
+                        </div>
+                        <div className='review-action'>
+                            <div onClick={this.displayPopup}>{'...'}</div>
+                            {this.state.reviewPopUp && action }
+                        </div>
+                    </div>)}
+                }
+            </AppContext.Consumer>            
         )
     }
 }

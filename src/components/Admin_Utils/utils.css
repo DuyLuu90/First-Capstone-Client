@@ -80,14 +80,13 @@
 .noAuth a:hover {
     color: chocolate;
 }
-
 .popup {
     position: fixed;
     padding: 25px;
-    width: 400px;
+    width: 320px;
     background-color: rgb(16, 16, 133);
-    top: 230px;
-    right: 100px;
+    margin: 0 auto;
+    top: 230px; left:0;right:0;
     color: white;
 }
 .popup .buttons {

@@ -5,6 +5,9 @@ import './App.css';
 import TokenService from '../../services/token-service'
 import {GeneralApiServices} from '../../services/api-service'
 
+//IMPORT CONTEXT
+import AppContext from '../../contexts/AppContext'
+
 //IMPORT COMPONENTS:
 import Header from '../Header/Header'
 import LoginForm from '../Forms/LoginForm'
@@ -23,6 +26,7 @@ class App extends Component {
     hasError: false,
     hasAuthToken: TokenService.hasAuthToken(),
     userid:'',
+    isAdmin: false,
     first_name:''
   }
 
@@ -38,6 +42,7 @@ class App extends Component {
         .then(user=>this.setState({
             hasAuthToken: TokenService.hasAuthToken(),
             userid: userid,
+            isAdmin: user.admin,
             first_name: user.first_name
         }))
   }
@@ -46,52 +51,55 @@ class App extends Component {
     TokenService.clearAuthToken()
     this.setState({
       hasAuthToken: TokenService.hasAuthToken(),
+      isAdmin: false,
       userid: '',
       last_name: ''})
   }
+  renderAdminPage=(props)=>{
+    const Admin= (this.state.isAdmin)? <AdminPage {...props}/>:<NotFoundPage/>
+    return Admin
+  }
 
   render() {
+    const {state:{hasAuthToken,userid,isAdmin,first_name}, 
+    handleLoginSuccess,handleLogoutSuccess}= this
+    const values= {
+      hasAuthToken: hasAuthToken,userid:userid,
+      isAdmin: isAdmin,first_name: first_name,
+      handleLoginSuccess: handleLoginSuccess,
+      handleLogoutSuccess: handleLogoutSuccess
+    }
     return (
-      <div className="App">
-        <header className='App_header'>
-          <Header token={this.state} onLogoutSuccess={this.handleLogoutSuccess}/>
-        </header>
-        <main className='App_main'>
-          {this.state.hasError && <p>There was an error! Sorry for the inconvenience!</p>}
-          <Switch>
-            <Route exact path={'/'} component={HomePage}/>
-            <Route path={'/movies/genres/:genres'} component={ListItem}/>
-            <Route path={'/movies/country/:country'} component={ListItem}/>
-            <Route path={'/admin'} component={AdminPage}/>
-            <Route path={'/register'} component={RegistrationPage}/>
-            <Route path={'/login'} component={(props)=>
-                <LoginForm {...props} onLoginSuccess={this.handleLoginSuccess}/>}
-            />
-            <Route path={'/movies/:id'} component={(props)=>
-                <MoviePage {...props} hasAuthToken={this.state.hasAuthToken}/>}
-            />
-            <Route path={'/users/:id'} component={(props)=>
-                <UserPage {...props} currentUserid={this.state.userid}/>}
-            />
-            <Route path={'/artists/:id'} component={ArtistPage}/>
-            <Route component={NotFoundPage}/>
-          </Switch>
-        </main>
-      </div>
+      <AppContext.Provider value={values}>
+          <div className="App">
+            <header className='App_header'>
+              <Header token={this.state} onLogoutSuccess={this.handleLogoutSuccess}/>
+            </header>
+          <main className='App_main'>
+            {this.state.hasError && <p>There was an error! Sorry for the inconvenience!</p>}
+            <Switch>
+              <Route exact path={'/'} component={HomePage}/>
+              <Route path={'/movies/genres/:genres'} component={ListItem}/>
+              <Route path={'/movies/country/:country'} component={ListItem}/>
+              <Route path={'/admin'} component={(props)=>this.renderAdminPage(props)}/>
+              <Route path={'/register'} component={RegistrationPage}/>
+              <Route path={'/login'} component={(props)=>
+                  <LoginForm {...props} onLoginSuccess={this.handleLoginSuccess}/>}
+              />
+              <Route path={'/movies/:id'} component={(props)=>
+                  <MoviePage {...props} hasAuthToken={this.state.hasAuthToken}/>}
+              />
+              <Route path={'/users/:id'} component={(props)=>
+                  <UserPage {...props} currentUserid={this.state.userid}/>}
+              />
+              <Route path={'/artists/:id'} component={ArtistPage}/>
+              <Route component={NotFoundPage}/>
+            </Switch>
+          </main>
+        </div>
+      </AppContext.Provider>
     );
   }
 }
 
 export default App;
-
-/*
-<Route path={'/movies/genres/:genres'} component={(props)=>{
-              console.log(props)
-              const genres= props.match.params.genres.replace('-',' ')
-              return <ListItem genres={genres} title={'Movies | '+ genres} displayAll={true}/>
-            }}/>
-  <Route path={'/movies/country/:country'} component={(props)=>{
-              const country= props.match.params.country.replace('-',' ')
-              return <ListItem sort='country'country={country} title={'Movies | '+ country} displayAll={true}/>
-            }}/>
- */

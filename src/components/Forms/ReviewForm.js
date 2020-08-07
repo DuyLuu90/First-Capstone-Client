@@ -8,7 +8,8 @@ export default class ReviewForm extends Component {
   
   static defaultProps= {
     onSuccess: ()=>{},
-    handleCancel:()=>{}
+    handleCancel:()=>{},
+    review:{}
   }
 
   state= {
