@@ -14,6 +14,7 @@ export default class ListItem extends Component {
         genres: this.props.match.params.genres,
         country: this.props.match.params.country,
         title: this.props.title,
+        displayArrow: true
     }
     
     componentDidMount(){
@@ -31,7 +32,8 @@ export default class ListItem extends Component {
                 .then(json=>this.setState({
                     movieList: json,
                     title: title,
-                    displayAll: true
+                    displayAll: true,
+                    displayArrow: false,
                 }))
         }
         else if (this.state.genres) {
@@ -41,7 +43,8 @@ export default class ListItem extends Component {
                 .then(json=>this.setState({
                     movieList: json,
                     title: title,
-                    displayAll: true
+                    displayAll: true,
+                    displayArrow: false,
                 }))
         }
         else {
@@ -57,21 +60,21 @@ export default class ListItem extends Component {
         let nav;
         let items;
 
-        if (!this.state.displayAll) {
+        if (this.state.displayAll) {
+            items= this.state.movieList
+            nav= (this.state.displayArrow)
+                    ? <span onClick={this.handleLessButton}>{'<<'} {' '}Less</span>: ''
+        }
+        else {
             nav= <span onClick={this.handleMoreButton}>More{' '}{'>>'}</span>
             items= this.state.movieList.slice(0,3)
         }
-        else {
-            nav= <span onClick={this.handleLessButton}>{'<<'} {' '}Less</span>
-            items= this.state.movieList
-        }
-
         return (
             <div className='list'>
-                <header>
+                <div className='list-control'>
                     <h2>{this.state.title}</h2>
                     {!this.props.displayAll && nav}
-                </header>
+                </div>
                 <div className='ListItem'>
                     {items.map((item,index)=>
                         <div className='item' key={index}>

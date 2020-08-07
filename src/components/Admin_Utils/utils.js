@@ -76,12 +76,12 @@ export function UserPage(props,user={}, handleSubmit=()=>{}) {
                 <span>{user.first_name}{' '}{user.last_name}</span>
             </div>
             <div>
-                <header>Age/Country/Gender:</header>
-                <span>{user.age}{' | '}{user.country}{' | '}{user.gender}{' | '}</span>
-            </div>
-            <div>
                 <header>Username:</header>
                 <span>{user.username}</span>
+            </div>
+            <div>
+                <header>Age/Country/Gender:</header>
+                <span>{user.age}{' | '}{user.country}{' | '}{user.gender}{' | '}</span>
             </div>
             <div>
                 <header>Password:</header>

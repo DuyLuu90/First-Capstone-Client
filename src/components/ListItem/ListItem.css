@@ -1,3 +1,4 @@
+/*
 .ListItem{
     display: flex;
     flex-wrap: wrap;
@@ -28,4 +29,48 @@ header span:hover {
 }
 .poster img {
     height: 200px;
+}
+*/
+.ListItem{
+    display: flex; margin-left: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+.list-control {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.list-control h2 {
+    width: 75%;font-weight: 700;
+    color: rgb(26, 26, 131);
+}
+.list-control span{
+    cursor: pointer;
+    color: rgb(14, 122, 56);
+}
+.item {
+    width: 40%;
+    margin-bottom: 15px;
+}
+.poster img {
+    height: 150px;
+}
+@media screen and (min-width: 500px) {
+
+    .item {
+    width: 30%;
+    }
+
+    .poster img {
+        height: 200px;
+    }
+
+}
+@media screen and (min-width: 700px) {
+    .poster img {
+        height: 250px;
+    }
+
 }

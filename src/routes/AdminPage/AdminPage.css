@@ -1,34 +1,21 @@
-.AdminPage {
-    display: flex;
-}
-
-.AdminPage_header{
-    width: 35%;
-    text-align: center;
-}
-
 .AdminPage nav {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    text-align: center;
-    width: 35%;
+    margin-bottom: 15px;
 }
-
 #admin_nav a {
     background-color: cadetblue;
+    padding: 10px; width: 33%; height: 50px; 
+    border-style: solid; border-width: thin;
+    text-align: center;
     color: white;
-    width: 80%;
-    padding: 20px;
-    font-size: 20px;
-    margin-bottom: 15px;
 }
 #admin_nav .active {
     background-color: red;
 }
-
 .admin_content {
-    width: 60%;
+    padding: 5px;
 }
 .admin_content .form {
     width: 100%;
@@ -52,4 +39,27 @@
 .highlighted{
     background-color: rgb(39, 10, 121);
     color: white
+}
+@media screen and (min-width: 700px) {
+    .AdminPage_header{
+        width: 35%;
+        text-align: center;
+    }
+    .AdminPage {
+        display: flex;
+    }
+    .AdminPage nav {
+        flex-direction: column;
+        width: 35%;
+    }
+    #admin_nav a {
+        width: 80%;
+        padding: 20px;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    .admin_content {
+        width: 60%;
+    }
+
 }

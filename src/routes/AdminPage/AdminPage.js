@@ -70,8 +70,7 @@ export default class AdminPage extends Component {
         return this.state.userList.map((user,index)=>{
             const icons= [
                 {name:'edit',method: ()=>props.history.push(`/admin/edit/users/${user.id}`)},
-                {name:'trash', method:()=>this.handleDeleteClicked('users',user.id)},
-                {name:'user-lock'}]
+                {name:'trash', method:()=>this.handleDeleteClicked('users',user.id)},]
             return InfoBox(user,index,icons,path,true)  
         })
     }
@@ -158,7 +157,7 @@ export default class AdminPage extends Component {
                     </nav>
                     <div className='admin_content'>
                         {this.state.displayPopup && popup}
-                        <Route exact path={'/admin'} component={()=>this.renderMainPage()}/> 
+                        
                         <Route path={'/admin/forms'} component={(props)=>this.renderForms(props)}/> 
                         <Route path={'/admin/movies'} component={(props)=>this.renderMovieList(props)}/> 
                         <Route path={'/admin/artists'} component={(props)=>this.renderArtistList(props)}/> 

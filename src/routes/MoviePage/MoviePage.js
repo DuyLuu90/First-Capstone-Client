@@ -44,7 +44,7 @@ export default class MoviePage extends Component {
     }
     renderReviewForm() {
         return(
-            <div>
+            <div className='postReview'>
                 <h2>Leave a review</h2>
                 <ReviewForm movieid={this.id} onSuccess={this.onReviewChangeSuccess}/>
             </div>

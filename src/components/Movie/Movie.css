@@ -6,7 +6,18 @@ a:hover {
     color: greenyellow;
     cursor: pointer;
 }
-
+.MoviePage form {
+    margin-left: 20px;
+    width: 80%;
+    max-width: 500px;
+}
+.MoviePage textarea {
+    width: 100%;
+}
+.postReview {
+    width: 90%;
+    margin: 10px auto;
+}
 .movie_details{
     width: 90%;
     margin-left: auto;
@@ -22,36 +33,30 @@ a:hover {
     color: yellow;
     font-weight: bolder;
 }
-
 .movie_visual{
-    display: flex;
-    justify-content: space-evenly;
+    text-align: center;
 }
 .movie_visual img, .movie_visual iframe {
     height: 200px;
+    max-width: 100%;
 }
 .movie_content {
     margin-top: 10px;
 }
 
-.movie_content div {
-    display: flex;
-    align-items: center;
-}
 .movie_content h3 {
     color: rgb(125, 125, 161);
     width: 25%;
 }
-.summary {
-    width: 70%;
-}
+
 .movie_content a {
     margin-right: 10px;
 }
-.review{
-    display: flex; width: 80%;
-    margin: 0 auto; padding: 10px;
+.review {
+    padding: 15px; display: flex;
 }
+
+
 .review form {
     margin-left: 0px;
     width: 70%;
@@ -59,20 +64,18 @@ a:hover {
 .review textarea {
     border-radius: 5px;
 }
+
 .review .main{
-    width: 75%;
+    width: 85%;
 }
+
 .main .content {
     display: flex;
     justify-content: space-between;  
 }
-.content section {
-    width: 70%;
-}
+
 .MovieStarRating {
-    font-size: 15px;
-    width: 25%;
-    text-align: center;
+    visibility: hidden;
 }
 .review-text {
     border-style: solid;border-width: thin; border-radius: 5px;
@@ -140,4 +143,32 @@ li {
 }*/
 .green {
     color: green;
+}
+@media screen and (min-width: 700px) {
+    .movie_visual{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .movie_content div {
+        display: flex;
+        align-items: center;
+    }
+    .summary {
+        width: 70%;
+    }
+    .MovieStarRating {
+        font-size: 15px;
+        width: 25%;
+        text-align: center;
+    }
+    .review{
+        width: 80%;
+        margin: 0 auto; 
+    }
+    .review .main{
+        width: 75%;
+    }
+    .content section {
+        width: 70%;
+    }
 }

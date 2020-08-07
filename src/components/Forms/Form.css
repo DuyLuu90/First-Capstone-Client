@@ -1,5 +1,5 @@
 .form{
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 button:hover {
@@ -12,7 +12,7 @@ textarea {
     width: 100%;
 }
 .form_control {
-    display: flex; justify-content: space-evenly;
+    display: flex; justify-content: space-around; text-align: center;
 }
 .form_control input{
     margin-top: 20px; width: 100px;padding: 10px;
@@ -36,7 +36,7 @@ textarea {
     background-color: rgb(11, 90, 73);
 }
 .formNav span {
-    color: gray;float: right;
+    color: gray;float: right; visibility: hidden;
 }
 .form header {
     margin-bottom: 5px;
@@ -67,7 +67,7 @@ textarea {
     text-align: center;
 }
 /*REGISTRATION*/
-.full_name, .password {
+.full_name{
     display: flex;
     justify-content: space-between;
 }
@@ -79,15 +79,13 @@ textarea {
 }
 .displayPassword {
     display: flex; align-items: center;
-    width: 30%;color: gray;font-size: 15px;
+    color: gray;font-size: 15px; 
 }
 .displayPassword input {
-    width: 15%;
+    width: 15px; margin-right: 10px;
 }
 /*LOGIN*/
-#help-me-login .form_control, .LoginForm .form_help{
-    width: 65%;
-}
+
 #help-me-login button {
     padding: 8px; margin-top: 10px;
     background-color: red; color: white; border-style: none;
@@ -98,7 +96,6 @@ textarea {
 }
 .LoginForm .form_help{
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
     color: blue;
     font-size: 15px;
@@ -129,14 +126,10 @@ textarea {
     padding: 15px;
     font-size: 12px;
 }
-.MovieForm .left {
-    width: 30%;   
-}
-.MovieForm .right {
-    width: 60%;
-}
+
 .MovieForm img, .MovieForm iframe {
-    width: 90%; 
+    width: 80%; 
+    padding: 5px;
 }
 
 /*
@@ -147,20 +140,45 @@ textarea {
     width: 100%;
     text-align: center;
 }*/
-.genres_list,.otherInfo{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-.genres_list div {
-    width: 25%;
-}
+
 /*
 .cast input {
     width: 30%; margin-right: 10px;
 }*/
 .otherInfo div{
     margin-right: 20px;
+}
+
+@media screen and (min-width: 400px){
+    .formNav span{
+        visibility: visible;
+    }
+    .genres_list,.otherInfo{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .genres_list div {
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    #help-me-login .form_control, .LoginForm .form_help{
+        width: 65%;
+    }
+    .LoginForm .form_help{
+        flex-direction: row-reverse;
+    }
+    .MovieForm .left {
+        width: 30%;   
+    }
+    .MovieForm .right {
+        width: 60%;
+    }
+    .MovieForm img, .MovieForm iframe {
+        width: 90%; 
+    }
 }
 
 
