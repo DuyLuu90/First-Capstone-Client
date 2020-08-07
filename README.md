@@ -14,15 +14,15 @@ This is my first full stack capstone, as a junior Developer, to demonstrate my m
 * Hide and report comments/reviews from other users to page admin.
 * Form validations (for registration)
 ### For registered users:
-*Post, edit, delete, rate (upvote,downvote) reviews for a movie
-*Edit personal information (from their User Page)
-*Data protection: bcrypt
+* Post, edit, delete, rate (upvote,downvote) reviews for a movie
+* Edit personal information (from their User Page)
+*  Data protection: bcrypt
 *Username recovery/password reset
 ### For page admin:
-*Create,edit, delete data
-*Publish/unpublish a movie
-*Block/unblock a user
-*Delete users reviews.
+* Create,edit, delete data
+* Publish/unpublish a movie
+* Block/unblock a user
+* Delete users reviews.
 
 ## Getting started
 
