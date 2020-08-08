@@ -184,6 +184,7 @@ export const UserApiServices= {
         return fetch(`${config.API_ENDPOINT}/users`,{
             method: `POST`,
             headers:{
+                'Authorization': `Basic ${config.API_TOKEN}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify(user)

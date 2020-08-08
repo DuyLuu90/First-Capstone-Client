@@ -24,6 +24,7 @@ export default class Header extends Component {
     renderLogoutLink(){
         return(
             <div className='Header-logged-in' onClick={this.closeDropdown}>
+                <Link to='/demo'>Demo </Link>
                 <Link onClick={this.props.onLogoutSuccess} to='/'>Logout</Link>
                 <Link to={'/users/'+this.props.token.userid} className='blue'>{this.props.token.first_name}</Link>
                 {this.props.token.isAdmin && <Link to='/admin'> Admin</Link> }
@@ -33,6 +34,7 @@ export default class Header extends Component {
     renderLoginLink(){
         return(
             <div className='Header-not-logged-in' onClick={this.closeDropdown}>
+                <Link to='/demo'>Demo </Link>
                 <Link to='/login'>Log in </Link>
                 <Link to='/register' > Sign up</Link>
                 {this.props.token.isAdmin && <Link to='/admin'> Admin</Link> }

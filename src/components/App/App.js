@@ -11,14 +11,15 @@ import AppContext from '../../contexts/AppContext'
 //IMPORT COMPONENTS:
 import Header from '../Header/Header'
 import LoginForm from '../Forms/LoginForm'
+import RegistrationForm from '../Forms/RegistrationForm'
 import ListItem from '../ListItem/ListItem'
 //INPORT ROUTES:
+import DemoPage from '../../routes/DemoPage/DemoPage'
 import HomePage from '../../routes/HomePage/HomePage'
 import AdminPage from '../../routes/AdminPage/AdminPage'
 import MoviePage from '../../routes/MoviePage/MoviePage'
 import UserPage from '../../routes/Profiles/UserPage'
 import ArtistPage from '../../routes/Profiles/ArtistPage'
-import RegistrationPage from '../../routes/RegistrationPage/RegistrationPage'
 import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 
 class App extends Component {
@@ -46,7 +47,6 @@ class App extends Component {
             first_name: user.first_name
         }))
   }
-
   handleLogoutSuccess=()=>{
     TokenService.clearAuthToken()
     this.setState({
@@ -79,10 +79,12 @@ class App extends Component {
             {this.state.hasError && <p>There was an error! Sorry for the inconvenience!</p>}
             <Switch>
               <Route exact path={'/'} component={HomePage}/>
+              <Route path={'/demo'} component={DemoPage}/>
               <Route path={'/movies/genres/:genres'} component={ListItem}/>
               <Route path={'/movies/country/:country'} component={ListItem}/>
               <Route path={'/admin'} component={(props)=>this.renderAdminPage(props)}/>
-              <Route path={'/register'} component={RegistrationPage}/>
+              <Route path={'/register'} component={(props)=>
+                  <RegistrationForm handleCancel={()=>props.history.goBack()}/>}/>
               <Route path={'/login'} component={(props)=>
                   <LoginForm {...props} onLoginSuccess={this.handleLoginSuccess}/>}
               />

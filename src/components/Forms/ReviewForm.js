@@ -5,39 +5,45 @@ import {ReviewApiServices} from '../../services/api-service'
 import TokenService from '../../services/token-service'
 
 export default class ReviewForm extends Component {
+  constructor(props){
+    super(props)
+    this.state= {
+      error:null,
+    }
+  }
   
   static defaultProps= {
     onSuccess: ()=>{},
     handleCancel:()=>{},
-    review:{}
+    handleEdit:()=>{},
+    review: {}
   }
 
-  state= {
-    error:null,
-  }
-
-  handleSubmit = ev => {
+  handleSubmit=(ev)=> {
     ev.preventDefault()
-    const authToken= TokenService.getAuthToken()
-    const userid= TokenService.parseJwt(authToken).userid
-    const movieid= this.props.movieid
-    const {rating,comment}= ev.target
-    //console.log(userid,movieid,rating.value,comment.value)
-    ReviewApiServices.postReview(Number(movieid), Number(userid),comment.value,Number(rating.value))
-      .then(review=>{
-        rating.value=''
-        comment.value=''
-        this.props.onSuccess()
-      })
-      .catch(res=>this.setState({error: res.error}))
+    if (this.props.review.comment) this.props.handleEdit(ev)
+    else {
+      const authToken= TokenService.getAuthToken()
+      const userid= TokenService.parseJwt(authToken).userid
+      const movieid= this.props.movieid
+      const {rating,comment}= ev.target
+      //console.log(userid,movieid,rating.value,comment.value)
+      ReviewApiServices.postReview(Number(movieid), Number(userid),comment.value,Number(rating.value))
+        .then(review=>{
+          rating.value=''
+          comment.value=''
+          this.props.onSuccess()
+        })
+        .catch(res=>this.setState({error: res.error}))
+    }
+    
   }
 
   render() {
-    const {review:{comment,rating},handleEdit,handleCancel}= this.props
-    //const {comment,rating}= this.props.review
-    const handleSubmit= (this.props.review)? handleEdit: this.handleSubmit()
+    const {review:{comment,rating},handleCancel}= this.props
+    
     return (
-      <form className='form ReviewForm'onSubmit={handleSubmit}>
+      <form className='form ReviewForm'onSubmit={this.handleSubmit}>
         <div className='rating'>
           {!this.props.review && <header>Rate this movie</header>}
           <select required name='rating' id='rating'aria-label='Rate this thing!' defaultValue={rating}>

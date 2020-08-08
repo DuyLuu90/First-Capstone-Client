@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component Snapshot test-Prevent unexpected change 1`] = `
+<div
+  className="App"
+>
+  <header
+    className="App_header"
+  >
+    <nav
+      className="app_nav"
+    >
+      <h1>
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+           
+           
+          DramaPEDIA
+        </a>
+      </h1>
+      <div
+        className="menu"
+      >
+        <div
+          className="Header-not-logged-in"
+          onClick={[Function]}
+        >
+          <a
+            href="/login"
+            onClick={[Function]}
+          >
+            Log in 
+          </a>
+          <a
+            href="/register"
+            onClick={[Function]}
+          >
+             Sign up
+          </a>
+        </div>
+      </div>
+      <div
+        className="dropdown"
+      />
+    </nav>
+  </header>
+  <main
+    className="App_main"
+  >
+    <div
+      className="list"
+    >
+      <div
+        className="list-control"
+      >
+        <h2>
+          Film List
+        </h2>
+        <span
+          onClick={[Function]}
+        >
+          More
+           
+          &gt;&gt;
+        </span>
+      </div>
+      <div
+        className="ListItem"
+      />
+    </div>
+    <div
+      className="list"
+    >
+      <div
+        className="list-control"
+      >
+        <h2>
+          TV Series
+        </h2>
+        <span
+          onClick={[Function]}
+        >
+          More
+           
+          &gt;&gt;
+        </span>
+      </div>
+      <div
+        className="ListItem"
+      />
+    </div>
+  </main>
+</div>
+`;

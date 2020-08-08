@@ -37,7 +37,7 @@ export default class Review extends Component{
     displayForm=()=>this.setState({displayForm:true,reviewPopUp:false})
     hideForm=()=>this.setState({displayForm:false})
     handleEdit=(e)=>{
-        e.preventDefault()
+        //e.preventDefault()
         const {rating,comment}= e.target
         const data= {comment:comment.value,rating:Number(rating.value)}
         MovieApiServices.updateMovieReview(this.id,data).then(()=>{
@@ -138,21 +138,16 @@ export default class Review extends Component{
     render(){
         const Userid= this.props.review["user:id"]
         const {UserAction,VisitorAction,AdminAction}= this.renderReviewAction()
+        const {comment,rating,upvote,downvote}= this.state
+        const review={comment,rating,upvote,downvote}
         //const {review}=this.props
-        /*
-        const reviewActions= (this.state.loggedIn)
-                        ? <ul>
-                            <li onClick={this.displayForm}>Edit</li>
-                            <li onClick={this.handleDelete}>Delete</li>
-                        </ul>
-                        : <ul><li>Hide this review</li>Report to admins<li>Delete</li></ul>*/
         return (
             <AppContext.Consumer>
                 {value=>{
                     const action = value.isAdmin
                         ?AdminAction :value.userid===Userid? UserAction: VisitorAction
                     const reviewContent= (this.state.displayForm) 
-                    ? <ReviewForm handleCancel={this.hideForm} handleEdit={this.handleEdit} review={this.props.review}/> 
+                    ? <ReviewForm handleCancel={this.hideForm} handleEdit={this.handleEdit} review={review}/> 
                     : this.renderReviewContent(value.hasAuthToken)
                     return (
                     <div className='review'>

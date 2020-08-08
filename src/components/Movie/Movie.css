@@ -168,6 +168,9 @@ li {
     .review .main{
         width: 75%;
     }
+    .MovieStarRating {
+        visibility: visible;
+    }
     .content section {
         width: 70%;
     }

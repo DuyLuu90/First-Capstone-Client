@@ -11,14 +11,10 @@ import {CountryList,BirthYear} from '../Admin_Utils/utils'
 export default class RegistrationForm extends Component {
   static defaultProps = {
     onRegistrationSuccess: () => {},
-    user: {}
-    /*
-    user: {
-      id:'',first_name:'',last_name:'',
-      username:'', password: '',
-      country:'', gender:'', age:0,block_list:'',
-      last_modified:''
-    }*/
+    match: {params:{}},
+    history:{},
+    user: {},
+    handleCancel: ()=>{}
   }
 
   state = { 
@@ -39,17 +35,55 @@ export default class RegistrationForm extends Component {
     })
   }
 
+  handleSubmit=(ev)=>{
+    ev.preventDefault()
+    const {id}= this.props.user
+    const { first_name, last_name, username, password,
+    country, birth_year,gender } = ev.target
+
+    const data= {
+      first_name: first_name.value, last_name: last_name.value, 
+      username: username.value, password: password.value,
+      gender: gender.value,
+      country: country.value, age: 2020-birth_year.value,
+      last_modified: new Date().toLocaleString('en',{timeZone:'UTC'})
+    }
+    if(id){
+      for (let key of ['first_name', 'last_name', 'username', 'password','country','gender']) {
+            if(!data[key]) delete data[key]
+      }
+      GeneralApiServices.patchItemById('users',id,data)
+            .then(user=>{
+                first_name.value=''
+                last_name.value= ''
+                username.value = ''
+                gender.value=''
+                country.value=''
+                this.props.editSuccess()
+            }).catch(res=>this.setState({error:res.error}))
+    }
+    else {
+      UserApiServices.postUser(data)
+            .then(user=>{
+              first_name.value=''
+              last_name.value= ''
+              username.value = ''
+              password.value = ''
+              gender.value=''
+              country.value=''
+              birth_year.value=''
+              this.props.history.push('/login')
+            }).catch(res=>this.setState({error: res.error}))
+    }
+  }
 
   onChange=e=> {
     const key= e.target.name;
     const newValue= e.target.value;
     this.setState({[key]:{value:newValue,touch:true}})
   }
-
-  hideStatusMessage=()=>{
-    this.setState({statusMessage:false})
-  }
-
+  hideStatusMessage=()=>this.setState({statusMessage:false})
+  
   render() {
     const usernameError= (this.props.user && !this.state.username.value)
       ? false
@@ -62,8 +96,7 @@ export default class RegistrationForm extends Component {
       ? false 
       : validateName(this.state.first_name.value,this.state.last_name.value)
     
-    const defaultYear= (this.props.user) ? this.state.birth_year: 2002
-    
+    const defaultYear= (this.props.user) ? this.state.birth_year.value: 2005
     const error= this.props.error
     const countries= CountryList()
     const years= BirthYear()
@@ -71,9 +104,8 @@ export default class RegistrationForm extends Component {
     
     
     return (
-      <form className='form RegistrationForm'
-        onSubmit={this.props.handleSubmit}
-      >
+      <form className='form RegistrationForm' onSubmit={this.handleSubmit}>
+        <h2>Register</h2>
         <div role='alert'>
           {error && <p className='error'>{()=>error}</p>}
         </div>

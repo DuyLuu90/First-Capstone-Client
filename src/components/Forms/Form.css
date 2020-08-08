@@ -1,6 +1,7 @@
 .form{
     width: 90%;
     margin: 0 auto;
+    max-width: 700px;
 }
 button:hover {
     cursor: pointer;

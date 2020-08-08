@@ -35,9 +35,7 @@ export default class LoginForm extends Component {
   }
   handleSubmitJwtAuth = ev => {
     ev.preventDefault()
-    this.setState({error: null})
     const { username,password} = ev.target
-
     AuthService.postLogin({username: username.value,password: password.value,})
       .then(res=>{
           username.value= ''
@@ -57,6 +55,7 @@ export default class LoginForm extends Component {
   handleLoginReady=()=>this.setState({displayForm:1, usernameMessage:'',passwordMessage:''})
   handleForgotUsernameClicked=()=>this.setState({displayForm:2})
   handleForgotPasswordClicked=()=>this.setState({displayForm:3})
+
   handleForgotUsernameSubmitted=(e)=>{
     e.preventDefault()
     const {first_name,last_name,birth_year}= e.target
@@ -119,10 +118,7 @@ export default class LoginForm extends Component {
   }
   renderLoginForm(){
     return (
-      <form className='form LoginForm'
-        //onSubmit={this.handleSubmitBasicAuth}
-        onSubmit={this.handleSubmitJwtAuth}
-      >
+      <form className='form LoginForm'onSubmit={this.handleSubmitJwtAuth}>
         <h2>Login</h2>
         <div className='username'>
           <input required name='username' id='LoginForm__user_name' placeholder='User name'/>

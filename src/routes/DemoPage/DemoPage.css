@@ -1,0 +1,63 @@
+.demo {
+    margin-top: -40px;
+}
+.demo .highlight {
+    background-color: black;
+    font-weight: 700;
+}
+.demo .active{
+    background-color: red;
+}
+.demo nav {
+    background-color: rgb(96, 96, 240);
+    display: flex;
+    text-align: center;
+}
+.demo nav .active {
+    color: yellow
+}
+.demo nav span {
+    color: white;
+    width: 50%;
+    border-style: solid;
+    border-width: thin;
+    padding: 12px;
+    cursor: pointer;
+}
+.demo_accounts{
+    padding: 15px;
+}
+.demo_accounts div {
+    width: 75%;
+    min-width: 260px;
+    margin: 10px auto;
+    padding: 10px;
+    border-style: solid;
+    border-bottom: none;
+    border-width: thin;
+}
+.demo_accounts div p {
+    display: flex;
+}
+.demo_accounts div span {
+    width: 50%;
+}
+.tour_nav {
+    display: flex;
+    background-color: rgb(22, 128, 22);
+    color: white;
+    text-align: center;
+    
+}
+.tour_nav span {
+    width: 25%;
+    border-style: solid;
+    border-width: thin;
+    padding: 10px;
+    cursor: pointer;
+    border-top: none;
+}
+.tour_content {
+    width: 80%;
+    margin: 20px auto;
+}
