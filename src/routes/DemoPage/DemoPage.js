@@ -72,14 +72,31 @@ export default class DemoPage extends Component{
                         {tabId===2 &&
                         <div className='demo-visitor'>
                             <h2>Visitor features:</h2>
+                            <ul>
+                                <li>Movie details, user pages (created by other registered users) and artist pages(created by admin)</li>
+                                <li>Hide and report comments/reviews from other users to page admin.</li>
+                                <li>Form validations (for registration)</li>
+                            </ul>
                         </div>}
                         {tabId===3 &&
                         <div className='demo-user'>
                             <h2>User features:</h2>
+                            <ul>
+                                <li>Post, edit, delete, rate (upvote,downvote) reviews for a movie</li>
+                                <li>Edit personal information (from their User Page)</li>
+                                <li>Data protection: bcrypt and JWT</li>
+                                <li>Help: Username recovery/password reset </li>
+                            </ul>
                         </div>}
                         {tabId===4 &&
                         <div className='demo-admin'>
                             <h2>Admin features</h2>
+                            <ul>
+                                <li>Create,edit, delete data</li>
+                                <li>Publish/unpublish a movie</li>
+                                <li>Block/unblock a user</li>
+                                <li>Delete users reviews.</li>
+                            </ul>
                         </div>}
                     </div>
                 </div>}

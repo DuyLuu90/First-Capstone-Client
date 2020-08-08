@@ -84,7 +84,7 @@ class App extends Component {
               <Route path={'/movies/country/:country'} component={ListItem}/>
               <Route path={'/admin'} component={(props)=>this.renderAdminPage(props)}/>
               <Route path={'/register'} component={(props)=>
-                  <RegistrationForm handleCancel={()=>props.history.goBack()}/>}/>
+                  <RegistrationForm {...props} handleCancel={()=>props.history.goBack()}/>}/>
               <Route path={'/login'} component={(props)=>
                   <LoginForm {...props} onLoginSuccess={this.handleLoginSuccess}/>}
               />

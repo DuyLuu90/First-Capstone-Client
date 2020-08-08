@@ -132,7 +132,7 @@ export default class Review extends Component{
                                 <li>Hide this review</li>
                                 <li>Report to admins</li>
                             </ul>)
-        const AdminAction= <ul><li>Delete</li></ul>
+        const AdminAction= <ul><li onClick={this.handleDelete}>Delete</li></ul>
         return {UserAction,VisitorAction,AdminAction}
     }
     render(){
@@ -140,12 +140,16 @@ export default class Review extends Component{
         const {UserAction,VisitorAction,AdminAction}= this.renderReviewAction()
         const {comment,rating,upvote,downvote}= this.state
         const review={comment,rating,upvote,downvote}
+        /*
+        const action = value.isAdmin
+                        ?AdminAction :value.userid===Userid? UserAction: VisitorAction
+         */
         //const {review}=this.props
         return (
             <AppContext.Consumer>
                 {value=>{
-                    const action = value.isAdmin
-                        ?AdminAction :value.userid===Userid? UserAction: VisitorAction
+                    const action = value.userid===Userid
+                                ? UserAction : value.isAdmin? AdminAction : VisitorAction
                     const reviewContent= (this.state.displayForm) 
                     ? <ReviewForm handleCancel={this.hideForm} handleEdit={this.handleEdit} review={review}/> 
                     : this.renderReviewContent(value.hasAuthToken)

@@ -15,7 +15,8 @@ export const GeneralApiServices= {
         )
     },
     postItem(dbName,item){
-        return fetch(`${config.API_ENDPOINT}/${dbName}`,{
+        const proxy='https://galvanize-cors.herokuapp.com/secure-caverns-32891.herokuapp.com/api'
+        return fetch(`${proxy}/${dbName}`,{
             method: `POST`,
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
@@ -181,7 +182,8 @@ export const MovieApiServices = {
 
 export const UserApiServices= {
     postUser(user) {
-        return fetch(`${config.API_ENDPOINT}/users`,{
+        const proxy='https://galvanize-cors.herokuapp.com/secure-caverns-32891.herokuapp.com/api'
+        return fetch(`${proxy}/users`,{
             method: `POST`,
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
@@ -197,7 +199,8 @@ export const UserApiServices= {
 
 export const ReviewApiServices={
     postReview(movieid,userid,comment,rating){
-        return fetch(`${config.API_ENDPOINT}/reviews`, {
+        const proxy='https://galvanize-cors.herokuapp.com/secure-caverns-32891.herokuapp.com/api'
+        return fetch(`${proxy}/reviews`, {
             method: 'POST',
             headers: {
               'content-type': 'application/json',
