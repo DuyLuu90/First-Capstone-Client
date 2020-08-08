@@ -185,7 +185,8 @@ export const UserApiServices= {
             method: `POST`,
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'Access-Control-Allow-Origin':'*'
             },
             body: JSON.stringify(user)
         })
