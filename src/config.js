@@ -4,5 +4,5 @@ export default {
                 : 'http://localhost:8000/api',
 
     API_TOKEN: process.env.REACT_APP_API_TOKEN,
-    TOKEN_KEY: 'first-capstone-client-auth-token'
+    TOKEN_KEY: process.env.REACT_APP_JWT_SECRET
 }
