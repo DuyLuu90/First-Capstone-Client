@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './Form.css'
 
-import {ReviewApiServices} from '../../services/api-service'
+//import {ReviewApiServices} from '../../services/api-service'
+import {GeneralApiServices} from '../../services/api-service'
 import TokenService from '../../services/token-service'
 
 export default class ReviewForm extends Component {
@@ -27,14 +28,26 @@ export default class ReviewForm extends Component {
       const userid= TokenService.parseJwt(authToken).userid
       const movieid= this.props.movieid
       const {rating,comment}= ev.target
+      const data= {
+        movieid: Number(movieid), userid: Number(userid), comment: comment.value, rating: Number(rating.value)
+      }
+      GeneralApiServices.postItem('reviews',data)
+        .then(rev=>{
+          rating.value=''
+          comment.value=''
+          this.props.onSuccess()
+        })
+        .catch(res=>this.setState({error: res.error}))
+        
       //console.log(userid,movieid,rating.value,comment.value)
+      /*
       ReviewApiServices.postReview(Number(movieid), Number(userid),comment.value,Number(rating.value))
         .then(review=>{
           rating.value=''
           comment.value=''
           this.props.onSuccess()
         })
-        .catch(res=>this.setState({error: res.error}))
+        .catch(res=>this.setState({error: res.error}))*/
     }
     
   }

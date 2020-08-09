@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './Form.css'
 import TokenService from '../../services/token-service'
-import AuthService from '../../services/auth-api'
-import {GeneralApiServices} from '../../services/api-service'
+import {GeneralApiServices,AuthApiServices} from '../../services/api-service'
+//import AuthApiServices from '../../services/auth-api'
 
 
 export default class LoginForm extends Component {
@@ -36,7 +36,7 @@ export default class LoginForm extends Component {
   handleSubmitJwtAuth = ev => {
     ev.preventDefault()
     const { username,password} = ev.target
-    AuthService.postLogin({username: username.value,password: password.value,})
+    AuthApiServices.postLogin({username: username.value,password: password.value,})
       .then(res=>{
           username.value= ''
           password.value=''
@@ -75,7 +75,6 @@ export default class LoginForm extends Component {
     e.preventDefault()
     this.setState({passwordMessage:`Your password has been reset and sent to your email on file.`})
   }
-  
   renderForgotUserNameForm(){
     const message= (this.state.usernameMessage)? <span className='error'>{this.state.usernameMessage}</span>: ''
     return(

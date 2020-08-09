@@ -1,5 +1,5 @@
 import config from '../config'
-import TokenService from './token-service'
+//import TokenService from './token-service'
 
 export const GeneralApiServices= {
     getAllItems(dbName){
@@ -64,7 +64,6 @@ export const GeneralApiServices= {
         ? res.json().then(e=>Promise.reject(e))
         : res.json())
     },
-    
 }
 
 export const MovieApiServices = {
@@ -103,30 +102,6 @@ export const MovieApiServices = {
               ? res.json().then(e => Promise.reject(e))
               : res.json()
         )
-    },
-    updateMovieReview(id,fieldsToUpdate){
-        return fetch(`${config.API_ENDPOINT}/movies/reviews/${id}`,{
-            method: `PATCH`,
-            headers:{
-                'Authorization': `Basic ${config.API_TOKEN}`,
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(fieldsToUpdate)
-        })
-        .then(res=>(!res.ok)
-        ? res.json().then(e=>Promise.reject(e))
-        : res.json())
-    },
-    deleteMovieReview(id){
-        return fetch(`${config.API_ENDPOINT}/movies/reviews/${id}`,{
-            method: `DELETE`,
-            headers:{
-                'Authorization': `Basic ${config.API_TOKEN}`,
-            },
-        })
-        .then(res=>(!res.ok)
-        ? res.json().then(e=>Promise.reject(e))
-        : res.json())
     },
     getMovieCast(id){
         return fetch(`${config.API_ENDPOINT}/movies/${id}/cast`, {
@@ -196,7 +171,7 @@ export const UserApiServices= {
         : res.json())
     }
 }
-
+/*
 export const ReviewApiServices={
     postReview(movieid,userid,comment,rating){
         //const proxy='https://cors-anywhere.herokuapp.com'
@@ -216,7 +191,7 @@ export const ReviewApiServices={
                 : res.json()
             )
     },  
-}
+}*/
 
 export const ArtistApiServices= {
     getMoviesByArtist(id){
@@ -231,6 +206,22 @@ export const ArtistApiServices= {
               : res.json()
         )
     }
+}
+
+export const AuthApiServices={
+    postLogin(credentials){
+        return fetch(`${config.API_ENDPOINT}/auth/login`,{
+            method: `POST`,
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(credentials)
+        })
+        .then(res=>(!res.ok)
+            ? res.json().then(e=>Promise.reject(e))
+            : res.json())
+    },
 }
  
 

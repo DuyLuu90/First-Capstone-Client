@@ -5,7 +5,7 @@ import AppContext from '../../contexts/AppContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MovieStarRating from './MovieStarRating'
 import ReviewForm from '../Forms/ReviewForm'
-import {GeneralApiServices, MovieApiServices} from '../../services/api-service'
+import {GeneralApiServices} from '../../services/api-service'
 import './Movie.css'
 
 export default class Review extends Component{
@@ -40,7 +40,7 @@ export default class Review extends Component{
         //e.preventDefault()
         const {rating,comment}= e.target
         const data= {comment:comment.value,rating:Number(rating.value)}
-        MovieApiServices.updateMovieReview(this.id,data).then(()=>{
+        GeneralApiServices.patchItemById('reviews',this.id,data).then(()=>{
             GeneralApiServices.getItemById('reviews',this.id).then(json=>{
                 const {comment,rating,upvote,downvote} = json
                 this.setState({
@@ -51,7 +51,7 @@ export default class Review extends Component{
         })
     }
     handleDelete=()=>{
-        MovieApiServices.deleteMovieReview(this.id).then(()=>{
+        GeneralApiServices.DeleteItemById('reviews',this.id).then(()=>{
             this.props.onDeleteSuccess()
         }).catch(err=>console.log(err))
     }
@@ -61,7 +61,7 @@ export default class Review extends Component{
         const downvotevalue= (this.state.downvoteClicked)? -1: 0
         GeneralApiServices.getItemById('reviews',this.id).then(json=>{
             const data= {upvote: json.upvote+upvotevalue, downvote: json.downvote+downvotevalue }
-            MovieApiServices.updateMovieReview(this.id,data).then(()=>{
+            GeneralApiServices.patchItemById('reviews',this.id,data).then(()=>{
                 this.setState({
                     upvote: json.upvote+upvotevalue,
                     downvote: json.downvote+ downvotevalue,
@@ -78,7 +78,7 @@ export default class Review extends Component{
         const upvotevalue= (this.state.upvoteClicked)? -1 : 0
         GeneralApiServices.getItemById('reviews',this.id).then(json=>{
             const data= {upvote: json.upvote+upvotevalue, downvote: json.downvote+downvotevalue }
-            MovieApiServices.updateMovieReview(this.id,data).then(()=>{
+            GeneralApiServices.patchItemById('reviews',this.id,data).then(()=>{
                 this.setState({
                     upvote: json.upvote+upvotevalue ,
                     downvote: json.downvote+ downvotevalue,
