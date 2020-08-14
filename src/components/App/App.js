@@ -80,14 +80,13 @@ class App extends Component {
             <Switch>
               <Route exact path={'/'} component={HomePage}/>
               <Route path={'/demo'} component={DemoPage}/>
-              <Route path={'/movies/genres/:genres'} component={ListItem}/>
-              <Route path={'/movies/country/:country'} component={ListItem}/>
               <Route path={'/admin'} component={(props)=>this.renderAdminPage(props)}/>
               <Route path={'/register'} component={(props)=>
                   <RegistrationForm {...props} handleCancel={()=>props.history.goBack()}/>}/>
               <Route path={'/login'} component={(props)=>
                   <LoginForm {...props} onLoginSuccess={this.handleLoginSuccess}/>}
               />
+              <Route exact path={'/movies'} component={ListItem}/>
               <Route path={'/movies/:id'} component={(props)=>
                   <MoviePage {...props} hasAuthToken={this.state.hasAuthToken}/>}
               />

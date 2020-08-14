@@ -67,20 +67,8 @@ export const GeneralApiServices= {
 }
 
 export const MovieApiServices = {
-    getMoviesByGenres(genres){
-        return fetch(`${config.API_ENDPOINT}/movies/genres/${genres}`, {
-            headers: {
-                'Authorization': `Basic ${config.API_TOKEN}`,
-            },
-        })
-        .then(res =>
-            (!res.ok)
-              ? res.json().then(e => Promise.reject(e))
-              : res.json()
-        )
-    },
-    getMoviesByCountry(country){
-        return fetch(`${config.API_ENDPOINT}/movies/country/${country}`, {
+    sortMovies(sortQuery){
+        return fetch(`${config.API_ENDPOINT}/movies${sortQuery}`, {
             headers: {
                 'Authorization': `Basic ${config.API_TOKEN}`,
             },

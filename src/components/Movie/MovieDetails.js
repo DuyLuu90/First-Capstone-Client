@@ -21,14 +21,14 @@ export default class MovieDetails extends Component {
         const directorList= this.props.director.map((item,i)=>(
         <Link to={'/artists/'+item["artist:id"]} key={i}>{item["full_name"]}{' '}</Link>
         ))
-        const genresList= genres.map((item,i)=><Link to={'/movies/genres/'+ item.replace(' ','-')}key={i}>{item}{' '}</Link>)
+        const genresList= genres.map((item,i)=><Link to={'/movies?genres='+ item}key={i}>{item}{' '}</Link>)
         return (
             <div className='movie_details'>
                 <div>
                     <h2>{movie.title} ({movie.year})</h2>
                     <p>
                         {genresList}<span>{' '}{'|'}{' '}</span>
-                        <Link to={'/movies/country/'+ country.replace(' ','-')}>{country}</Link>
+                        <Link to={'/movies?country='+ country.replace(' ','-')}>{country}</Link>
                     </p>
                 </div>
                 <div className='movie_visual'>

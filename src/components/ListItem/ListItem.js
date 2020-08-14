@@ -1,62 +1,57 @@
 import React, {Component} from 'react'
 import { Link} from 'react-router-dom'
+import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './ListItem.css'
 import { MovieApiServices } from '../../services/api-service';
 
 export default class ListItem extends Component {
     static defaultProps= {
-        match:{params:{}}
+        match:{params:{}},
+        location:{}
     }
     state= {
         movieList: [],
         displayAll: false,
-        genres: this.props.match.params.genres,
-        country: this.props.match.params.country,
         title: this.props.title,
-        displayArrow: true
+        displayArrow: true,
+        hasError: false
     }
     
     componentDidMount(){
-        if (this.state.country) {
-            const country= this.state.country.replace('-',' ')
-
-            const name= (country==='US') ? 'Domestic'
-                        :(country==='CN') ? 'CDrama'
-                        :(country==='JP') ? 'JDrama'
-                        :(country==='VN') ? 'VDrama'
-                        :(country==='RK') ? 'KDrama'
-                        :'International'
+        const sort= this.props.location.search
+        if (sort) {
+            const query= sort.slice(1).split('=')
+            let name
+            let value= query[1]
+            if (query[0]==='country') {
+                name=(value==='US') ? 'Domestic'
+                    :(value==='CN') ? 'CDrama'
+                    :(value==='JP') ? 'JDrama'
+                    :(value==='VN') ? 'VDrama'
+                    :(value==='KR') ? 'KDrama'
+                    :'International'
+            }
+            else name = query[1].replace('%20',' ')
             const title= 'Movies | '+ name
-            MovieApiServices.getMoviesByCountry(country)
+            MovieApiServices.sortMovies(sort)
                 .then(json=>this.setState({
-                    movieList: json,
-                    title: title,
-                    displayAll: true,
-                    displayArrow: false,
-                }))
-        }
-        else if (this.state.genres) {
-            const genres= this.state.genres.replace('-',' ')
-            const title= 'Movies | '+ genres
-            MovieApiServices.getMoviesByGenres(genres)
-                .then(json=>this.setState({
-                    movieList: json,
-                    title: title,
-                    displayAll: true,
-                    displayArrow: false,
-                }))
+                        movieList: json,
+                        title: title,
+                        displayAll: true,
+                        displayArrow: false,
+                })).catch(err=>this.setState({hasError: true}))
         }
         else {
-            MovieApiServices.getMoviesByGenres(this.props.genres)
-            .then(json=> this.setState({movieList: json}))
-        }  
+            MovieApiServices.sortMovies(this.props.sort)
+                .then(json=>this.setState({movieList:json}))
+        }
     }
 
     handleMoreButton= e =>this.setState({displayAll: true})
     handleLessButton= e =>this.setState({displayAll: false})
 
-    render() {
+    renderMovieList(){
         let nav;
         let items;
 
@@ -87,5 +82,10 @@ export default class ListItem extends Component {
                 </div>
             </div>
         )
+    }
+
+    render() {
+        const content= (!this.state.hasError)? this.renderMovieList(): <NotFoundPage/>
+        return content
     }
 }
