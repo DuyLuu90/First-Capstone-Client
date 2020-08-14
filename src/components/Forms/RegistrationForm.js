@@ -85,23 +85,24 @@ export default class RegistrationForm extends Component {
   hideStatusMessage=()=>this.setState({statusMessage:false})
   
   render() {
-    const usernameError= (this.props.user && !this.state.username.value)
+    const {user,error}= this.props
+    const {first_name,last_name,username,password,birth_year,userList}= this.state
+    const usernameError= (user && !username.value)
       ? false
-      : (this.props.user.username===this.state.username.value) ? false
-      : validateUsername(this.state.userList,this.state.username.value)
-    const passwordError= (this.props.user && !this.state.password.value)
+      : (user.username===username.value) ? false
+      : validateUsername(userList,username.value)
+    const passwordError= (user && !password.value)
       ? false
-      : validatePassword(this.state.password.value)
-    const nameError= (this.props.user && (!this.state.first_name.value||!this.state.last_name.value))
+      : validatePassword(password.value)
+    const nameError= (user && (!first_name.value||!last_name.value))
       ? false 
-      : validateName(this.state.first_name.value,this.state.last_name.value)
+      : validateName(first_name.value,last_name.value)
     
-    const defaultYear= (this.props.user) ? this.state.birth_year.value: 2005
-    const error= this.props.error
+    const defaultYear= (user.age) ? birth_year.value: 2005
+    //const error= this.props.error
     const countries= CountryList()
     const years= BirthYear()
-    const submitButton= (this.props.user)? 'Save' : 'Register'
-    
+    const submitButton= (user.username)? 'Save' : 'Register'
     
     return (
       <form className='form RegistrationForm' onSubmit={this.handleSubmit}>

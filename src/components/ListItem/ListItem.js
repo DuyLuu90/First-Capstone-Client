@@ -76,7 +76,7 @@ export default class ListItem extends Component {
                             <div className='poster' >
                                 <img alt='movie poster' className='movie_poster' src={item.posterurl}/>
                             </div>
-                            <Link to={'/movies/'+ item.id}>{item.title}</Link>
+                            <Link to={'/movies/'+ item.id} aria-label='movie-page'>{item.title}</Link>
                         </div>
                     )}   
                 </div>

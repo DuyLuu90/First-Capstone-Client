@@ -16,19 +16,19 @@ export default class MovieDetails extends Component {
         const genres= movie.genres || []
         const country= movie.country || ''
         const castList= this.props.cast.map((item,i)=>(
-        <Link to={'/artists/'+item["artist:id"]}key={i}>{item["full_name"]}{' '}</Link>          
+        <Link to={'/artists/'+item["artist:id"]}key={i} aria-label='artist-page'>{item["full_name"]}{' '}</Link>          
         ))
         const directorList= this.props.director.map((item,i)=>(
-        <Link to={'/artists/'+item["artist:id"]} key={i}>{item["full_name"]}{' '}</Link>
+        <Link to={'/artists/'+item["artist:id"]} key={i} aria-label='artist-page'>{item["full_name"]}{' '}</Link>
         ))
-        const genresList= genres.map((item,i)=><Link to={'/movies?genres='+ item}key={i}>{item}{' '}</Link>)
+        const genresList= genres.map((item,i)=><Link to={'/movies?genres='+ item}key={i} aria-label='sort-by-genres'>{item}{' '}</Link>)
         return (
             <div className='movie_details'>
                 <div>
                     <h2>{movie.title} ({movie.year})</h2>
                     <p>
                         {genresList}<span>{' '}{'|'}{' '}</span>
-                        <Link to={'/movies?country='+ country.replace(' ','-')}>{country}</Link>
+                        <Link to={'/movies?country='+ country.replace(' ','-')} aria-label='sort-by-country'>{country}</Link>
                     </p>
                 </div>
                 <div className='movie_visual'>

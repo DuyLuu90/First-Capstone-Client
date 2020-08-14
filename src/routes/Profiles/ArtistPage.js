@@ -22,7 +22,7 @@ export default class ArtistPage extends Component {
         const filmList= this.state.movies.map((movie,index)=>(
             <div key={index}>
                 <span>{movie.year}</span>{' : '}
-                <Link to={'/movies/'+movie.movieid}>{movie.title}</Link>
+                <Link to={'/movies/'+movie.movieid} aria-label='movie-page'>{movie.title}</Link>
                 
             </div>
         ))

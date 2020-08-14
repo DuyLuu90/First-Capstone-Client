@@ -24,20 +24,20 @@ export default class Header extends Component {
     renderLogoutLink(){
         return(
             <div className='Header-logged-in' onClick={this.closeDropdown}>
-                <Link to='/demo'>Demo </Link>
-                <Link onClick={this.props.onLogoutSuccess} to='/'>Logout</Link>
-                <Link to={'/users/'+this.props.token.userid} className='blue'>{this.props.token.first_name}</Link>
-                {this.props.token.isAdmin && <Link to='/admin'> Admin</Link> }
+                <Link to='/demo'aria-label='demo-page'>Demo </Link>
+                <Link onClick={this.props.onLogoutSuccess} to='/'aria-label='logout'>Logout</Link>
+                <Link to={'/users/'+this.props.token.userid} className='blue'aria-label='home-page'>{this.props.token.first_name}</Link>
+                {this.props.token.isAdmin && <Link to='/admin'aria-label='admin-page'> Admin</Link> }
             </div>
         )
     }
     renderLoginLink(){
         return(
             <div className='Header-not-logged-in' onClick={this.closeDropdown}>
-                <Link to='/demo'>Demo </Link>
-                <Link to='/login'>Log in </Link>
-                <Link to='/register' > Sign up</Link>
-                {this.props.token.isAdmin && <Link to='/admin'> Admin</Link> }
+                <Link to='/demo'aria-label='demo-page'>Demo </Link>
+                <Link to='/login'aria-label='login-page'>Log in </Link>
+                <Link to='/register'aria-label='registration-page' > Sign up</Link>
+                {this.props.token.isAdmin && <Link to='/admin'aria-label='admin-page'> Admin</Link> }
             </div>
         )
     }
@@ -46,7 +46,7 @@ export default class Header extends Component {
         return (
             <nav className='app_nav'>
                 <h1>
-                    <Link to='/'><FontAwesomeIcon className='blue' icon='film'/>
+                    <Link to='/'aria-label='home-page'><FontAwesomeIcon className='blue' icon='film'/>
                         {' '}{' '}DramaPEDIA
                     </Link>
                 </h1>

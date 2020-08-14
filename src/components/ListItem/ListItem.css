@@ -37,6 +37,12 @@ header span:hover {
     align-items: center;
     text-align: center;
 }
+.ListItem a {
+    color: rgb(19, 19, 121)
+}
+.ListItem a:hover {
+    color: chocolate;
+}
 .list-control {
     padding: 10px;
     display: flex;

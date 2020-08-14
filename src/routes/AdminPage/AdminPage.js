@@ -148,12 +148,12 @@ export default class AdminPage extends Component {
                 </h2>
                 <div className='AdminPage'>
                     <nav id='admin_nav'>
-                        <Link to='/admin/movies'className='tab'onClick={this.activeTab}>MOVIES</Link>
-                        <Link to='/admin/artists'className='tab'onClick={this.activeTab}>ARTISTS</Link>
-                        <Link to='/admin/users'className='tab'onClick={this.activeTab}>USERS</Link>
-                        <Link to='/admin/reports'className='tab'onClick={this.activeTab}>REPORTS</Link>
-                        <Link to='/admin/forms'className='tab'onClick={this.activeTab}>FORMS </Link>
-                        <Link to='/admin/add'className='tab'onClick={this.activeTab}>RECENTLY ADDED </Link>
+                        <Link to='/admin/movies'className='tab'onClick={this.activeTab} aria-label='manage-movies'>MOVIES</Link>
+                        <Link to='/admin/artists'className='tab'onClick={this.activeTab} aria-label='manage-artists'>ARTISTS</Link>
+                        <Link to='/admin/users'className='tab'onClick={this.activeTab} aria-label='manage-users'>USERS</Link>
+                        <Link to='/admin/reports'className='tab'onClick={this.activeTab} aria-label='manage-reports'>REPORTS</Link>
+                        <Link to='/admin/forms'className='tab'onClick={this.activeTab} aria-label='manage-forms'>FORMS </Link>
+                        <Link to='/admin/add'className='tab'onClick={this.activeTab} aria-label='new-added-items'>RECENTLY ADDED </Link>
                     </nav>
                     <div className='admin_content'>
                         {this.state.displayPopup && popup}

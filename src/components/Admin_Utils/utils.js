@@ -27,7 +27,7 @@ export function InfoBox(person,index,icons=[],path='',boolean) {
     :'https://painrehabproducts.com/wp-content/uploads/2014/10/facebook-default-no-profile-pic-300x300.jpg'
     const miniAvatar= <img className='mini-avatar'alt='avatar' 
     src={(person.avatar) ? person.avatar :defaultAvatar}/>
-    const header= (boolean)? <h2><Link to={path+person.id}>{name}</Link></h2>:<h1>{name}</h1>
+    const header= (boolean)? <h2><Link to={path+person.id} aria-label='profile-page'>{name}</Link></h2>:<h1>{name}</h1>
     return(
         <div className='basicInfo' key={index}>
             <header>
@@ -41,7 +41,7 @@ export function InfoBox(person,index,icons=[],path='',boolean) {
                 {(person.birth_year)&&<span>Born:{' '}{person.birth_year}{' | '}</span>}
                 {(person.age)&&<span>Age:{' '}{person.age}{' | '}</span>}
                 {(person.title)
-                ?<span><Link to={'/artists/country/'+person.country}>{person.country}</Link>{' | '}</span>
+                ?<span><Link to={'/artists/country/'+person.country}aria-label='artist-list'>{person.country}</Link>{' | '}</span>
                 :<span>{person.country}{' | '}</span>}
                 {(person.username)&&<span>Username:{' '}{person.username}{' | '}</span>}
             </div>
@@ -138,7 +138,7 @@ export function PopUpMessage(message,action) {
 export function NoAuthTokenMessage(){
     return (
         <div className='noAuth'>
-            <Link to={'/login'}>LOG IN{' '}</Link> or <Link to={'/register'}>REGISTER{' '}</Link> to post reviews
+            <Link to={'/login'}aria-label='login-page'>LOG IN{' '}</Link> or <Link to={'/register'}aria-label='registration-page'>REGISTER{' '}</Link> to post reviews
         </div>
     )
 }

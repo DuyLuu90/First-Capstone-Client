@@ -97,7 +97,7 @@ export default class Review extends Component{
                 <section>
                     <div className='review-text'>
                         <header>
-                            <Link to={'/users/'+review["user:id"]} className='userLink'>
+                            <Link to={'/users/'+review["user:id"]} className='userLink'aria-label='user-page'>
                             {review['user:first_name']}{' '}{review['user:last_name']}
                             </Link>     
                         </header>
