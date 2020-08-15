@@ -14,6 +14,18 @@ export const GeneralApiServices= {
               : res.json()
         )
     },
+    sortItems(dbName,sortQuery){
+        return fetch(`${config.API_ENDPOINT}/${dbName}?${sortQuery}`, {
+            headers: {
+                'Authorization': `Basic ${config.API_TOKEN}`,
+            },
+        })
+        .then(res =>
+            (!res.ok)
+              ? res.json().then(e => Promise.reject(e))
+              : res.json()
+        )
+    },
     postItem(dbName,item){
         //const proxy='https://cors-anywhere.herokuapp.com'
         return fetch(`${config.API_ENDPOINT}/${dbName}`,{

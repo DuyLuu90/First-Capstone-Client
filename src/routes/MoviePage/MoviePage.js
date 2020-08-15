@@ -27,9 +27,13 @@ export default class MoviePage extends Component {
         GeneralApiServices.getItemById('movies',this.id).then(json=>{
             this.setState({movie: json})
         })
+        GeneralApiServices.sortItems('reviews',`movieid=${this.id}`).then(json=>{
+            this.setState({reviews:json})
+        })
+        /*
         MovieApiServices.getMovieReviews(this.id).then(json=>{
             this.setState({reviews: json})
-        })
+        })*/
         MovieApiServices.getMovieCast(this.id).then(json=>{
             this.setState({cast:json})
         })
