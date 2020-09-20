@@ -123,7 +123,8 @@ export default class LoginForm extends Component {
           <input required name='username' id='LoginForm__user_name' placeholder='User name'/>
         </div>
         <div className='password'>
-          <input required name='password'type='password'id='LoginForm__password' placeholder='Password'/>
+          <input required name='password'type='password'id='LoginForm__password' autoComplete='off'
+          placeholder='Password'/>
         </div>
         <div className='displayPassword'>
             <input type="checkbox" id="togglePassword"

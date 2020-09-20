@@ -15,8 +15,11 @@ class Autocomplete extends Component {
             activeSuggestion: 0,// The active selection's index
             filteredSuggestions: [],
             showSuggestions: false,
+            userInput: this.props.cast.name || '',
+            inputId: this.props.cast.id
+            /*
             userInput: this.props.cast.full_name,
-            inputId: this.props.cast['artist:id']
+            inputId: this.props.cast['artist:id']*/
         };
     }
     componentDidMount(){

@@ -20,9 +20,9 @@ export default class RegistrationForm extends Component {
   state = { 
     error: null, statusMessage: false,
     userList:[],
-    first_name:{value: this.props.user.first_name, touch: false}, 
-    last_name:{value: this.props.user.last_name, touch: false},
-    username:{value: this.props.user.username, touch: false}, 
+    first_name:{value: this.props.user.first_name||'', touch: false}, 
+    last_name:{value: this.props.user.last_name ||'', touch: false},
+    username:{value: this.props.user.username||'', touch: false}, 
     password:{value: this.props.user.password, touch: false},
     country: {value:this.props.user.country},
     gender: {value:this.props.user.gender},
@@ -113,7 +113,7 @@ export default class RegistrationForm extends Component {
 
         <div className='full_name'>
           <input name='first_name'placeholder='First name' type='text' id='first_name'
-            defaultValue={this.state.first_name.value}
+            value={this.state.first_name.value}
             onClick={this.hideStatusMessage}
             onChange={this.onChange}
           />
@@ -136,6 +136,7 @@ export default class RegistrationForm extends Component {
 
         <div className='password'>
           <input name='password' placeholder='New password'type='password' id='password'
+            autoComplete='off'
             onClick={this.hideStatusMessage}
             onChange={this.onChange}
           /> 

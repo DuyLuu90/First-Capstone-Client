@@ -18,8 +18,10 @@ export default class MovieForm extends Component {
     this.state = {
       error: '', displayForm: (this.props.match.params.id)? false: true,
       movie: {
+        actorList:[],
+        directorList:[],
         title:'',posterurl:'',trailerurl:'',
-        summary:'',country:'',year:'',genres:''},
+        summary:'',country:'US',year:2020,genres:''},
       cast: [],
       dir:[],
     }
@@ -29,12 +31,14 @@ export default class MovieForm extends Component {
     const {id}= this
     if(id) {
         GeneralApiServices.getItemById('movies',id).then(json=>this.setState({movie: json}))
+        /*
         MovieApiServices.getMovieCast(id).then(json=>this.setState({cast:json}))
-        MovieApiServices.getMovieDirector(id).then(json=>this.setState({dir:json}))
+        MovieApiServices.getMovieDirector(id).then(json=>this.setState({dir:json}))*/
     }
   }
   renderMovieForm(){
-    const {error,movie,cast,dir} = this.state
+    const {error,movie} = this.state
+    const {actorList,directorList}= movie
     const countries= CountryList()
     const years= MovieYear()
     return (
@@ -109,11 +113,11 @@ export default class MovieForm extends Component {
         </div>  
         <div>
             <header>Director:</header>
-            <AutoComplete name='director' cast={dir[0]} updateCast={this.updateCast}/>
+            <AutoComplete name='director' cast={directorList[0]} updateCast={this.updateCast}/>
             <header>Actor 1:</header>
-            <AutoComplete name='actor_one' cast={cast[0]} updateCast={this.updateCast}/>
+            <AutoComplete name='actor_one' cast={actorList[0]} updateCast={this.updateCast}/>
             <header>Actor 2: </header>
-            <AutoComplete name='actor_two' cast={cast[1]} updateCast={this.updateCast}/>
+            <AutoComplete name='actor_two' cast={actorList[1]} updateCast={this.updateCast}/>
         </div>  
         <div className='otherInfo'>
           <div className='country'>
@@ -157,16 +161,17 @@ export default class MovieForm extends Component {
   displayPreview=e=>this.setState({displayForm:false})
 
   updateCast=(name,val1,val2)=>{
-    const {dir,cast} = this.state
-    const data= {full_name:val1,"artist:id":val2}
-    if(name==='director') dir[0]= data
-    else if(name==='actor_one') cast[0]= data
-    else cast[1]= data
+    //const {dir,cast} = this.state
+    //const data= {full_name:val1,"artist:id":val2}
+    const {directorList,actorList}=this.state.movie
+    const data= {name:val1,id:val2}
+    
+    if(name==='director') directorList[0]= data
+    else if(name==='actor_one') actorList[0]= data
+    else actorList[1]= data
 
-    this.setState({cast:cast, dir:dir})
-  /*
-    if (name==='director') this.setState({dir:[{0:{full_name:val1,"artist:id":val2}}]})
-    if (name==='actor_one') this.setState({cast:[{0:{full_name:val1,"artist:id":val2}}]})*/
+    this.setState({movie:{...this.state.movie,actorList,directorList}})
+  
   }
   
   onChange=e=> {
@@ -242,10 +247,12 @@ export default class MovieForm extends Component {
   }
 
   render() {
+    const {directorList,actorList}=this.state.movie
     const boolean=this.state.displayForm
     const d= new Date(this.state.movie.last_modified).toDateString()
     const form = this.renderMovieForm()
-    const preview= <MovieDetails movie={this.state.movie} cast={this.state.cast} director={this.state.dir}/>
+    
+    const preview= <MovieDetails movie={this.state.movie} cast={actorList} director={directorList}/>
     return (
       <form className='form MovieForm'onSubmit={this.handleSubmit}>
         <div className='formNav'>
@@ -253,7 +260,7 @@ export default class MovieForm extends Component {
           <button type='button' onClick={this.displayForm} className={boolean?'active':''}>Form</button>
           {this.state.movie.last_modified && <span>Last modified: {d}</span>}
         </div>
-        {boolean?form : preview}
+        {boolean ? form : preview}
       </form>
     )
   }
