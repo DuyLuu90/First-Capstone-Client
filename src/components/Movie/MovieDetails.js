@@ -10,17 +10,16 @@ export default class MovieDetails extends Component {
         director:[]
     }
     
-    
     render() {
-        const movie= this.props.movie
+        const {movie,cast,director}= this.props
         const genres= movie.genres || []
         const country= movie.country || ''
-        const castList= this.props.cast.map((item,i)=>(
-        <Link to={'/artists/'+item["artist:id"]}key={i} aria-label='artist-page'>{item["full_name"]}{' '}</Link>          
-        ))
-        const directorList= this.props.director.map((item,i)=>(
-        <Link to={'/artists/'+item["artist:id"]} key={i} aria-label='artist-page'>{item["full_name"]}{' '}</Link>
-        ))
+
+        const artistLink= (item,i)=><Link to={'/artists/'+item.id}key={i} aria-label='artist-page'>{item.name}{' '}</Link>
+
+        const castList= cast.map((item,i)=>artistLink(item,i))
+        const directorList= director.map((item,i)=>artistLink(item,i))
+
         const genresList= genres.map((item,i)=><Link to={'/movies?genres='+ item}key={i} aria-label='sort-by-genres'>{item}{' '}</Link>)
         return (
             <div className='movie_details'>

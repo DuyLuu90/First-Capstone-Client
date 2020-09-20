@@ -25,20 +25,11 @@ export default class MoviePage extends Component {
     }
     componentDidMount(){
         GeneralApiServices.getItemById('movies',this.id).then(json=>{
-            this.setState({movie: json})
+            if (json) this.setState({movie: json})
+            
         })
         GeneralApiServices.sortItems('reviews',`movieid=${this.id}`).then(json=>{
             this.setState({reviews:json})
-        })
-        /*
-        MovieApiServices.getMovieReviews(this.id).then(json=>{
-            this.setState({reviews: json})
-        })*/
-        MovieApiServices.getMovieCast(this.id).then(json=>{
-            this.setState({cast:json})
-        })
-        MovieApiServices.getMovieDirector(this.id).then(json=>{
-            this.setState({director:json})
         })
     }
     onReviewChangeSuccess=()=>{
@@ -55,14 +46,15 @@ export default class MoviePage extends Component {
         )
     }
     renderPage(){
-        const {movie,cast,director,reviews}= this.state
+        const {movie,reviews}= this.state
+        const {actorList,directorList}=movie
         const ReviewForm= (this.props.hasAuthToken) ? this.renderReviewForm(): NoAuthTokenMessage()
         const MovieReviews= (reviews.length)
                         ? reviews.map(review=><Review key={review.id} review={review} onDeleteSuccess={this.onReviewChangeSuccess}/>) 
                         : <div className='error'>{'\xa0'.repeat(10)}This movie currently has no review...</div>
         return (
             <div className='MoviePage'>
-                <MovieDetails movie= {movie} cast={cast} director={director}/>
+                <MovieDetails movie= {movie} cast={actorList} director={directorList}/>
                 {ReviewForm}
                 <div className='movie_reviews'>
                     {MovieReviews}
@@ -72,7 +64,7 @@ export default class MoviePage extends Component {
     }
 
     render() {
-        const MoviePage= (this.state.movie.id)? this.renderPage() : <NotFoundPage/>
+        const MoviePage= (this.state.movie.id) ? this.renderPage(): <NotFoundPage/>
         return MoviePage
     }
 }
