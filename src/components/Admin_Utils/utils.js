@@ -28,12 +28,14 @@ export function InfoBox(person,index,icons=[],path='',boolean) {
     const miniAvatar= <img className='mini-avatar'alt='avatar' 
     src={(person.avatar) ? person.avatar :defaultAvatar}/>
     const header= (boolean)? <h2><Link to={path+person.id} aria-label='profile-page'>{name}</Link></h2>:<h1>{name}</h1>
+
+    //onError={this.src='https://www.nasa.gov/centers/goddard/images/content/638831main_globe_east_2048.jpg'}
     return(
         <div className='basicInfo' key={index}>
             <header>
                 {boolean && miniAvatar}
                 {header}
-                <img className='flag' alt='flag'src={"https://www.countryflags.io/"+person.country+"/flat/64.png"}></img>
+                <img className='flag' alt='flag'src={"https://www.countryflags.io/"+person.country+"/flat/64.png"} ></img>
                 {buttons}
             </header>
             <div>

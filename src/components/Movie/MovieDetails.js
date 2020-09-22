@@ -3,11 +3,25 @@ import {Link} from 'react-router-dom'
 
 import './Movie.css'
 
+
+
 export default class MovieDetails extends Component {
     static defaultProps ={
         movie: {},
         cast:[],
         director:[]
+    }
+    /*
+    addPassvive=(e)=>{
+        document.getElementsByName('ytvideo').addEventListener('touchstart',this.touchstart,{passsive: false})
+    }*/
+    
+    componentDidMount() {
+        document.getElementById('ytvideo').addEventListener('touchstart',this.touchstart,{passvive:false})
+        
+    }
+    componentWillUnmount(){
+        //document.getElementById('ytvideo').removeEventListener('touchstart',this.touchstart)
     }
     
     render() {
@@ -35,7 +49,7 @@ export default class MovieDetails extends Component {
                         <img alt='movie poster' className='movie_poster' src={movie.posterurl}/>
                     </div>
                     <div className='right'>
-                        <iframe  alt='movie video' title={movie.title}className='movie_video' src={movie.trailerurl}/>  
+                        <iframe  alt='movie video' title={movie.title}className='movie_video' src={movie.trailerurl} id='ytvideo'/>  
                     </div> 
                     
                 </div>
