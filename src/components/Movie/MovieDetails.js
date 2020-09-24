@@ -17,7 +17,7 @@ export default class MovieDetails extends Component {
     }*/
     
     componentDidMount() {
-        document.getElementById('ytvideo').addEventListener('touchstart',this.touchstart,{passvive:false})
+        //document.getElementById('ytvideo').addEventListener('touchstart',this.touchstart,{passive:false})
         
     }
     componentWillUnmount(){
@@ -49,7 +49,8 @@ export default class MovieDetails extends Component {
                         <img alt='movie poster' className='movie_poster' src={movie.posterurl}/>
                     </div>
                     <div className='right'>
-                        <iframe  alt='movie video' title={movie.title}className='movie_video' src={movie.trailerurl} id='ytvideo'/>  
+                        <iframe  alt='movie video' title={movie.title}className='movie_video' 
+                        src={movie.trailerurl} id='ytvideo' rel="preconnect"/>  
                     </div> 
                     
                 </div>
