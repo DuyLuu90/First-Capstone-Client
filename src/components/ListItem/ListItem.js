@@ -54,21 +54,21 @@ export default class ListItem extends Component {
     renderMovieList(){
         let nav;
         let items;
+        const {displayAll,displayArrow,movieList,title} = this.state
 
-        if (this.state.displayAll) {
-            items= this.state.movieList
-            nav= (this.state.displayArrow)
-                    ? <span onClick={this.handleLessButton}>{'<<'} {' '}Less</span>: ''
+        if (displayAll) {
+            items=movieList
+            nav= (displayArrow) ? <span onClick={this.handleLessButton}>{'<<'} {' '}Less</span>: ''
         }
         else {
             nav= <span onClick={this.handleMoreButton}>More{' '}{'>>'}</span>
-            items= this.state.movieList.slice(0,3)
+            items= movieList.slice(0,3)
         }
         return (
             <div className='list'>
                 <div className='list-control'>
-                    <h2>{this.state.title}</h2>
-                    {!this.props.displayAll && nav}
+                    <h2>{title}</h2>
+                    {!displayAll && nav}
                 </div>
                 <div className='ListItem'>
                     {items.map((item,index)=>
@@ -76,7 +76,10 @@ export default class ListItem extends Component {
                             <div className='poster' >
                                 <img alt='movie poster' className='movie_poster' src={item.posterurl}/>
                             </div>
-                            <Link to={'/movies/'+ item.id} aria-label='movie-page'>{item.title}</Link>
+                            <Link to={{pathname:'/movies/'+ item.id, state:{from:this.props.location.pathname}}} 
+                            aria-label='movie-page'>
+                                {item.title}
+                            </Link>
                         </div>
                     )}   
                 </div>
@@ -89,3 +92,7 @@ export default class ListItem extends Component {
         return content
     }
 }
+
+/*
+<Link to={'/movies/'+ item.id} aria-label='movie-page'>{item.title}</Link>
+ */

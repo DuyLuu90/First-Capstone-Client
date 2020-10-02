@@ -8,6 +8,7 @@ import {GeneralApiServices,AuthApiServices} from '../../services/api-service'
 export default class LoginForm extends Component {
   static defaultProps = {
     onLoginSuccess: () => {},
+    history: {}
   }
   state = { 
     userList:[],
@@ -36,17 +37,16 @@ export default class LoginForm extends Component {
   handleSubmitJwtAuth = ev => {
     ev.preventDefault()
     const { username,password} = ev.target
+    const {onLoginSuccess,history} = this.props
     AuthApiServices.postLogin({username: username.value,password: password.value,})
       .then(res=>{
           username.value= ''
           password.value=''
           TokenService.saveAuthToken(res.authToken)
-          this.props.onLoginSuccess()
-          this.props.history.goBack()
-          /*
-          const{location,history}=this.props
-          const destination=(location.state||{}).from || '/'
-          history.push(destination)*/
+          onLoginSuccess()
+          history.push('/')
+          //const destination=(location.state||{}).from || '/'
+          //history.push(destination)
       })
       .catch(res=>{
           this.setState({error: res.error})
