@@ -56,6 +56,7 @@ export const GeneralApiServices= {
     patchItemById(dbName,id,fieldsToUpdate){
         return fetch(`${config.API_ENDPOINT}/${dbName}/${id}`,{
             method: `PATCH`,
+            mode: 'cors',
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
                 'content-type': 'application/json'
@@ -69,6 +70,7 @@ export const GeneralApiServices= {
     DeleteItemById(dbName,id){
         return fetch(`${config.API_ENDPOINT}/${dbName}/${id}`,{
             method: `DELETE`,
+            mode: 'cors',
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
             },
@@ -161,6 +163,7 @@ export const UserApiServices= {
         //const proxy='https://cors-anywhere.herokuapp.com'
         return fetch(`${config.API_ENDPOINT}/users`,{
             method: `POST`,
+            mode: 'cors',
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
                 'content-type': 'application/json'
