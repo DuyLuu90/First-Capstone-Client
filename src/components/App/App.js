@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import { Route, Switch} from 'react-router-dom'
-import './App.css';
 
 import TokenService from '../../services/token-service'
 import {GeneralApiServices} from '../../services/api-service'

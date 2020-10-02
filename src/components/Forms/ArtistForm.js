@@ -96,7 +96,7 @@ export default class ArtistForm extends Component {
                 </div>
                 <div>
                     <header>Avatar</header>
-                    <textarea name='avatar'type='text'required id='avatar'
+                    <textarea name='avatar'type='text' id='avatar'
                     defaultValue={artist.avatar}rows='2'onChange={this.onChangeArtist}/>
                 </div>
                 <div className='otherInfo'>
@@ -124,7 +124,7 @@ export default class ArtistForm extends Component {
                 </div>
                 <div className='form_control'>
                     <input type='button' value='Cancel'
-                        onClick={this.props.handleCancel}/>
+                        onClick={()=>this.props.history.push('/admin')}/>
                     <input type="submit" value='SAVE' id='new_movie'/>
         </div>
             </div>
