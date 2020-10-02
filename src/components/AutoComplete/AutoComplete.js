@@ -8,20 +8,18 @@ class Autocomplete extends Component {
         cast: {}
     };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            artists:[],
-            activeSuggestion: 0,// The active selection's index
-            filteredSuggestions: [],
-            showSuggestions: false,
-            userInput: this.props.cast.name || '',
-            inputId: this.props.cast.id
-            /*
-            userInput: this.props.cast.full_name,
-            inputId: this.props.cast['artist:id']*/
-        };
-    }
+    state = {
+        artists:[],
+        activeSuggestion: 0,// The active selection's index
+        filteredSuggestions: [],
+        showSuggestions: false,
+        userInput: this.props.cast.name || '',
+        inputId: this.props.cast.id
+        /*
+        userInput: this.props.cast.full_name,
+        inputId: this.props.cast['artist:id']*/
+    };
+
     componentDidMount(){
         GeneralApiServices.getAllItems('artists').then(json=>{
             this.setState({artists:json})
@@ -86,6 +84,7 @@ class Autocomplete extends Component {
         }
     };
     onAdd= e =>{
+        e.preventDefault()
         if (this.state.userInput) {
             const data= {full_name: this.state.userInput}
             
