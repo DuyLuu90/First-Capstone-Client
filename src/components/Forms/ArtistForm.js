@@ -87,6 +87,9 @@ export default class ArtistForm extends Component {
         const {artist}= this.state
         const countries= CountryList()
         const years= BirthYear()
+        const country= (artist.country)? artist.country: ''
+        const year= (artist.birth_year)? artist.birth_year: ''
+        const title= (artist.title)? artist.title: ''
         return(
             <div>
                 <div className='full_name'>
@@ -103,19 +106,19 @@ export default class ArtistForm extends Component {
                     
                     <div className='country'>
                         <header>Country</header>
-                        <select id="country" name="country"value={artist.country}onChange={this.onChangeArtist}>
+                        <select id="country" name="country"value={country}onChange={this.onChangeArtist}>
                             {countries}
                         </select>
                     </div>
                     <div className='birth_year'>
                         <header>Birth Year</header>
-                        <select id='birth_year'name='birth_year'value={artist.birth_year}onChange={this.onChangeArtist}>
+                        <select id='birth_year'name='birth_year'value={year}onChange={this.onChangeArtist}>
                             {years} 
                         </select>
                     </div>
                     <div className='title'>
                         <header>Title</header>
-                        <select id='title'name='title'value={artist.title} onChange={this.onChangeArtist}>
+                        <select id='title'name='title'value={title} onChange={this.onChangeArtist}>
                             <option value="Director">Director</option>
                             <option value="Actor">Actor</option>
                             <option value="Actress">Actress</option>
