@@ -10,11 +10,15 @@ import './Profile.css'
 export default class ArtistPage extends Component {
     state= {
         artist:{},
-        movies: []
+        movies: [],
+        error: false
     }
     componentDidMount(){
         GeneralApiServices.getItemById('artists',this.props.match.params.id)
-        .then(json=>this.setState({artist: json}))
+        .then(json=>{
+            if (json.error) this.setState({error:true})
+            else this.setState({artist:json})
+        })
         ArtistApiServices.getMoviesByArtist(this.props.match.params.id)
         .then(json=>this.setState({movies:json}))
     }
@@ -37,7 +41,8 @@ export default class ArtistPage extends Component {
         )
     }
     render(){
-        const Page= (this.state.artist.id)? this.renderPage(): <NotFoundPage/>
-        return Page
+        const Page= (this.state.artist.id)? this.renderPage(): <div/>
+        const render= (!this.state.error)? Page: <NotFoundPage/>
+        return render
     }
 }

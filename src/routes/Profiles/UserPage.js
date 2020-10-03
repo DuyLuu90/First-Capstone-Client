@@ -15,18 +15,25 @@ export default class UserPage extends Component {
     
     state= {
         user: {username:'',firs_name:'',last_name:'',country:'',gender:''},
-        displayForm: false
+        displayForm: false,
+        error: false
     }
     
     componentDidMount(){
         GeneralApiServices.getItemById('users',this.props.match.params.id)
-        .then(json=>this.setState({user:json}))
+        .then(json=>{
+            if (json.error) this.setState({error:true})
+            else this.setState({user:json})
+        })
     }
     
     componentDidUpdate(prevProps){
         if(this.props.match.params.id !== prevProps.match.params.id) {
             GeneralApiServices.getItemById('users',this.props.match.params.id)
-            .then(json=>this.setState({user:json}))
+            .then(json=>{
+                if (json.error) this.setState({error:true})
+                else this.setState({user:json})
+            })
         }
     }
 
@@ -60,7 +67,8 @@ export default class UserPage extends Component {
         )
     }
     render(){
-        const Page= (this.state.user.id)? this.renderPage(): <NotFoundPage/>
-        return Page
+        const Page= (this.state.user.id)? this.renderPage(): <div/>
+        const render= (!this.state.error)? Page: <NotFoundPage/>
+        return render
     }
 }
