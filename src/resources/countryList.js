@@ -1,4 +1,4 @@
-const countryList =
+export const countryList =
 [
     {"name": "Afghanistan", "code": "AF"},
     {"name": "Albania", "code": "AL"},
@@ -232,9 +232,11 @@ const countryList =
     {"name": "Zimbabwe", "code": "ZW"}
 ]
 
+/*
 function displayCountries() {
     for (let i=0; i<countryList.length;i++) {
         $('#country').append(`
         <option value="${countryList[i].code}">${countryList[i].name}</option>`)
     }
 }
+*/

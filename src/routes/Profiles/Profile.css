@@ -8,9 +8,21 @@
     margin-right: 15px;
 }
 
-.profile_content h2 {
-    color: red
+.Profile_Page a {
+    color: blue;
 }
+
+.Profile_Page a:hover{
+    color: orange;
+    font-weight: bold;
+}
+
+.profile_content h2 {
+    color: rgb(161, 7, 7);
+    font-weight: bold;   
+}
+
+
 
 
 
