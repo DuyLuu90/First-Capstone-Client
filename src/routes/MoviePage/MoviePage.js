@@ -17,7 +17,8 @@ export default class MoviePage extends Component {
             movie: {},
             reviews:[],
             cast:[],
-            director:[]
+            director:[],
+            error: false
         }
     }
     static defaultProps = {
@@ -25,8 +26,8 @@ export default class MoviePage extends Component {
     }
     componentDidMount(){
         GeneralApiServices.getItemById('movies',this.id).then(json=>{
-            if (json) this.setState({movie: json})
-            
+            if (json.error) this.setState({error:true})
+            else this.setState({movie: json})
         })
         GeneralApiServices.sortItems('reviews',`movieid=${this.id}`).then(json=>{
             this.setState({reviews:json})
@@ -64,7 +65,9 @@ export default class MoviePage extends Component {
     }
 
     render() {
-        const MoviePage= (this.state.movie.id) ? this.renderPage(): <NotFoundPage/>
-        return MoviePage
+        const MoviePage= (this.state.movie.id) ? this.renderPage(): <div></div>
+        const render= (!this.state.error)? MoviePage: <NotFoundPage/>
+        
+        return render
     }
 }
