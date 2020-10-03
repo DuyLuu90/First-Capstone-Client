@@ -133,6 +133,7 @@ export const MovieApiServices = {
     postMovieCast(id,item){
         return fetch(`${config.API_ENDPOINT}/movies/${id}/cast`,{
             method: `POST`,
+            mode: 'cors',
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
                 'content-type': 'application/json'
@@ -146,6 +147,7 @@ export const MovieApiServices = {
     updateMovieCast(id,fieldsToUpdate){
         return fetch(`${config.API_ENDPOINT}/movies/${id}/cast`,{
             method: `PATCH`,
+            mode: 'cors',
             headers:{
                 'Authorization': `Basic ${config.API_TOKEN}`,
                 'content-type': 'application/json'
