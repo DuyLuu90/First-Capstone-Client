@@ -40,7 +40,7 @@ export default class MoviePage extends Component {
     }
     renderReviewForm() {
         return(
-            <div className='postReview'>
+            <div>
                 <h2>Leave a review</h2>
                 <ReviewForm movieid={this.id} onSuccess={this.onReviewChangeSuccess}/>
             </div>
@@ -56,9 +56,11 @@ export default class MoviePage extends Component {
         return (
             <div className='MoviePage'>
                 <MovieDetails movie= {movie} cast={actorList} director={directorList}/>
-                {ReviewForm}
                 <div className='movie_reviews'>
-                    {MovieReviews}
+                    {ReviewForm}
+                    <div>
+                        {MovieReviews}
+                    </div>
                 </div>
             </div>
         )

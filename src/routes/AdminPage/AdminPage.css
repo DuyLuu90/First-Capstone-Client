@@ -50,6 +50,7 @@
     }
     .AdminPage nav {
         flex-direction: column;
+        min-width: 280px;
         width: 35%;
     }
     #admin_nav a {

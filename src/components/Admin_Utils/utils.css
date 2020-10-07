@@ -34,10 +34,6 @@
     width: 65%;
 }
 
-.flag {
-    width: 50px;
-    height: 40px;     
-}
 .control_icons{
     width: 25%;
     text-align: right;
@@ -73,16 +69,20 @@
     cursor: pointer;
     background-color: red;
 }
-.noAuth{
-    margin: 30px 50px;
+.noAuth {
+    padding: 15px 0;
+    font-size: 13px;
+   
 }
 .noAuth a{
-    color: rgb(101, 101, 206);
-    font-weight: bold;
+    background-color: orange; padding: 5px; 
+    margin-right: 5px; 
+    margin-bottom: 15px;
+    color: black; font-weight: bold;
 }
 
 .noAuth a:hover {
-    color: chocolate;
+    background-color: red; color: white;
 }
 .popup {
     position: fixed;
@@ -116,10 +116,19 @@
     width: 50%;
     color: rgb(16, 16, 110)
 }
+
+@media screen and (min-width: 360px){
+    .noAuth {
+        font-size: 16px;
+       
+    }
+}
+
 @media screen and (min-width: 400px) {
     .popup{
         width: 320px;
     }
+    
 }
 
 

@@ -142,7 +142,7 @@ export function PopUpMessage(message,action) {
 export function NoAuthTokenMessage(){
     return (
         <div className='noAuth'>
-            <Link to={'/login'}aria-label='login-page'>LOG IN{' '}</Link> or <Link to={'/register'}aria-label='registration-page'>REGISTER{' '}</Link> to post reviews
+            <Link to={'/login'}aria-label='login-page'>LOG IN{' '}</Link>or <Link to={'/register'}aria-label='registration-page'>REGISTER{' '}</Link> to post reviews
         </div>
     )
 }

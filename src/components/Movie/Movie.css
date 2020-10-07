@@ -1,30 +1,20 @@
 a {
-    text-decoration: none;
     color: rgb(148, 148, 238);
 }
 a:hover {
     color: greenyellow;
-    cursor: pointer;
 }
-.MoviePage form {
-    margin-left: 20px;
-    width: 80%;
-    max-width: 500px;
+.MoviePage{
+    padding: 0 20px;
 }
-.MoviePage textarea {
-    width: 100%;
-}
-.postReview {
-    width: 90%;
+.MoviePage>div{
     margin: 10px auto;
+    max-width: 800px;
 }
+/*MOVIE DETAILS*/
 .movie_details{
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
     background-color: rgb(41, 41, 41);
-    color: white;
-    margin-top: 10px;
+    color: white;  
 }
 .movie_details:nth-child(odd) {
     padding: 20px;
@@ -33,13 +23,23 @@ a:hover {
     color: yellow;
     font-weight: bolder;
 }
-.movie_visual{
+.title_links{
+    display: flex;
+    align-items: center;
+}
+.genresList{
+    margin-right: 10px;
+}
+.movie_visual {
     text-align: center;
 }
+
 .movie_visual img, .movie_visual iframe {
     height: 200px;
     max-width: 100%;
+    margin: 10px auto;
 }
+
 .movie_content {
     margin-top: 10px;
 }
@@ -52,10 +52,19 @@ a:hover {
 .movie_content a {
     margin-right: 10px;
 }
-.review {
-    padding: 15px; display: flex;
-}
 
+/*POST REVIEW FORM*/
+.MoviePage form {
+    margin-left: 0;
+    width: 80%;
+    max-width: 500px;
+}
+.MoviePage textarea {
+    width: 100%;
+}
+.review {
+    padding: 15px; display: flex; 
+}
 
 .review form {
     margin-left: 0px;
@@ -136,15 +145,10 @@ a:hover {
 .userLink:hover {
     color: rgb(5, 146, 5);
 }
-/*
-li {
-    list-style: none;
-    padding: 0;
-}*/
 .green {
     color: green;
 }
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 650px) {
     .movie_visual{
         display: flex;
         justify-content: space-evenly;
@@ -161,10 +165,12 @@ li {
         width: 25%;
         text-align: center;
     }
+    /*
     .review{
         width: 80%;
         margin: 0 auto; 
     }
+    */
     .review .main{
         width: 75%;
     }

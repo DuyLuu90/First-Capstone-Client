@@ -242,8 +242,6 @@ export default class MovieForm extends Component {
         })
         .catch(err=>console.log(err))
     }
-    
-    
   }
 
   render() {

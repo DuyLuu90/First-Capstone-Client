@@ -33,25 +33,28 @@ export default class MovieDetails extends Component {
 
         const castList= cast.map((item,i)=>artistLink(item,i))
         const directorList= director.map((item,i)=>artistLink(item,i))
+        const flag= `https://www.countryflags.io/${country}/flat/64.png`
 
         const genresList= genres.map((item,i)=><Link to={'/movies?genres='+ item}key={i} aria-label='sort-by-genres'>{item}{' '}</Link>)
         return (
             <div className='movie_details'>
                 <div>
                     <h2>{movie.title} ({movie.year})</h2>
-                    <p>
-                        {genresList}<span>{' '}{'|'}{' '}</span>
-                        <Link to={'/movies?country='+ country.replace(' ','-')} aria-label='sort-by-country'>{country}</Link>
-                    </p>
+                    <div className='title_links'>
+                        <span className='genresList'>{genresList}</span>
+                        <Link to={'/movies?country='+ country.replace(' ','-')} aria-label='sort-by-country'>
+                            <img className='flag' alt='flag'src={flag}/>
+                        </Link>
+                    </div>
                 </div>
                 <div className='movie_visual'>
-                    <div className='left'>
-                        <img alt='movie poster' className='movie_poster' src={movie.posterurl}/>
-                    </div>
                     <div className='right'>
                         <iframe  alt='movie video' title={movie.title}className='movie_video' 
                         src={movie.trailerurl} id='ytvideo' rel="preconnect"/>  
                     </div> 
+                    <div className='left'>
+                        <img alt='movie poster' className='movie_poster' src={movie.posterurl}/>
+                    </div>
                     
                 </div>
                 <div className='movie_content'>
