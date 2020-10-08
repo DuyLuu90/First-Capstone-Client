@@ -22,7 +22,6 @@ export default class Review extends Component{
         displayForm: false
     }
     componentDidMount(){
-        //const {id}= this.props.review
         if(this.id) {
             GeneralApiServices.getItemById('reviews',this.id).then(json=>{
                 const {comment,rating,upvote,downvote} = json
@@ -140,16 +139,13 @@ export default class Review extends Component{
         const {UserAction,VisitorAction,AdminAction}= this.renderReviewAction()
         const {comment,rating,upvote,downvote}= this.state
         const review={comment,rating,upvote,downvote}
-        /*
-        const action = value.isAdmin
-                        ?AdminAction :value.userid===Userid? UserAction: VisitorAction
-         */
-        //const {review}=this.props
+        
         return (
             <AppContext.Consumer>
                 {value=>{
-                    const action = value.userid===Userid
-                                ? UserAction : value.isAdmin? AdminAction : VisitorAction
+                    const {userid, isAdmin}= value
+                    const action = userid===Userid
+                                ? UserAction : isAdmin? AdminAction : VisitorAction
                     const reviewContent= (this.state.displayForm) 
                     ? <ReviewForm handleCancel={this.hideForm} handleEdit={this.handleEdit} review={review}/> 
                     : this.renderReviewContent(value.hasAuthToken)

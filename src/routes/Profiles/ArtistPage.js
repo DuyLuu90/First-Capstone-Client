@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import ControlButtons from '../../components/Misc/ControlButtons'
 import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 import {ProfileBox} from '../../components/Admin_Utils/utils'
 import {GeneralApiServices,ArtistApiServices} from '../../services/api-service'

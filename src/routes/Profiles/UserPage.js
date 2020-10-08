@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import ControlButtons from '../../components/Misc/ControlButtons'
 import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
 import {ProfileBox} from '../../components/Admin_Utils/utils'
 import RegistrationForm from '../../components/Forms/RegistrationForm'
-//import {UserApiServices} from '../../services/api-service'
 import {GeneralApiServices} from '../../services/api-service'
 import './Profile.css'
 
