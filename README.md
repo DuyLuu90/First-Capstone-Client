@@ -54,7 +54,8 @@ This is my first full stack capstone which demonstrates my mastery of React, Nod
 [Github Server](https://github.com/DuyLuu90/First-Capstone-Server)
 
 ## Future Development:
-* 
+* Feature to allow users to reply to a review
+* Feature to allow users to report reviews that violate community standard
 
 ## Connect:
 
