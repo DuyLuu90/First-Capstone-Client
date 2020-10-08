@@ -61,44 +61,73 @@ export default class DemoPage extends Component{
                         <span className={tabId===3?'active':''} onClick={this.setTab3}>User</span>
                         <span className={tabId===4?'active':''} onClick={this.setTab4}>Admin</span>
                     </div>
+                    
+                    {tabId===1 &&
                     <div className='tour_content'>
-                        {tabId===1 &&
-                        <div className='demo-about'>
-                            <h2>About this app</h2>
-                            <div>
-                            Inspired by many awesome online movie websites, my app allows users to see a variety of Films/TV Series from many countries around the world. For user convenience, my app has feature to sort them by genres, year and country of origin. To learn more, please click on the tabs above
+                        <h2>About this app</h2>
+                        <div className='app_features'>
+                            <div className='text'>
+                            Welcome to <strong>dramaPEDIA</strong>. Here you can see a variety of Films/TV Series from many countries around the world. You can create a new account and have your own personal page where you can save your favorite movies. To learn more about app features, please click on some of the tabs above.
                             </div>
-                        </div>}
-                        {tabId===2 &&
-                        <div className='demo-visitor'>
-                            <h2>Visitor features:</h2>
-                            <ul>
+                            <div className='featureImg'>
+                                <img src={'/assest/worldCinema.PNG'} alt='world cinema'/>
+                            </div>
+                
+                            
+                            
+                        </div>
+                        
+                    </div>}
+
+                    {tabId===2 &&
+                    <div className='tour_content'>
+                        <h2>Visitor features:</h2>
+                        <div className='app_features'>
+                            <ul className='text'>
                                 <li>Movie details, user pages (created by other registered users) and artist pages(created by admin)</li>
                                 <li>Hide and report comments/reviews from other users to page admin.</li>
                                 <li>Form validations (for registration)</li>
                             </ul>
-                        </div>}
-                        {tabId===3 &&
-                        <div className='demo-user'>
-                            <h2>User features:</h2>
-                            <ul>
+                            <div className='featureImg'>
+                                <img src={'/assest/watching.PNG'} alt='watching movie'/>
+                            </div>
+                        </div>
+                        
+                    </div>}
+
+                    {tabId===3 &&
+                    <div className='tour_content'>
+                        <h2>User features:</h2>
+                        <div className='app_features'>
+                            <ul className='text'>
                                 <li>Post, edit, delete, rate (upvote,downvote) reviews for a movie</li>
                                 <li>Edit personal information (from their User Page)</li>
                                 <li>Data protection: bcrypt and JWT</li>
                                 <li>Help: Username recovery/password reset </li>
                             </ul>
-                        </div>}
-                        {tabId===4 &&
-                        <div className='demo-admin'>
-                            <h2>Admin features</h2>
-                            <ul>
+                            <div className='featureImg'>
+                                <img src={'/assest/review1.PNG'} alt='review'/>
+                            </div>
+                        </div>
+                        
+                    </div>}
+
+                    {tabId===4 &&
+                    <div className='tour_content'>
+                        <h2>Admin features</h2>
+                        <div className='app_features'>
+                            <ul className='text'>
                                 <li>Create,edit, delete data</li>
                                 <li>Publish/unpublish a movie</li>
                                 <li>Block/unblock a user</li>
                                 <li>Delete users reviews.</li>
                             </ul>
-                        </div>}
-                    </div>
+                            <div className='featureImg'>
+                                <img src={'/assest/admin.PNG'} alt='admin'/>
+                            </div>
+                        </div>
+                    </div>}
+                    
                 </div>}
             </div>
         )

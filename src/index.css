@@ -27,7 +27,15 @@ a:hover{
   color: yellow;
 }
 .App_main {
-  margin-top: 100px;
+  margin-top: 70px;
+  min-height: 480px;
+  margin-bottom: 15px;
+}
+.App_main h1{
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 0;
+  color: rgb(168, 153, 63);
 }
 .flag {
   width: 50px;

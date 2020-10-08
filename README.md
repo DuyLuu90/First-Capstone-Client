@@ -1,11 +1,28 @@
 # Drama-PEDIA
 
-This is my first full stack capstone, as a junior Developer, to demonstrate my mastery of React, Node and PostgresSQL, . For this capstone, I built both the client and the API to support the app. Inspired by many awesome online movie websites, my app allows users to see a variety of Films/TV Series from many countries around the world. For user convenience, my app has feature to sort them by genres, year and country of origin.
+This is my first full stack capstone which demonstrates my mastery of React, Node and PostgresSQL. For this capstone, I built both the client and the API to support the app. Inspired by many awesome online movie websites, i created dramaPEDIA to allow users to view a variety of Films/TV Series from many countries around the world. For user convenience, my app has features to sort movies by genres, year and country of origin.
 
 ## Built with:
 * React
 * Javascript
 * HTML5, JQuery, CSS
+
+## Screenshots:
+
+### Landing Page:
+![Landing Page](https://github.com/DuyLuu90/First-Capstone-Client/blob/master/screenshots/LandingPage.PNG)
+
+### Home Page:
+![Home Page](https://github.com/DuyLuu90/First-Capstone-Client/blob/master/screenshots/MoviePage.PNG)
+
+### Login Page:
+![Login Page](https://github.com/DuyLuu90/First-Capstone-Client/blob/master/screenshots/LoginPage.PNG)
+
+### Movie Page:
+![Movie Page](https://github.com/DuyLuu90/First-Capstone-Client/blob/master/screenshots/MovieDetails.PNG)
+
+### Admin Page:
+![Admin Page](https://github.com/DuyLuu90/First-Capstone-Client/blob/master/screenshots/AdminPage.PNG)
 
 ## App Features:
 
@@ -24,22 +41,6 @@ This is my first full stack capstone, as a junior Developer, to demonstrate my m
 * Block/unblock a user
 * Delete users reviews.
 
-## Getting started
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-In the project directory, run:
-
-`npx create-react-app appName`
-
-`npm start`
-
-`npm test`
-
-`npm run build`
-
-App is then ready to be deployed!
-
 ## Installed packages:
 * react-router-dom, prop-types,enzyme
 * react-test-renderer(-D)
@@ -51,6 +52,9 @@ App is then ready to be deployed!
 [API Server](https://secure-caverns-32891.herokuapp.com/)
 
 [Github Server](https://github.com/DuyLuu90/First-Capstone-Server)
+
+## Future Development:
+* 
 
 ## Connect:
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Link} from 'react-router-dom'
 import NotFoundPage from '../../routes/NotFoundPage/NotFoundPage'
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './ListItem.css'
 import { MovieApiServices } from '../../services/api-service';
 
@@ -14,7 +14,7 @@ export default class ListItem extends Component {
         movieList: [],
         displayAll: false,
         title: this.props.title,
-        displayArrow: true,
+        displayArrow: false,
         hasError: false
     }
     
@@ -39,7 +39,7 @@ export default class ListItem extends Component {
                         movieList: json,
                         title: title,
                         displayAll: true,
-                        displayArrow: false,
+                        displayArrow: true,
                 })).catch(err=>this.setState({hasError: true}))
         }
         else {
@@ -52,23 +52,22 @@ export default class ListItem extends Component {
     handleLessButton= e =>this.setState({displayAll: false})
 
     renderMovieList(){
-        let nav;
-        let items;
-        const {displayAll,displayArrow,movieList,title} = this.state
+        const {displayAll,movieList,title, displayArrow} = this.state
+        const nav= (displayAll)
+                    ? <span onClick={this.handleLessButton}>
+                        <FontAwesomeIcon icon='angle-double-up'/>
+                    </span>
+                    :<span onClick={this.handleMoreButton}>
+                        <FontAwesomeIcon icon='angle-double-down'/>
+                    </span>
+        const items= (displayAll)? movieList: movieList.slice(0,3)
 
-        if (displayAll) {
-            items=movieList
-            nav= (displayArrow) ? <span onClick={this.handleLessButton}>{'<<'} {' '}Less</span>: ''
-        }
-        else {
-            nav= <span onClick={this.handleMoreButton}>More{' '}{'>>'}</span>
-            items= movieList.slice(0,3)
-        }
+        
         return (
             <div className='list'>
                 <div className='list-control'>
-                    <h2>{title}</h2>
-                    {!displayAll && nav}
+                    <span className='title'>{title}</span>
+                    {!displayArrow && nav}
                 </div>
                 <div className='ListItem'>
                     {items.map((item,index)=>
@@ -76,10 +75,12 @@ export default class ListItem extends Component {
                             <div className='poster' >
                                 <img alt='movie poster' className='movie_poster' src={item.posterurl}/>
                             </div>
-                            <Link to={{pathname:'/movies/'+ item.id, state:{from:this.props.location.pathname}}} 
-                            aria-label='movie-page'>
-                                {item.title}
-                            </Link>
+                            <div className='movie_link'>
+                                <Link to={{pathname:'/movies/'+ item.id, state:{from:this.props.location.pathname}}} 
+                                aria-label='movie-page'>
+                                    {item.title}
+                                </Link>
+                            </div>
                         </div>
                     )}   
                 </div>

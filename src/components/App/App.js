@@ -9,6 +9,7 @@ import AppContext from '../../contexts/AppContext'
 
 //IMPORT COMPONENTS:
 import Header from '../Header/Header'
+import Footer from '../Footer/footer'
 import LoginForm from '../Forms/LoginForm'
 import RegistrationForm from '../Forms/RegistrationForm'
 import ListItem from '../ListItem/ListItem'
@@ -77,8 +78,8 @@ class App extends Component {
           <main className='App_main'>
             {this.state.hasError && <p>There was an error! Sorry for the inconvenience!</p>}
             <Switch>
-              <Route exact path={'/'} component={HomePage}/>
-              <Route path={'/demo'} component={DemoPage}/>
+              <Route exact path={'/'} component={DemoPage}/>
+              <Route path={'/home'} component={HomePage}/>
               <Route path={'/admin'} component={(props)=>this.renderAdminPage(props)}/>
               <Route path={'/register'} component={(props)=>
                   <RegistrationForm {...props} handleCancel={()=>props.history.goBack()}/>}/>
@@ -96,6 +97,7 @@ class App extends Component {
               <Route component={NotFoundPage}/>
             </Switch>
           </main>
+          <Footer/>
         </div>
       </AppContext.Provider>
     );

@@ -1,70 +1,54 @@
-/*
+.list {
+    width: 90%;
+    margin: 0 auto;
+}
 .ListItem{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    text-align: center;
-}
-.item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30%;
-}
-.list header {
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-header a {
-    color: black;
-}
-header span:hover {
-    cursor: pointer;
-    color: tomato;
-}
-.ListItem a {
-    color: blue;
-}
-.poster img {
-    height: 200px;
-}
-*/
-.ListItem{
-    display: flex; margin-left: 15px;
+    display: flex; 
     flex-wrap: wrap;
     align-items: center;
     text-align: center;
 }
 .ListItem a {
-    color: rgb(19, 19, 121)
+    color: rgb(23, 5, 124);
+    
 }
 .ListItem a:hover {
-    color: chocolate;
+    color: red;
 }
 .list-control {
-    padding: 10px;
+    margin: 10px auto 20px auto;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    align-items: center; background-color: orange;
+    padding: 0;
 }
-.list-control h2 {
-    width: 75%;font-weight: 700;
-    color: rgb(26, 26, 131);
+.list-control .title {
+    font-weight: 700; min-width: 100px; font-size: 20px;
+    height: 40px;
+    background-color: orange;
+    color: black;
 }
 .list-control span{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center; align-items: center;
     cursor: pointer;
-    color: rgb(14, 122, 56);
+    background-color:  red; color: white;
 }
 .item {
     width: 40%;
     margin-bottom: 15px;
+    height: 100%;
+    margin-right: 10px;
 }
 .poster img {
     height: 150px;
 }
+.movie_link{
+    height: 40px;
+}
 @media screen and (min-width: 500px) {
-
     .item {
     width: 30%;
     }
@@ -72,7 +56,6 @@ header span:hover {
     .poster img {
         height: 200px;
     }
-
 }
 @media screen and (min-width: 700px) {
     .poster img {
