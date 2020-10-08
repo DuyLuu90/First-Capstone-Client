@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component Snapshot test-Prevent unexpected change 1`] = `
+<div
+  className="App"
+>
+  <header
+    className="App_header"
+  >
+    <nav
+      className="app_nav"
+    >
+      <h1>
+        <a
+          aria-label="home-page"
+          href="/home"
+          onClick={[Function]}
+        >
+           
+           
+          DramaPEDIA
+        </a>
+      </h1>
+      <div
+        className="menu"
+      >
+        <div
+          className="Header-not-logged-in"
+          onClick={[Function]}
+        >
+          <a
+            aria-label="login-page"
+            href="/login"
+            onClick={[Function]}
+          >
+            Log in 
+          </a>
+          <a
+            aria-label="registration-page"
+            href="/register"
+            onClick={[Function]}
+          >
+             Sign up
+          </a>
+          <a
+            aria-label="demo-page"
+            href="/"
+            onClick={[Function]}
+          >
+            Welcome 
+          </a>
+        </div>
+      </div>
+      <div
+        className="dropdown"
+      />
+    </nav>
+  </header>
+  <main
+    className="App_main"
+  >
+    <div
+      className="demo"
+    >
+      <nav>
+        <span
+          className="highlight"
+          onClick={[Function]}
+        >
+          App tour
+        </span>
+        <span
+          className=""
+          onClick={[Function]}
+        >
+          Demo accounts
+        </span>
+      </nav>
+      <div>
+        <div
+          className="tour_nav"
+        >
+          <span
+            className="active"
+            onClick={[Function]}
+          >
+            About
+          </span>
+          <span
+            className=""
+            onClick={[Function]}
+          >
+            Visitor
+          </span>
+          <span
+            className=""
+            onClick={[Function]}
+          >
+            User
+          </span>
+          <span
+            className=""
+            onClick={[Function]}
+          >
+            Admin
+          </span>
+        </div>
+        <div
+          className="tour_content"
+        >
+          <h2>
+            About this app
+          </h2>
+          <div
+            className="app_features"
+          >
+            <div
+              className="text"
+            >
+              Welcome to 
+              <strong>
+                dramaPEDIA
+              </strong>
+              . Here you can see a variety of Films/TV Series from many countries around the world. You can create a new account and have your own personal page where you can save your favorite movies. To learn more about app features, please click on some of the tabs above.
+            </div>
+            <div
+              className="featureImg"
+            >
+              <img
+                alt="world cinema"
+                src="/assest/worldCinema.PNG"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer
+    className="app_footer"
+  >
+    <div>
+      <span>
+         
+        Duy Luu 2020
+      </span>
+    </div>
+    <a
+      aria-label="email"
+      href="mailto:duyluu90@hotmail.com"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+       
+       
+      EMAIL ME
+    </a>
+  </footer>
+</div>
+`;
