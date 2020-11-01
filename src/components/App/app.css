@@ -1,0 +1,17 @@
+.App{
+    position: relative;
+    min-height: 100vh;
+  }
+
+.App_main {
+    margin-top: 70px;
+    margin-bottom: 15px;
+    padding-bottom: 70px;
+}
+
+.App_main h1{
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 0;
+    color: rgb(168, 153, 63);
+}
