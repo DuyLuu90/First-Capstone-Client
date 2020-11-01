@@ -3,6 +3,7 @@ import { Route, Switch} from 'react-router-dom'
 
 import TokenService from '../../services/token-service'
 import {GeneralApiServices} from '../../services/api-service'
+import './app.css'
 
 //IMPORT CONTEXT
 import AppContext from '../../contexts/AppContext'
